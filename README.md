@@ -1,4 +1,4 @@
-# CramSage
+# SAGE Cramming
 
 - [Introduction](#introduction)
 - [Features](#features)
@@ -8,7 +8,7 @@
 
 ## Introduction
 
-Welcome to **CramSage**, a cutting-edge platform designed to transform how students and educators approach intensive study, or "cramming". This site enables users to create and customize study materials, from quizzes and mock exams to notecards and minigames. With an intuitive interface, CramSage makes it easy to register subjects, content, and questions, allowing for the creation of tailored exams and interactive activities to meet each user's specific needs.
+Welcome to **SAGE Cramming**, a cutting-edge platform designed to transform how students and educators approach intensive study, or "cramming". This site enables users to create and customize study materials, from quizzes and mock exams to notecards and minigames. With an intuitive interface, CramSage makes it easy to register subjects, content, and questions, allowing for the creation of tailored exams and interactive activities to meet each user's specific needs.
 
 Ideal for students prepping for exams or in need of quick, effective study tools.
 
