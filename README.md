@@ -25,6 +25,7 @@ Ideal for students prepping for exams or in need of quick, effective study tools
 - **Collaborative Tools**: Share and collaborate on study materials with peers or educators.
 
 ## Feedback
+
 Your feedback is important to me. Please feel free to submit a GitHub issue or pull request with your questions, suggestions, or comments.
 
 ## License
