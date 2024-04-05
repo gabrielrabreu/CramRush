@@ -3,12 +3,79 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{380CE6EA-F67B-44A4-9053-137E236C64DC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{89F2DF9E-D98F-4463-ABCA-DBD82C3C1CB1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cramming.Account.Domain", "src\Cramming.Account.Domain\Cramming.Account.Domain.csproj", "{E7368393-796A-4AA2-9AAA-EBFB6C319E0E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cramming.Account.Application", "src\Cramming.Account.Application\Cramming.Account.Application.csproj", "{DBB02EDC-4541-40DD-B178-2D40BF918E6D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cramming.Account.Infrastructure", "src\Cramming.Account.Infrastructure\Cramming.Account.Infrastructure.csproj", "{533D4F86-634E-47EF-A1C8-2AA6ACBD4B06}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cramming.Account.API", "src\Cramming.Account.API\Cramming.Account.API.csproj", "{788CE180-4EBD-477F-95B8-0531281F6C0A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cramming.Account.Domain.UnitTests", "tests\Cramming.Account.Domain.UnitTests\Cramming.Account.Domain.UnitTests.csproj", "{7768C8B1-BE0D-4907-BDAD-A44D6E7D4D08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cramming.Account.Application.UnitTests", "tests\Cramming.Account.Application.UnitTests\Cramming.Account.Application.UnitTests.csproj", "{0FB374CC-8F67-4A71-AC43-15BA006B4D80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cramming.Account.Application.FunctionalTests", "tests\Cramming.Account.Application.FunctionalTests\Cramming.Account.Application.FunctionalTests.csproj", "{0252EA5F-0830-4037-8E9F-06160BF4FCB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cramming.Account.API.AcceptanceTests", "tests\Cramming.Account.API.AcceptanceTests\Cramming.Account.API.AcceptanceTests.csproj", "{5468FA09-B131-41F6-A97A-4ED8AA0B2265}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E7368393-796A-4AA2-9AAA-EBFB6C319E0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7368393-796A-4AA2-9AAA-EBFB6C319E0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7368393-796A-4AA2-9AAA-EBFB6C319E0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7368393-796A-4AA2-9AAA-EBFB6C319E0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBB02EDC-4541-40DD-B178-2D40BF918E6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBB02EDC-4541-40DD-B178-2D40BF918E6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBB02EDC-4541-40DD-B178-2D40BF918E6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBB02EDC-4541-40DD-B178-2D40BF918E6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{533D4F86-634E-47EF-A1C8-2AA6ACBD4B06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{533D4F86-634E-47EF-A1C8-2AA6ACBD4B06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{533D4F86-634E-47EF-A1C8-2AA6ACBD4B06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{533D4F86-634E-47EF-A1C8-2AA6ACBD4B06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{788CE180-4EBD-477F-95B8-0531281F6C0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{788CE180-4EBD-477F-95B8-0531281F6C0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{788CE180-4EBD-477F-95B8-0531281F6C0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{788CE180-4EBD-477F-95B8-0531281F6C0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7768C8B1-BE0D-4907-BDAD-A44D6E7D4D08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7768C8B1-BE0D-4907-BDAD-A44D6E7D4D08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7768C8B1-BE0D-4907-BDAD-A44D6E7D4D08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7768C8B1-BE0D-4907-BDAD-A44D6E7D4D08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FB374CC-8F67-4A71-AC43-15BA006B4D80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FB374CC-8F67-4A71-AC43-15BA006B4D80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FB374CC-8F67-4A71-AC43-15BA006B4D80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FB374CC-8F67-4A71-AC43-15BA006B4D80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0252EA5F-0830-4037-8E9F-06160BF4FCB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0252EA5F-0830-4037-8E9F-06160BF4FCB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0252EA5F-0830-4037-8E9F-06160BF4FCB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0252EA5F-0830-4037-8E9F-06160BF4FCB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5468FA09-B131-41F6-A97A-4ED8AA0B2265}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5468FA09-B131-41F6-A97A-4ED8AA0B2265}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5468FA09-B131-41F6-A97A-4ED8AA0B2265}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5468FA09-B131-41F6-A97A-4ED8AA0B2265}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E7368393-796A-4AA2-9AAA-EBFB6C319E0E} = {380CE6EA-F67B-44A4-9053-137E236C64DC}
+		{DBB02EDC-4541-40DD-B178-2D40BF918E6D} = {380CE6EA-F67B-44A4-9053-137E236C64DC}
+		{533D4F86-634E-47EF-A1C8-2AA6ACBD4B06} = {380CE6EA-F67B-44A4-9053-137E236C64DC}
+		{788CE180-4EBD-477F-95B8-0531281F6C0A} = {380CE6EA-F67B-44A4-9053-137E236C64DC}
+		{7768C8B1-BE0D-4907-BDAD-A44D6E7D4D08} = {89F2DF9E-D98F-4463-ABCA-DBD82C3C1CB1}
+		{0FB374CC-8F67-4A71-AC43-15BA006B4D80} = {89F2DF9E-D98F-4463-ABCA-DBD82C3C1CB1}
+		{0252EA5F-0830-4037-8E9F-06160BF4FCB7} = {89F2DF9E-D98F-4463-ABCA-DBD82C3C1CB1}
+		{5468FA09-B131-41F6-A97A-4ED8AA0B2265} = {89F2DF9E-D98F-4463-ABCA-DBD82C3C1CB1}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8743F76C-FC01-48E9-946E-E0AB83827701}
 	EndGlobalSection
 EndGlobal
