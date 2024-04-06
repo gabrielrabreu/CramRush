@@ -9,9 +9,6 @@ namespace Cramming.Account.Application.Queries.GetUsers
     {
         public async Task<PaginatedList<UserBriefDto>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
-            var users = identityService.Users
-                .OrderBy(x => x.UserName)
-                .Select(x => new UserBriefDto(x.Id, x.UserName, x.Email));
             return await identityService.Users
                 .OrderBy(x => x.UserName)
                 .Select(x => new UserBriefDto(x.Id, x.UserName, x.Email))
