@@ -22,7 +22,7 @@ namespace Cramming.Account.Application.UnitTests.Events
         public async Task Handle_ShouldLogInformation()
         {
             // Arrange
-            var @event = new SignedUpEvent(Mock.Of<IApplicationUser>());
+            var @event = new SignedUpEvent(string.Empty);
             var cancellationToken = new CancellationToken();
 
             // Act

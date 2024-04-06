@@ -42,7 +42,7 @@ namespace Cramming.Account.Application.UnitTests.Commands.SignUp
             _identityService.Verify(e => e.CreateAsync(command.UserName!, command.Email!, command.Password!), Times.Once);
 
             _publisher.Verify(e => e.Publish(It.IsAny<SignedUpEvent>(), It.IsAny<CancellationToken>()), Times.Once);
-            _publisher.Verify(e => e.Publish(It.Is<SignedUpEvent>(e => e.User == expectedUser), cancellationToken), Times.Once);
+            _publisher.Verify(e => e.Publish(It.Is<SignedUpEvent>(e => e.UserName == expectedUser.UserName), cancellationToken), Times.Once);
 
             actualResult.Should().Be(expectedResult);
         }

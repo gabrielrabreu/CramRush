@@ -2,7 +2,7 @@
 
 namespace Cramming.Account.Domain.Events
 {
-    public record SignedUpEvent(string UserName) : BaseEvent
+    public record SignedInEvent(string UserName) : BaseEvent
     {
     }
 }

@@ -12,7 +12,7 @@ namespace Cramming.Account.Application.Commands.SignUp
             var (result, user) = await identityService.CreateAsync(request.UserName!, request.Email!, request.Password!);
 
             if (result.Succeeded)
-                await publisher.Publish(new SignedUpEvent(user), cancellationToken);
+                await publisher.Publish(new SignedUpEvent(user.UserName!), cancellationToken);
 
             return result;
         }

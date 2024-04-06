@@ -1,9 +1,6 @@
-﻿using Cramming.Account.Application.Common.Interfaces;
-using Cramming.Account.Application.FunctionalTests.Support.Data;
-using Cramming.Account.Domain.Entities;
+﻿using Cramming.Account.Application.FunctionalTests.Support.Data;
 using Cramming.Account.Infrastructure.Data;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cramming.Account.Application.FunctionalTests.Support
@@ -31,28 +28,6 @@ namespace Cramming.Account.Application.FunctionalTests.Support
             using var scope = ScopeFactory.CreateScope();
             var mediator = scope.ServiceProvider.GetRequiredService<ISender>();
             await mediator.Send(request);
-        }
-
-        public async Task<TEntity?> FindAsync<TEntity>(params object[] keyValues) where TEntity : class
-        {
-            using var scope = ScopeFactory.CreateScope();
-            var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            return await context.FindAsync<TEntity>(keyValues);
-        }
-
-        public async Task<IApplicationUser?> FindUserAsync(string username)
-        {
-            using var scope = ScopeFactory.CreateScope();
-            var identityService = scope.ServiceProvider.GetRequiredService<IIdentityService>();
-            return await identityService.Users.SingleOrDefaultAsync(x => x.UserName == username);
-        }
-
-        public async Task AddAsync<TEntity>(TEntity entity) where TEntity : class
-        {
-            using var scope = ScopeFactory.CreateScope();
-            var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            context.Add(entity);
-            await context.SaveChangesAsync();
         }
 
         public void Dispose()
