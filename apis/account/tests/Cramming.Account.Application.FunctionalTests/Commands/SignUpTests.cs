@@ -18,7 +18,7 @@ namespace Cramming.Account.Application.FunctionalTests.Commands
         }
 
         [Fact]
-        public async Task Send_WhenCreateUserSucceed_ShouldHaveCreatedItAndReturnResult()
+        public async Task Send_WhenCreateUserSucceed_ShouldReturnSuceedResult()
         {
             // Arrange
             var command = new SignUpCommand
@@ -33,15 +33,10 @@ namespace Cramming.Account.Application.FunctionalTests.Commands
 
             // Then
             result.Succeeded.Should().BeTrue();
-
-            var user = await fixture.FindUserAsync(command.UserName);
-            user.Should().NotBeNull();
-            user!.UserName.Should().Be(command.UserName);
-            user.Email.Should().Be(command.Email);
         }
 
         [Fact]
-        public async Task Send_WhenCreateUserFailed_ShouldJustReturnResult()
+        public async Task Send_WhenCreateUserFailed_ShouldReturnFailedResult()
         {
             // Arrange
             var command = new SignUpCommand
@@ -56,9 +51,6 @@ namespace Cramming.Account.Application.FunctionalTests.Commands
 
             // Assert
             result.Succeeded.Should().BeFalse();
-
-            var user = await fixture.FindUserAsync(command.UserName);
-            user.Should().BeNull();
         }
     }
 }

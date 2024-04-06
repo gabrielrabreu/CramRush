@@ -1,5 +1,7 @@
 ﻿using Cramming.Account.API.Infrastructure;
+using Cramming.Account.API.Services;
 using Cramming.Account.Application;
+using Cramming.Account.Application.Common.Interfaces;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.OpenApi.Models;
 using System.Globalization;
@@ -25,6 +27,10 @@ namespace Cramming.Account.API
             });
 
             services.AddTransient<CustomExceptionMiddleware>();
+
+            services.AddScoped<IUser, CurrentUser>();
+
+            services.AddHttpContextAccessor();
 
             services.AddHealthChecks();
 
