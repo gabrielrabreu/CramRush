@@ -7,7 +7,7 @@ namespace Cramming.Account.Application.Common.Interfaces
     {
         JwtSecurityToken CreateToken(IList<Claim> claims);
         string GenerateRefreshToken();
-        ClaimsPrincipal GetPrincipalFromExpiredToken(string? token);
+        (ClaimsPrincipal Principal, string Identifier) GetPrincipalFromExpiredToken(string? token);
         DateTime RefreshTokenExpiryTime();
     }
 }

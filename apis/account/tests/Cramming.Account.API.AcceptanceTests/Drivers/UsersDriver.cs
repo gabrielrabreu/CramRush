@@ -1,4 +1,5 @@
 ﻿using Cramming.Account.API.AcceptanceTests.Support;
+using Cramming.Account.Application.Commands.RefreshToken;
 using Cramming.Account.Application.Commands.SignIn;
 using Cramming.Account.Application.Commands.SignUp;
 using Cramming.Account.Application.Common.Models;
@@ -14,6 +15,10 @@ namespace Cramming.Account.API.AcceptanceTests.Drivers
         public ActionAttempt<SignInCommand, WebApiResponse<TokenResult>> SignIn =
             ActionAttemptFactory.Create<SignInCommand, WebApiResponse<TokenResult>>(
                 input => webApplicationContext.ExecutePostAsync<TokenResult>("/api/Users/signin", input));
+
+        public ActionAttempt<RefreshTokenCommand, WebApiResponse<TokenResult>> RefreshToken =
+            ActionAttemptFactory.Create<RefreshTokenCommand, WebApiResponse<TokenResult>>(
+                input => webApplicationContext.ExecutePostAsync<TokenResult>("/api/Users/refresh-token", input));
 
         public ActionAttempt<WebApiResponse> SignOut =
             ActionAttemptFactory.Create(

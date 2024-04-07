@@ -16,6 +16,37 @@ namespace Cramming.Account.Infrastructure.Identity
             }
         }
 
+        public async Task<IApplicationUser?> FindByIdAsync(string userId)
+        {
+            return await userManager.FindByIdAsync(userId);
+        }
+
+        public async Task<IList<Claim>> ListClaimsAsync(Guid userId)
+        {
+            var claims = new List<Claim>();
+
+            var existingUser = await userManager.FindByIdAsync(userId.ToString());
+            if (existingUser != null)
+            {
+                claims.Add(new(ClaimTypes.NameIdentifier, existingUser.Id.ToString()));
+                claims.Add(new(ClaimTypes.Name, existingUser.UserName!));
+
+                var roles = await userManager.GetRolesAsync(existingUser);
+
+                foreach (var role in roles)
+                    claims.Add(new Claim(ClaimTypes.Role, role));
+            }
+
+            return claims;
+        }
+
+        public async Task<(bool Succeed, IApplicationUser? User)> AuthenticateAsync(string userName, string password)
+        {
+            var user = await userManager.FindByNameAsync(userName);
+            var succeed = user != null && await userManager.CheckPasswordAsync(user, password);
+            return (succeed, user);
+        }
+
         public async Task<(IDomainResult Result, IApplicationUser User)> CreateAsync(string username, string email, string password)
         {
             var user = new ApplicationUser
@@ -29,51 +60,14 @@ namespace Cramming.Account.Infrastructure.Identity
             return (result.ToApplicationResult(), user);
         }
 
-        public async Task<bool> CheckPasswordAsync(string username, string password)
+        public async Task UpdateRefreshTokenAsync(string userId, string? newRefreshToken, DateTime? newRefreshTokenExpiryTime)
         {
-            var user = await userManager.FindByNameAsync(username);
-            return user != null && await userManager.CheckPasswordAsync(user, password);
-        }
-
-        public async Task<IList<Claim>> GetUserClaimsAsync(string username)
-        {
-            var claims = new List<Claim>();
-
-            var user = await userManager.FindByNameAsync(username);
-            if (user != null)
+            var existingUser = await userManager.FindByIdAsync(userId);
+            if (existingUser != null)
             {
-                claims.Add(new(ClaimTypes.NameIdentifier, user.Id.ToString()));
-                claims.Add(new(ClaimTypes.Name, user.UserName!));
-
-                var roles = await userManager.GetRolesAsync(user);
-
-                foreach (var role in roles)
-                    claims.Add(new Claim(ClaimTypes.Role, role));
-            }
-
-            return claims;
-        }
-
-        public async Task UpdateRefreshToken(string username, string newRefreshToken, DateTime newRefreshTokenExpiryTime)
-        {
-            var user = await userManager.FindByNameAsync(username);
-            if (user != null)
-            {
-                user.RefreshToken = newRefreshToken;
-                user.RefreshTokenExpiryTime = newRefreshTokenExpiryTime;
-                await userManager.UpdateAsync(user);
-            }
-        }
-
-        public async Task RevokeRefreshToken(string userId)
-        {
-            var user = await userManager.FindByIdAsync(userId);
-
-            if (user != null)
-            {
-                user.RefreshToken = null;
-                user.RefreshTokenExpiryTime = null;
-                await userManager.UpdateAsync(user);
+                existingUser.RefreshToken = newRefreshToken;
+                existingUser.RefreshTokenExpiryTime = newRefreshTokenExpiryTime;
+                await userManager.UpdateAsync(existingUser);
             }
         }
     }

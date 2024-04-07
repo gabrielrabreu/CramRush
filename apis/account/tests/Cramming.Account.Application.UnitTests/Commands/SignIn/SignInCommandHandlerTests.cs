@@ -1,5 +1,6 @@
 ﻿using Cramming.Account.Application.Commands.SignIn;
 using Cramming.Account.Application.Common.Interfaces;
+using Cramming.Account.Domain.Entities;
 using Cramming.Account.Domain.Events;
 using FluentAssertions;
 using MediatR;
@@ -25,36 +26,38 @@ namespace Cramming.Account.Application.UnitTests.Commands.SignIn
         }
 
         [Fact]
-        public async Task Handle_WhenCheckPasswordAsyncFailed_ShouldThrowUnauthorizedAccessException()
+        public async Task Handle_WhenAuthenticateAsyncFailed_ShouldThrowUnauthorizedAccessException()
         {
             // Arrange
             var command = new SignInCommand() { UserName = "UserName", Password = "Password" };
             var cancellationToken = new CancellationToken();
 
-            _identityService.Setup(e => e.CheckPasswordAsync(It.IsAny<string>(), It.IsAny<string>()))
-                .ReturnsAsync(false);
+            _identityService.Setup(e => e.AuthenticateAsync(It.IsAny<string>(), It.IsAny<string>()))
+                .ReturnsAsync((false, null));
 
             // Act, Assert
             await FluentActions.Invoking(() => _handler.Handle(command, cancellationToken)).Should().ThrowAsync<UnauthorizedAccessException>();
 
-            _identityService.Verify(e => e.CheckPasswordAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-            _identityService.Verify(e => e.CheckPasswordAsync(command.UserName!, command.Password!), Times.Once);
+            _identityService.Verify(e => e.AuthenticateAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            _identityService.Verify(e => e.AuthenticateAsync(command.UserName!, command.Password!), Times.Once);
 
             _publisher.Verify(e => e.Publish(It.IsAny<SignedInEvent>(), It.IsAny<CancellationToken>()), Times.Never);
         }
 
         [Fact]
-        public async Task Handle_WhenCheckPasswordAsyncSucceed_ShouldReturnTokenResult()
+        public async Task Handle_WhenAuthenticateAsyncSucceed_ShouldReturnTokenResult()
         {
             // Arrange
             var command = new SignInCommand() { UserName = "UserName", Password = "Password" };
             var cancellationToken = new CancellationToken();
 
-            _identityService.Setup(e => e.CheckPasswordAsync(It.IsAny<string>(), It.IsAny<string>()))
-                .ReturnsAsync(true);
+            var mockUser = Mock.Of<IApplicationUser>(b => b.Id == Guid.NewGuid());
+
+            _identityService.Setup(e => e.AuthenticateAsync(It.IsAny<string>(), It.IsAny<string>()))
+                .ReturnsAsync((true, mockUser));
 
             var claims = new List<Claim>();
-            _identityService.Setup(e => e.GetUserClaimsAsync(It.IsAny<string>()))
+            _identityService.Setup(e => e.ListClaimsAsync(It.IsAny<Guid>()))
                 .ReturnsAsync(claims);
 
             var accessToken = new JwtSecurityToken();
@@ -73,11 +76,11 @@ namespace Cramming.Account.Application.UnitTests.Commands.SignIn
             var result = await _handler.Handle(command, cancellationToken);
 
             // Assert
-            _identityService.Verify(e => e.CheckPasswordAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-            _identityService.Verify(e => e.CheckPasswordAsync(command.UserName!, command.Password!), Times.Once);
+            _identityService.Verify(e => e.AuthenticateAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            _identityService.Verify(e => e.AuthenticateAsync(command.UserName!, command.Password!), Times.Once);
 
-            _identityService.Verify(e => e.GetUserClaimsAsync(It.IsAny<string>()), Times.Once);
-            _identityService.Verify(e => e.GetUserClaimsAsync(command.UserName!), Times.Once);
+            _identityService.Verify(e => e.ListClaimsAsync(It.IsAny<Guid>()), Times.Once);
+            _identityService.Verify(e => e.ListClaimsAsync(mockUser.Id), Times.Once);
 
             _jwtService.Verify(e => e.CreateToken(It.IsAny<IList<Claim>>()), Times.Once);
             _jwtService.Verify(e => e.CreateToken(claims), Times.Once);
@@ -86,8 +89,8 @@ namespace Cramming.Account.Application.UnitTests.Commands.SignIn
 
             _jwtService.Verify(e => e.RefreshTokenExpiryTime(), Times.Once);
 
-            _identityService.Verify(e => e.UpdateRefreshToken(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()), Times.Once);
-            _identityService.Verify(e => e.UpdateRefreshToken(command.UserName!, refreshToken, refreshTokenExpiryTime), Times.Once);
+            _identityService.Verify(e => e.UpdateRefreshTokenAsync(It.IsAny<string>(), It.IsAny<string?>(), It.IsAny<DateTime?>()), Times.Once);
+            _identityService.Verify(e => e.UpdateRefreshTokenAsync(mockUser.Id.ToString(), refreshToken, refreshTokenExpiryTime), Times.Once);
 
             _publisher.Verify(e => e.Publish(It.IsAny<SignedInEvent>(), It.IsAny<CancellationToken>()), Times.Once);
             _publisher.Verify(e => e.Publish(It.Is<SignedInEvent>(e => e.UserName == command.UserName), cancellationToken), Times.Once);

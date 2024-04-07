@@ -33,11 +33,11 @@ namespace Cramming.Account.Application.FunctionalTests.Support
             await mediator.Send(request);
         }
 
-        public async Task<IApplicationUser?> FindUserAsync(string username)
+        public async Task<IApplicationUser?> FindUserAsync(string userName)
         {
             using var scope = ScopeFactory.CreateScope();
             var identityService = scope.ServiceProvider.GetRequiredService<IIdentityService>();
-            return await identityService.Users.FirstOrDefaultAsync(u => u.UserName == username);
+            return await identityService.Users.FirstOrDefaultAsync(u => u.UserName == userName);
         }
 
         public void Dispose()

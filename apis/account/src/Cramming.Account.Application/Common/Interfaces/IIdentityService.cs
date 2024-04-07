@@ -8,11 +8,14 @@ namespace Cramming.Account.Application.Common.Interfaces
     {
         IQueryable<IApplicationUser> Users { get; }
 
-        Task<bool> CheckPasswordAsync(string username, string password);
-        Task<IList<Claim>> GetUserClaimsAsync(string username);
+        Task<IApplicationUser?> FindByIdAsync(string userId);
+
+        Task<IList<Claim>> ListClaimsAsync(Guid userId);
+
+        Task<(bool Succeed, IApplicationUser? User)> AuthenticateAsync(string userName, string password);
 
         Task<(IDomainResult Result, IApplicationUser User)> CreateAsync(string username, string email, string password);
-        Task UpdateRefreshToken(string username, string newRefreshToken, DateTime newRefreshTokenExpiryTime);
-        Task RevokeRefreshToken(string userId);
+
+        Task UpdateRefreshTokenAsync(string userId, string? newRefreshToken, DateTime? newRefreshTokenExpiryTime);
     }
 }

@@ -28,7 +28,7 @@ namespace Cramming.Account.API
 
             services.AddTransient<CustomExceptionMiddleware>();
 
-            services.AddScoped<IUser, CurrentUser>();
+            services.AddScoped<IHttpSession, HttpSession>();
 
             services.AddHttpContextAccessor();
 
