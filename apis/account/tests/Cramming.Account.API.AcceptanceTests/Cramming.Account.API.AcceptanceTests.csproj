@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <UpToDateCheckInput Remove="features\users\SignOut.feature" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
     <PackageReference Include="coverlet.msbuild" Version="6.0.2">
       <PrivateAssets>all</PrivateAssets>

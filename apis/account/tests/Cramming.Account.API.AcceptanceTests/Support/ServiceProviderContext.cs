@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Cramming.Account.Application.Common.Interfaces;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cramming.Account.API.AcceptanceTests.Support
@@ -14,6 +15,13 @@ namespace Cramming.Account.API.AcceptanceTests.Support
                 return _serviceProvider.GetRequiredService<ISender>();
             }
         }
-    }
 
+        public IIdentityService IdentityService
+        {
+            get
+            {
+                return _serviceProvider.GetRequiredService<IIdentityService>();
+            }
+        }
+    }
 }

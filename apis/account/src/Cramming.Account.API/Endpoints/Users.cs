@@ -1,6 +1,8 @@
 ﻿using Cramming.Account.API.Infrastructure;
 using Cramming.Account.Application.Commands.SignIn;
+using Cramming.Account.Application.Commands.SignOut;
 using Cramming.Account.Application.Commands.SignUp;
+using Cramming.Account.Application.Common.Interfaces;
 using Cramming.Account.Application.Common.Models;
 using Cramming.Account.Application.Queries.GetUsers;
 using MediatR;
@@ -31,6 +33,16 @@ namespace Cramming.Account.API.Endpoints
                     Description = "Authenticate a user with username and password."
                 });
 
+            group.MapPost(SignOut, "/signout")
+                .Produces(StatusCodes.Status204NoContent)
+                .Produces<DomainResult>(StatusCodes.Status401Unauthorized)
+                .RequireAuthorization()
+                .WithOpenApi(operation => new(operation)
+                {
+                    Summary = "User Sign Out",
+                    Description = "Revokes the refresh token of the authenticated user, effectively signing them out of the system."
+                });
+
             group.MapGet(GetUsers)
                 .WithOpenApi(operation => new(operation)
                 {
@@ -49,6 +61,12 @@ namespace Cramming.Account.API.Endpoints
         public async Task<TokenResult> SignIn(ISender sender, SignInCommand command)
         {
             return await sender.Send(command);
+        }
+
+        public async Task<IResult> SignOut(ISender sender, IUser user)
+        {
+            await sender.Send(new SignOutCommand(user.Id!));
+            return Results.NoContent();
         }
 
         public async Task<PaginatedList<UserBriefDto>> GetUsers(ISender sender, [AsParameters] GetUsersQuery query)

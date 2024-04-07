@@ -22,21 +22,22 @@ namespace Cramming.Account.Application.FunctionalTests.Commands
         public async Task Send_WhenSignInSucceed_ShouldReturnResult()
         {
             // Arrange
-            var command = new SignInCommand
-            {
-                UserName = "Username",
-                Password = "Username!123"
-            };
+            var userName = "UserName";
+            var password = "UserName!123";
 
-            await fixture.SendAsync(new SignUpCommand() { UserName = command.UserName, Email = command.UserName, Password = command.Password });
+            await fixture.SendAsync(new SignUpCommand() { UserName = userName, Email = userName, Password = password });
 
             // Act
-            var result = await fixture.SendAsync(command);
+            var result = await fixture.SendAsync(new SignInCommand { UserName = userName, Password = password });
 
             // Then
             result.AccessToken.Should().NotBeNull();
             result.RefreshToken.Should().NotBeNull();
             result.Expiration.Should().BeAfter(DateTime.UtcNow);
+
+            var userAfterSignIn = await fixture.FindUserAsync(userName);
+            userAfterSignIn!.RefreshToken.Should().NotBeNull();
+            userAfterSignIn.RefreshTokenExpiryTime.Should().NotBeNull();
         }
 
         [Fact]

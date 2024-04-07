@@ -1,3 +1,4 @@
+@webapi
 Feature: SignIn
   As a user
   I want to sign in

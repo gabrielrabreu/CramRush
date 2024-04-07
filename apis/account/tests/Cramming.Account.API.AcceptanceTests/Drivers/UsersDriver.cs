@@ -5,14 +5,18 @@ using Cramming.Account.Application.Common.Models;
 
 namespace Cramming.Account.API.AcceptanceTests.Drivers
 {
-    public class UsersDriver(WebApplicationContext webApplicationContext, ActionAttemptFactory actionAttemptFactory)
+    public class UsersDriver(WebApplicationContext webApplicationContext)
     {
         public ActionAttempt<SignUpCommand, WebApiResponse<DomainResult>> SignUp =
-            actionAttemptFactory.Create<SignUpCommand, WebApiResponse<DomainResult>>(
+            ActionAttemptFactory.Create<SignUpCommand, WebApiResponse<DomainResult>>(
                 input => webApplicationContext.ExecutePostAsync<DomainResult>("/api/Users/signup", input));
 
         public ActionAttempt<SignInCommand, WebApiResponse<TokenResult>> SignIn =
-            actionAttemptFactory.Create<SignInCommand, WebApiResponse<TokenResult>>(
+            ActionAttemptFactory.Create<SignInCommand, WebApiResponse<TokenResult>>(
                 input => webApplicationContext.ExecutePostAsync<TokenResult>("/api/Users/signin", input));
+
+        public ActionAttempt<WebApiResponse> SignOut =
+            ActionAttemptFactory.Create(
+                () => webApplicationContext.ExecutePostAsync("/api/Users/signout"));
     }
 }

@@ -20,7 +20,7 @@ namespace Cramming.Account.API.AcceptanceTests.Features.Users
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "1.0.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Xunit.TraitAttribute("Category", "webapi")]
-    public partial class SignInFeature : object, Xunit.IClassFixture<SignInFeature.FixtureData>, Xunit.IAsyncLifetime
+    public partial class SignOutFeature : object, Xunit.IClassFixture<SignOutFeature.FixtureData>, Xunit.IAsyncLifetime
     {
         
         private static Reqnroll.ITestRunner testRunner;
@@ -30,10 +30,10 @@ namespace Cramming.Account.API.AcceptanceTests.Features.Users
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-#line 1 "SignIn.feature"
+#line 1 "SignOut.feature"
 #line hidden
         
-        public SignInFeature(SignInFeature.FixtureData fixtureData, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public SignOutFeature(SignOutFeature.FixtureData fixtureData, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
         }
@@ -41,7 +41,8 @@ namespace Cramming.Account.API.AcceptanceTests.Features.Users
         public static async System.Threading.Tasks.Task FeatureSetupAsync()
         {
             testRunner = Reqnroll.TestRunnerManager.GetTestRunnerForAssembly(null, Reqnroll.xUnit.ReqnrollPlugin.XUnitParallelWorkerTracker.Instance.GetWorkerId());
-            Reqnroll.FeatureInfo featureInfo = new Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/Users", "SignIn", "  As a user\r\n  I want to sign in\r\n  So that I can access the platform", ProgrammingLanguage.CSharp, featureTags);
+            Reqnroll.FeatureInfo featureInfo = new Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/Users", "SignOut", "    As a user\r\n    I want to be able to sign out of the system\r\n    So that my se" +
+                    "ssion is terminated and my refresh token is revoked", ProgrammingLanguage.CSharp, featureTags);
             await testRunner.OnFeatureStartAsync(featureInfo);
         }
         
@@ -88,16 +89,16 @@ namespace Cramming.Account.API.AcceptanceTests.Features.Users
             await this.TestTearDownAsync();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Valid sign in")]
-        [Xunit.TraitAttribute("FeatureTitle", "SignIn")]
-        [Xunit.TraitAttribute("Description", "Valid sign in")]
-        public async System.Threading.Tasks.Task ValidSignIn()
+        [Xunit.SkippableFactAttribute(DisplayName="User signs out successfully")]
+        [Xunit.TraitAttribute("FeatureTitle", "SignOut")]
+        [Xunit.TraitAttribute("Description", "User signs out successfully")]
+        public async System.Threading.Tasks.Task UserSignsOutSuccessfully()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            Reqnroll.ScenarioInfo scenarioInfo = new Reqnroll.ScenarioInfo("Valid sign in", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            Reqnroll.ScenarioInfo scenarioInfo = new Reqnroll.ScenarioInfo("User signs out successfully", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 7
-  this.ScenarioInitialize(scenarioInfo);
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -107,35 +108,28 @@ namespace Cramming.Account.API.AcceptanceTests.Features.Users
             {
                 await this.ScenarioStartAsync();
 #line 8
-    await testRunner.GivenAsync("the user is not authenticated", ((string)(null)), ((Reqnroll.Table)(null)), "Given ");
+        await testRunner.GivenAsync("the user is authenticated", ((string)(null)), ((Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 9
-    await testRunner.AndAsync("there exists an user with UserName \"user\" and Password \"User!123\"", ((string)(null)), ((Reqnroll.Table)(null)), "And ");
+        await testRunner.WhenAsync("the user submits a request to sign out", ((string)(null)), ((Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 10
-    await testRunner.WhenAsync("the user submits a request to sign in with UserName \"user\" and Password \"User!123" +
-                        "\"", ((string)(null)), ((Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 11
-    await testRunner.ThenAsync("the response status code should be 200", ((string)(null)), ((Reqnroll.Table)(null)), "Then ");
-#line hidden
-#line 12
-    await testRunner.AndAsync("the response should contain the user\'s access token", ((string)(null)), ((Reqnroll.Table)(null)), "And ");
+        await testRunner.ThenAsync("the response status code should be 204", ((string)(null)), ((Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Invalid sign in")]
-        [Xunit.TraitAttribute("FeatureTitle", "SignIn")]
-        [Xunit.TraitAttribute("Description", "Invalid sign in")]
-        public async System.Threading.Tasks.Task InvalidSignIn()
+        [Xunit.SkippableFactAttribute(DisplayName="User is not authenticated and receives 401 Unauthorized")]
+        [Xunit.TraitAttribute("FeatureTitle", "SignOut")]
+        [Xunit.TraitAttribute("Description", "User is not authenticated and receives 401 Unauthorized")]
+        public async System.Threading.Tasks.Task UserIsNotAuthenticatedAndReceives401Unauthorized()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            Reqnroll.ScenarioInfo scenarioInfo = new Reqnroll.ScenarioInfo("Invalid sign in", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 14
-  this.ScenarioInitialize(scenarioInfo);
+            Reqnroll.ScenarioInfo scenarioInfo = new Reqnroll.ScenarioInfo("User is not authenticated and receives 401 Unauthorized", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 12
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -144,18 +138,14 @@ namespace Cramming.Account.API.AcceptanceTests.Features.Users
             else
             {
                 await this.ScenarioStartAsync();
+#line 13
+        await testRunner.GivenAsync("the user is not authenticated", ((string)(null)), ((Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 14
+        await testRunner.WhenAsync("the user submits a request to sign out", ((string)(null)), ((Reqnroll.Table)(null)), "When ");
+#line hidden
 #line 15
-    await testRunner.GivenAsync("the user is not authenticated", ((string)(null)), ((Reqnroll.Table)(null)), "Given ");
-#line hidden
-#line 16
-    await testRunner.AndAsync("there exists an user with UserName \"user\" and Password \"User!123\"", ((string)(null)), ((Reqnroll.Table)(null)), "And ");
-#line hidden
-#line 17
-    await testRunner.WhenAsync("the user submits a request to sign in with UserName \"user\" and Password \"InvalidP" +
-                        "assword\"", ((string)(null)), ((Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 18
-    await testRunner.ThenAsync("the response status code should be 401", ((string)(null)), ((Reqnroll.Table)(null)), "Then ");
+        await testRunner.ThenAsync("the response status code should be 401", ((string)(null)), ((Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -168,12 +158,12 @@ namespace Cramming.Account.API.AcceptanceTests.Features.Users
             
             async System.Threading.Tasks.Task Xunit.IAsyncLifetime.InitializeAsync()
             {
-                await SignInFeature.FeatureSetupAsync();
+                await SignOutFeature.FeatureSetupAsync();
             }
             
             async System.Threading.Tasks.Task Xunit.IAsyncLifetime.DisposeAsync()
             {
-                await SignInFeature.FeatureTearDownAsync();
+                await SignOutFeature.FeatureTearDownAsync();
             }
         }
     }

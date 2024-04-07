@@ -20,6 +20,11 @@ namespace Cramming.Account.API.AcceptanceTests.Support
             return ExecuteSendAsync<TData>(HttpMethod.Post, endpoint, requestData);
         }
 
+        public Task<WebApiResponse> ExecutePostAsync(string endpoint, object? requestData = null)
+        {
+            return ExecuteSendAsync(HttpMethod.Post, endpoint, requestData);
+        }
+
         public Task<WebApiResponse> ExecutePutAsync(string endpoint, object requestData)
         {
             return ExecuteSendAsync(HttpMethod.Put, endpoint, requestData);
