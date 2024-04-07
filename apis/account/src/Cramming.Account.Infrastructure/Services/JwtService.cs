@@ -31,19 +31,27 @@ namespace Cramming.Account.Infrastructure.Services
             return Convert.ToBase64String(randomNumber);
         }
 
-        public ClaimsPrincipal GetPrincipalFromExpiredToken(string? token)
+        public (ClaimsPrincipal Principal, string Identifier) GetPrincipalFromExpiredToken(string? token)
         {
-            var tokenValidationParameters = new TokenValidationParameters
+            try
             {
-                ValidateIssuerSigningKey = true,
-                ValidateLifetime = false,
-                ValidIssuer = configuration.GetValue<string>("Jwt:Issuer"),
-                ValidAudience = configuration.GetValue<string>("Jwt:Audience"),
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("Jwt:SecretKey")!)),
-            };
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken _);
-            return principal;
+                var tokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = false,
+                    ValidIssuer = configuration.GetValue<string>("Jwt:Issuer"),
+                    ValidAudience = configuration.GetValue<string>("Jwt:Audience"),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("Jwt:SecretKey")!)),
+                };
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken _);
+                var identifier = principal.FindFirstValue(ClaimTypes.NameIdentifier);
+                return identifier == null ? throw new UnauthorizedAccessException() : ((ClaimsPrincipal Principal, string Identifier))(principal, identifier);
+            }
+            catch (Exception)
+            {
+                throw new UnauthorizedAccessException();
+            }
         }
 
         public DateTime RefreshTokenExpiryTime() => DateTime.UtcNow.AddDays(configuration.GetValue<int>("Jwt:RefreshTokenValidityInDays"));

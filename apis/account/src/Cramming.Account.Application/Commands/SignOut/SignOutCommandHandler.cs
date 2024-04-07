@@ -7,7 +7,7 @@ namespace Cramming.Account.Application.Commands.SignOut
     {
         public async Task Handle(SignOutCommand request, CancellationToken cancellationToken)
         {
-            await identityService.RevokeRefreshToken(request.UserId);
+            await identityService.UpdateRefreshTokenAsync(request.UserId, null, null);
         }
     }
 }

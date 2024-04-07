@@ -9,15 +9,17 @@ namespace Cramming.Account.Application.Commands.SignIn
     {
         public async Task<TokenResult> Handle(SignInCommand request, CancellationToken cancellationToken)
         {
-            if (await identityService.CheckPasswordAsync(request.UserName!, request.Password!))
+            var (succeed, user) = await identityService.AuthenticateAsync(request.UserName!, request.Password!);
+
+            if (succeed)
             {
-                var claims = await identityService.GetUserClaimsAsync(request.UserName!);
+                var claims = await identityService.ListClaimsAsync(user!.Id);
 
                 var accessToken = jwtService.CreateToken(claims);
                 var refreshToken = jwtService.GenerateRefreshToken();
                 var refreshTokenExpiryTime = jwtService.RefreshTokenExpiryTime();
 
-                await identityService.UpdateRefreshToken(request.UserName!, refreshToken, refreshTokenExpiryTime);
+                await identityService.UpdateRefreshTokenAsync(user.Id.ToString(), refreshToken, refreshTokenExpiryTime);
 
                 await publisher.Publish(new SignedInEvent(request.UserName!), cancellationToken);
 

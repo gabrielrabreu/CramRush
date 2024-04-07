@@ -1,4 +1,5 @@
 ﻿using Cramming.Account.API.Infrastructure;
+using Cramming.Account.Application.Commands.RefreshToken;
 using Cramming.Account.Application.Commands.SignIn;
 using Cramming.Account.Application.Commands.SignOut;
 using Cramming.Account.Application.Commands.SignUp;
@@ -43,6 +44,16 @@ namespace Cramming.Account.API.Endpoints
                     Description = "Revokes the refresh token of the authenticated user, effectively signing them out of the system."
                 });
 
+            group.MapPost(RefreshToken, "/refresh-token")
+                .Produces(StatusCodes.Status200OK)
+                .Produces<DomainResult>(StatusCodes.Status401Unauthorized)
+                .RequireAuthorization()
+                .WithOpenApi(operation => new(operation)
+                {
+                    Summary = "Refresh Access Token",
+                    Description = "Generates a new access token using a refresh token."
+                });
+
             group.MapGet(GetUsers)
                 .WithOpenApi(operation => new(operation)
                 {
@@ -63,10 +74,16 @@ namespace Cramming.Account.API.Endpoints
             return await sender.Send(command);
         }
 
-        public async Task<IResult> SignOut(ISender sender, IUser user)
+        public async Task<IResult> SignOut(ISender sender, IHttpSession user)
         {
-            await sender.Send(new SignOutCommand(user.Id!));
+            if (user.UserId != null)
+                await sender.Send(new SignOutCommand(user.UserId));
             return Results.NoContent();
+        }
+
+        public async Task<TokenResult> RefreshToken(ISender sender, RefreshTokenCommand command)
+        {
+            return await sender.Send(command);
         }
 
         public async Task<PaginatedList<UserBriefDto>> GetUsers(ISender sender, [AsParameters] GetUsersQuery query)

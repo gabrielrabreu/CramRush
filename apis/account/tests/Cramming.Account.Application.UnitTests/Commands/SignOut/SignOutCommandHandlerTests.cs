@@ -16,7 +16,7 @@ namespace Cramming.Account.Application.UnitTests.Commands.SignOut
         }
 
         [Fact]
-        public async Task Handle_ShouldCallRevokeRefreshTokens()
+        public async Task Handle_ShouldUpdateRefreshToken()
         {
             // Arrange
             var command = new SignOutCommand("UserId");
@@ -26,8 +26,8 @@ namespace Cramming.Account.Application.UnitTests.Commands.SignOut
             await _handler.Handle(command, cancellationToken);
 
             // Assert
-            _identityService.Verify(e => e.RevokeRefreshToken(It.IsAny<string>()), Times.Once);
-            _identityService.Verify(e => e.RevokeRefreshToken(command.UserId), Times.Once);
+            _identityService.Verify(e => e.UpdateRefreshTokenAsync(It.IsAny<string>(), It.IsAny<string?>(), It.IsAny<DateTime?>()), Times.Once);
+            _identityService.Verify(e => e.UpdateRefreshTokenAsync(command.UserId, null, null), Times.Once);
         }
     }
 }
