@@ -13,5 +13,6 @@ namespace Cramming.Account.Application.Common.Interfaces
 
         Task<(IDomainResult Result, IApplicationUser User)> CreateAsync(string username, string email, string password);
         Task UpdateRefreshToken(string username, string newRefreshToken, DateTime newRefreshTokenExpiryTime);
+        Task RevokeRefreshToken(string userId);
     }
 }

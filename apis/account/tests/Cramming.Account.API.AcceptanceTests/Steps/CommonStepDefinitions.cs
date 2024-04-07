@@ -14,6 +14,12 @@ namespace Cramming.Account.API.AcceptanceTests.Steps
             authContext.AsScopedUser(scope);
         }
 
+        [Given("the user is authenticated")]
+        public void GivenTheUserIsAuthenticated()
+        {
+            authContext.AsDefaultUser();
+        }
+
         [Given("the user is not authenticated")]
         public void GivenTheUserIsNotAuthenticated()
         {

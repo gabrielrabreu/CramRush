@@ -1,6 +1,9 @@
-﻿using Cramming.Account.Application.FunctionalTests.Support.Data;
+﻿using Cramming.Account.Application.Common.Interfaces;
+using Cramming.Account.Application.FunctionalTests.Support.Data;
+using Cramming.Account.Domain.Entities;
 using Cramming.Account.Infrastructure.Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cramming.Account.Application.FunctionalTests.Support
@@ -28,6 +31,13 @@ namespace Cramming.Account.Application.FunctionalTests.Support
             using var scope = ScopeFactory.CreateScope();
             var mediator = scope.ServiceProvider.GetRequiredService<ISender>();
             await mediator.Send(request);
+        }
+
+        public async Task<IApplicationUser?> FindUserAsync(string username)
+        {
+            using var scope = ScopeFactory.CreateScope();
+            var identityService = scope.ServiceProvider.GetRequiredService<IIdentityService>();
+            return await identityService.Users.FirstOrDefaultAsync(u => u.UserName == username);
         }
 
         public void Dispose()

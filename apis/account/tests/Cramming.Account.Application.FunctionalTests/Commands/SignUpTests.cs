@@ -21,18 +21,20 @@ namespace Cramming.Account.Application.FunctionalTests.Commands
         public async Task Send_WhenCreateUserSucceed_ShouldReturnSuceedResult()
         {
             // Arrange
-            var command = new SignUpCommand
-            {
-                UserName = "Username1",
-                Email = "username1@localhost",
-                Password = "Username!123"
-            };
+            var userName = "UserName1";
+            var email = "userName1@localhost";
+            var password = "UserName1!123";
 
             // Act
-            var result = await fixture.SendAsync(command);
+            var result = await fixture.SendAsync(new SignUpCommand { UserName = userName, Email = email, Password = password });
 
             // Then
             result.Succeeded.Should().BeTrue();
+
+            var userAfterSignUp = await fixture.FindUserAsync(userName);
+            userAfterSignUp.Should().NotBeNull();
+            userAfterSignUp!.Email.Should().Be(email);
+            userAfterSignUp.UserName.Should().Be(userName);
         }
 
         [Fact]
@@ -41,9 +43,9 @@ namespace Cramming.Account.Application.FunctionalTests.Commands
             // Arrange
             var command = new SignUpCommand
             {
-                UserName = "Username2",
-                Email = "username2@localhost",
-                Password = "Username"
+                UserName = "UserName2",
+                Email = "userName2@localhost",
+                Password = "UserName2"
             };
 
             // Act

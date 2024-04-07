@@ -64,5 +64,17 @@ namespace Cramming.Account.Infrastructure.Identity
                 await userManager.UpdateAsync(user);
             }
         }
+
+        public async Task RevokeRefreshToken(string userId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+
+            if (user != null)
+            {
+                user.RefreshToken = null;
+                user.RefreshTokenExpiryTime = null;
+                await userManager.UpdateAsync(user);
+            }
+        }
     }
 }
