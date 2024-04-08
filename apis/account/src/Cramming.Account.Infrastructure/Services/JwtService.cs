@@ -15,7 +15,6 @@ namespace Cramming.Account.Infrastructure.Services
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("Jwt:SecretKey")!));
             var token = new JwtSecurityToken(
                 issuer: configuration.GetValue<string>("Jwt:Issuer"),
-                audience: configuration.GetValue<string>("Jwt:Audience"),
                 expires: DateTime.UtcNow.AddMinutes(configuration.GetValue<int>("Jwt:AccessTokenValidityInMinutes")),
                 claims: claims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)

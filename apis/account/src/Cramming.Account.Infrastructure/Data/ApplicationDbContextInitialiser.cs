@@ -86,6 +86,11 @@ namespace Cramming.Account.Infrastructure.Data
             {
                 await userManager.CreateAsync(administrator, adminPassword);
                 await userManager.AddToRoleAsync(administrator, Roles.Administrator);
+                await userManager.AddClaimsAsync(administrator,
+                [
+                    new("aud", "http://localhost:5001"),
+                    new("aud", "http://localhost:5002")
+                ]);
             }
         }
     }

@@ -31,6 +31,9 @@ namespace Cramming.Account.Infrastructure.Identity
                 claims.Add(new(ClaimTypes.NameIdentifier, existingUser.Id.ToString()));
                 claims.Add(new(ClaimTypes.Name, existingUser.UserName!));
 
+                var existingClaims = await userManager.GetClaimsAsync(existingUser);
+                claims.AddRange(existingClaims);
+
                 var roles = await userManager.GetRolesAsync(existingUser);
 
                 foreach (var role in roles)
@@ -56,6 +59,12 @@ namespace Cramming.Account.Infrastructure.Identity
             };
 
             var result = await userManager.CreateAsync(user, password);
+
+            await userManager.AddClaimsAsync(user,
+            [
+                new("aud", "http://localhost:5001"),
+                new("aud", "http://localhost:5002")
+            ]);
 
             return (result.ToApplicationResult(), user);
         }
