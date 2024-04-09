@@ -6,19 +6,20 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.3" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.3" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.3" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.3" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.3">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-	</ItemGroup>
+  <ItemGroup>
+	<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.3" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.3" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.3" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.3" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.3">
+	  <PrivateAssets>all</PrivateAssets>
+	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
+  </ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\Cramming.Application\Cramming.Application.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+	<ProjectReference Include="..\Cramming.Application\Cramming.Application.csproj" />
+	<ProjectReference Include="..\Cramming.Infrastructure.PdfComposer\Cramming.Infrastructure.PdfComposer.csproj" />
+  </ItemGroup>
 
 </Project>

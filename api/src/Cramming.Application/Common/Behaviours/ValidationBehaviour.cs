@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Cramming.Domain.Common.Exceptions;
+using FluentValidation;
 using MediatR;
 
 namespace Cramming.Application.Common.Behaviours
@@ -21,7 +22,7 @@ namespace Cramming.Application.Common.Behaviours
                     .ToList();
 
                 if (failures.Count != 0)
-                    throw new ValidationException(failures);
+                    throw new DomainRuleException(failures);
             }
             return await next();
         }

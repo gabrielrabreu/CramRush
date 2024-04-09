@@ -1,6 +1,8 @@
 ﻿using Cramming.Domain.Common;
+using Cramming.Domain.Common.Exceptions;
 using Cramming.Domain.Enums;
 using Cramming.Domain.ValueObjects;
+using Cramming.Infrastructure.Resources;
 
 namespace Cramming.Domain.Entities
 {
@@ -41,11 +43,11 @@ namespace Cramming.Domain.Entities
 
         public TopicQuestionEntity AssociateQuestion(AssociateQuestionParameters parameters)
         {
-            TopicQuestionEntity newQuestion = parameters.QuestionType switch
+            TopicQuestionEntity newQuestion = parameters.Type switch
             {
                 QuestionType.OpenEnded => new TopicOpenEndedQuestionEntity(Id, parameters),
                 QuestionType.MultipleChoice => new TopicMultipleChoiceQuestionEntity(Id, parameters),
-                _ => throw new ArgumentException($"Unknown question type: {parameters.QuestionType}"),
+                _ => throw new DomainRuleException(nameof(parameters.Type), string.Format(MyResources.UnknownQuestionType, parameters.Type)),
             };
 
             _questions.Add(newQuestion);

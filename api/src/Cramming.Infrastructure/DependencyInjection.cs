@@ -18,6 +18,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<ITopicRepository, TopicRepository>();
             services.AddScoped<ITopicQueryRepository, TopicQueryRepository>();
 
+            services.AddPdfComposerServices();
+
             return services;
         }
     }

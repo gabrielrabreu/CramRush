@@ -1,4 +1,4 @@
-﻿using Cramming.Application.Queries;
+﻿using Cramming.Application.Topics.Queries;
 
 namespace Cramming.Application.Common.Interfaces
 {

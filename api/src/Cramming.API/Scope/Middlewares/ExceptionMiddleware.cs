@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Cramming.Domain.Common.Exceptions;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cramming.API.Scope.Middlewares
 {
@@ -10,7 +11,8 @@ namespace Cramming.API.Scope.Middlewares
         {
             _exceptionHandlers = new()
             {
-                { typeof(UnauthorizedAccessException), HandleUnauthorizedAccessException }
+                { typeof(UnauthorizedAccessException), HandleUnauthorizedAccessException },
+                { typeof(DomainRuleException), HandleDomainRuleExceptionException }
             };
         }
 
@@ -39,6 +41,19 @@ namespace Cramming.API.Scope.Middlewares
                 Status = StatusCodes.Status401Unauthorized,
                 Title = "Unauthorized",
                 Type = "https://tools.ietf.org/html/rfc7235#section-3.1"
+            });
+        }
+
+        private async Task HandleDomainRuleExceptionException(HttpContext httpContext, Exception ex)
+        {
+            var exception = (DomainRuleException)ex;
+
+            httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+
+            await httpContext.Response.WriteAsJsonAsync(new ValidationProblemDetails(exception.Errors)
+            {
+                Status = StatusCodes.Status400BadRequest,
+                Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1"
             });
         }
     }

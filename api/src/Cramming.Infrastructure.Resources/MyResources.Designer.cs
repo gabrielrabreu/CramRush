@@ -59,5 +59,23 @@ namespace Cramming.Infrastructure.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string TopicName {
+            get {
+                return ResourceManager.GetString("TopicName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown question type: {0}.
+        /// </summary>
+        public static string UnknownQuestionType {
+            get {
+                return ResourceManager.GetString("UnknownQuestionType", resourceCulture);
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Cramming.Application.Common.Interfaces;
-using Cramming.Application.Queries;
+using Cramming.Application.Topics.Queries;
 using Cramming.Domain.Enums;
 using Cramming.Infrastructure.Data.Common;
 using Cramming.Infrastructure.Data.Context;
@@ -17,16 +17,12 @@ namespace Cramming.Infrastructure.Data.QueryRepositories
             if (data == null) return null;
 
             await context.Entry(data).Collection(p => p.Tags).LoadAsync(cancellationToken);
-            
-            await context.Entry(data).Collection(p => p.Questions).LoadAsync(cancellationToken);
-
             var tags = new List<TopicDetailTagDto>();
-            
             foreach (var tag in data.Tags)
                 tags.Add(new TopicDetailTagDto(tag.Id, tag.Name));
 
+            await context.Entry(data).Collection(p => p.Questions).LoadAsync(cancellationToken);
             var questions = new List<TopicDetailQuestionDto>();
-            
             foreach (var question in data.Questions)
             {
                 if (question is TopicOpenEndedQuestionData openEndedQuestion)
@@ -60,10 +56,12 @@ namespace Cramming.Infrastructure.Data.QueryRepositories
         {
             return await context.Topics
                 .Include(n => n.Tags)
+                .Include(n => n.Questions)
                 .OrderByDescending(k => k.CreatedOn)
                 .Select(s1 => new TopicBriefDto(s1.Id,
                                                 s1.Name,
                                                 s1.Description,
+                                                s1.Questions.Count(),
                                                 s1.Tags.Select(s2 => new TopicTagBriefDto(s2.Id, s2.Name)).ToList()))
                 .PaginatedListAsync(pageNumber, pageSize, cancellationToken);
         }

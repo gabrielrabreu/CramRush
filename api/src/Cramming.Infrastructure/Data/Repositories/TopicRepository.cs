@@ -14,15 +14,13 @@ namespace Cramming.Infrastructure.Data.Repositories
             if (data == null) return null;
 
             await context.Entry(data).Collection(p => p.Tags).LoadAsync(cancellationToken);
-            
-            await context.Entry(data).Collection(p => p.Questions).LoadAsync(cancellationToken);
-
             var tags = new List<TopicTagEntity>();
             foreach (var tag in data.Tags)
             {
                 tags.Add(new TopicTagEntity(tag.Id, tag.TopicId, tag.Name));
             }
 
+            await context.Entry(data).Collection(p => p.Questions).LoadAsync(cancellationToken);
             var questions = new List<TopicQuestionEntity>();
             foreach (var question in data.Questions)
             {
@@ -71,8 +69,6 @@ namespace Cramming.Infrastructure.Data.Repositories
             {
                 await context.Entry(data).Collection(p => p.Tags).LoadAsync(cancellationToken);
 
-                await context.Entry(data).Collection(p => p.Questions).LoadAsync(cancellationToken);
-
                 foreach (var existingTag in data.Tags)
                 {
                     if (!domain.Tags.Any(p => p.Id == existingTag.Id))
@@ -93,6 +89,8 @@ namespace Cramming.Infrastructure.Data.Repositories
                             }, 
                             cancellationToken);
                 }
+
+                await context.Entry(data).Collection(p => p.Questions).LoadAsync(cancellationToken);
 
                 foreach (var existingQuestion in data.Questions)
                 {

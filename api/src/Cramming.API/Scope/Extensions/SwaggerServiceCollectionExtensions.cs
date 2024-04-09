@@ -1,4 +1,5 @@
 ﻿using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -6,8 +7,20 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static void AddCustomSwagger(this IServiceCollection services)
         {
+            services.ConfigureHttpJsonOptions(options =>
+            {
+                options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
+            services.Configure<AspNetCore.Mvc.JsonOptions>(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
+
             services.AddSwaggerGen(options =>
             {
+                foreach (var file in Directory.GetFiles(AppContext.BaseDirectory, "*.xml", SearchOption.AllDirectories))
+                    options.IncludeXmlComments(filePath: file);
+
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "Cramming API",

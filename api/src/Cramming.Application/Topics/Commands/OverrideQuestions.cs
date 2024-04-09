@@ -3,13 +3,21 @@ using Cramming.Domain.ValueObjects;
 using FluentValidation;
 using MediatR;
 
-namespace Cramming.Application.Commands
+namespace Cramming.Application.Topics.Commands
 {
-    public record OverrideQuestionsResultDto(Guid TagId, Guid TopicId, string TagName);
-
+    /// <summary>
+    /// Represents a command to override the questions associated with a topic.
+    /// </summary>
     public record OverrideQuestionsCommand : IRequest
     {
+        /// <summary>
+        /// The ID of the topic for which the questions are to be overridden.
+        /// </summary>
         public Guid TopicId { get; init; } = Guid.Empty;
+
+        /// <summary>
+        /// The collection of parameters for associating questions with the topic.
+        /// </summary>
         public IReadOnlyCollection<AssociateQuestionParameters> Questions { get; init; } = [];
     }
 

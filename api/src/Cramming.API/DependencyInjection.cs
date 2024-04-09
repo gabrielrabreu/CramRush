@@ -5,6 +5,7 @@
         public static IServiceCollection AddWebServices(this IServiceCollection services)
         {
             services.AddEndpointsApiExplorer();
+            services.AddCustomLocalization();
             services.AddCustomExceptionHandler();
             services.AddCustomAuthentication();
             services.AddCustomHealthChecks();
