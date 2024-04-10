@@ -8,7 +8,7 @@
 
         public Guid TopicId { get; set; } = topicId;
 
-        public TopicQuestionEntity(Guid topicId, string name) : this(Guid.NewGuid(), topicId, name)
+        protected TopicQuestionEntity(Guid topicId, string name) : this(Guid.NewGuid(), topicId, name)
         {
         }
     }

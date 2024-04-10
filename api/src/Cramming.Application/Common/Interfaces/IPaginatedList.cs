@@ -1,6 +1,6 @@
 ﻿namespace Cramming.Application.Common.Interfaces
 {
-    public interface IPaginatedList<T>
+    public interface IPaginatedList<out T>
     {
         IReadOnlyCollection<T> Items { get; }
 

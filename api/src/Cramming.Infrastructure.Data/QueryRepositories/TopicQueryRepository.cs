@@ -61,7 +61,7 @@ namespace Cramming.Infrastructure.Data.QueryRepositories
                     s1.Id,
                     s1.Name,
                     s1.Description,
-                    s1.Questions.Count(),
+                    s1.Questions.Count,
                     s1.Tags.Select(s2 =>
                     new TopicTagBriefDto(
                         s2.Id,

@@ -2,7 +2,7 @@
 {
     public record FileComposed(byte[] Content, string ContentType, string Name);
 
-    public interface IComposer<T>
+    public interface IComposer<in T>
     {
         FileComposed Compose(T topic);
     }
