@@ -12,7 +12,7 @@ namespace Cramming.API.Endpoints
         public override void Map(WebApplication app)
         {
             var group = app.MapGroup(this);
-            
+
             group.MapGet(GetTopics)
                 .Produces<IPaginatedList<TopicBriefDto>>(StatusCodes.Status200OK)
                 .WithOpenApi(operation =>
@@ -47,7 +47,33 @@ namespace Cramming.API.Endpoints
                     Description = "Endpoint to create a new topic in the application."
                 });
 
-            group.MapPost(AssociateTag, "{topicId}/tags")
+            group.MapPut(UpdateTopic, "{topicId}")
+                .Produces(StatusCodes.Status204NoContent)
+                .Produces<ValidationProblemDetails>(StatusCodes.Status400BadRequest)
+                .WithOpenApi(operation =>
+                {
+                    operation.Parameters[0].Description = "The ID of the topic to be updated.";
+                    return new(operation)
+                    {
+                        Summary = "Updates a topic by its ID",
+                        Description = "Endpoint to update a topic by providing its unique identifier along with the updated information."
+                    };
+                });
+
+            group.MapDelete(DeleteTopic, "{topicId}")
+                .Produces(StatusCodes.Status204NoContent)
+                .Produces<ValidationProblemDetails>(StatusCodes.Status400BadRequest)
+                .WithOpenApi(operation =>
+                {
+                    operation.Parameters[0].Description = "The ID of the topic to be deleted.";
+                    return new(operation)
+                    {
+                        Summary = "Deletes a topic by its ID",
+                        Description = "Endpoint to delete a topic by providing its unique identifier."
+                    };
+                });
+
+            group.MapPost(AssociateTag, "{topicId}/Tags")
                 .Produces<AssociateTagResultDto>(StatusCodes.Status201Created)
                 .Produces<ValidationProblemDetails>(StatusCodes.Status400BadRequest)
                 .WithOpenApi(operation =>
@@ -60,7 +86,21 @@ namespace Cramming.API.Endpoints
                     };
                 });
 
-            group.MapDelete(DisassociateTag, "{topicId}/tags/{tagId}")
+            group.MapPut(UpdateTag, "{topicId}/Tags/{tagId}")
+                .Produces<AssociateTagResultDto>(StatusCodes.Status204NoContent)
+                .Produces<ValidationProblemDetails>(StatusCodes.Status400BadRequest)
+                .WithOpenApi(operation =>
+                {
+                    operation.Parameters[0].Description = "The ID of the topic from which the tag is to be updated.";
+                    operation.Parameters[1].Description = "The ID of the tag to be updated from the topic.";
+                    return new(operation)
+                    {
+                        Summary = "Updates a tag associated with a specific topic",
+                        Description = "Endpoint to update a tag associated with a specific topic by providing the unique identifiers of both the topic and the tag, along with the updated information."
+                    };
+                });
+
+            group.MapDelete(DisassociateTag, "{topicId}/Tags/{tagId}")
                 .Produces(StatusCodes.Status204NoContent)
                 .Produces<ValidationProblemDetails>(StatusCodes.Status400BadRequest)
                 .WithOpenApi(operation =>
@@ -71,10 +111,10 @@ namespace Cramming.API.Endpoints
                     {
                         Summary = "Disassociate tag from topic",
                         Description = "Endpoint to disassociate a tag from a specific topic in the application."
-                    }; 
+                    };
                 });
 
-            group.MapPost(OverrideQuestions, "{topicId}/questions:override")
+            group.MapPost(OverrideQuestions, "{topicId}/Questions:override")
                 .Produces(StatusCodes.Status201Created)
                 .Produces<ValidationProblemDetails>(StatusCodes.Status400BadRequest)
                 .WithOpenApi(operation =>
@@ -104,11 +144,32 @@ namespace Cramming.API.Endpoints
             return Results.CreatedAtRoute(nameof(GetTopicById), new { topicId = created.Id }, created);
         }
 
+        public async Task<IResult> UpdateTopic(ISender sender, Guid topicId, UpdateTopicCommand command)
+        {
+            if (topicId != command.Id) return Results.BadRequest();
+            await sender.Send(command);
+            return Results.NoContent();
+        }
+
+        public async Task<IResult> DeleteTopic(ISender sender, Guid topicId)
+        {
+            await sender.Send(new DeleteTopicCommand(topicId));
+            return Results.NoContent();
+        }
+
         public async Task<IResult> AssociateTag(ISender sender, Guid topicId, AssociateTagCommand command)
         {
             if (topicId != command.TopicId) return Results.BadRequest();
             var created = await sender.Send(command);
             return Results.Created(string.Empty, created);
+        }
+
+        public async Task<IResult> UpdateTag(ISender sender, Guid topicId, Guid tagId, UpdateTagCommand command)
+        {
+            if (topicId != command.TopicId) return Results.BadRequest();
+            if (tagId != command.TagId) return Results.BadRequest();
+            await sender.Send(command);
+            return Results.NoContent();
         }
 
         public async Task<IResult> DisassociateTag(ISender sender, Guid topicId, Guid tagId)

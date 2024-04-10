@@ -2,11 +2,9 @@
 
 namespace Cramming.Domain.ValueObjects
 {
-    public class Colour(string code) : ValueObject
+    public class Colour(string? code) : ValueObject
     {
-        public string Code { get; private set; } = string.IsNullOrWhiteSpace(code) ? "#000000" : code;
-
-        public static Colour White => new("#FFFFFF");
+        public string Code { get; private set; } = string.IsNullOrWhiteSpace(code) ? "#FFFFFF" : code;
 
         protected override IEnumerable<object> GetEqualityComponents()
         {

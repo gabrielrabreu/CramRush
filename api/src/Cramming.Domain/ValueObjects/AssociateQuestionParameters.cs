@@ -10,7 +10,7 @@ namespace Cramming.Domain.ValueObjects
         /// <summary>
         /// The type of the question.
         /// </summary>
-        public QuestionType Type { get; init; } = QuestionType.Undefined;
+        public QuestionType Type { get; init; } = QuestionType.OpenEnded;
 
         /// <summary>
         /// The statement of the question.
@@ -23,23 +23,23 @@ namespace Cramming.Domain.ValueObjects
         public string Answer { get; init; } = string.Empty;
 
         /// <summary>
-        /// The collection of parameters for associating multiple-choice questions with the topic.
+        /// The collection of parameters for associating multiple-choice options with the topic.
         /// </summary>
-        public ICollection<AssociateMultipleChoiceQuestionParameters> Choices { get; init; } = [];
+        public ICollection<AssociateMultipleChoiceQuestionOptionParameters> Options { get; init; } = [];
     }
 
     /// <summary>
     /// Represents the parameters for associating a multiple-choice question with a topic.
     /// </summary>
-    public record AssociateMultipleChoiceQuestionParameters
+    public record AssociateMultipleChoiceQuestionOptionParameters
     {
         /// <summary>
-        /// The statement of the multiple-choice question.
+        /// The statement of the multiple-choice option.
         /// </summary>
         public string Statement { get; init; } = string.Empty;
 
         /// <summary>
-        /// Indicates whether the choice is the correct answer.
+        /// Indicates whether the option is the correct answer.
         /// </summary>
         public bool IsAnswer { get; init; }
     }

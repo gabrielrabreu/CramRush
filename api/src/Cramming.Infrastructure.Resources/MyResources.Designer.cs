@@ -61,6 +61,112 @@ namespace Cramming.Infrastructure.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to - For each question:.
+        /// </summary>
+        public static string PromptForEachQuestion {
+            get {
+                return ResourceManager.GetString("PromptForEachQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - For each option:.
+        /// </summary>
+        public static string PromptForEachQuestionOption {
+            get {
+                return ResourceManager.GetString("PromptForEachQuestionOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Answer ({0}): Enter the answer for the question (string format). For multiple-choice questions, leave it blank (null)..
+        /// </summary>
+        public static string PromptQuestionAnswer {
+            get {
+                return ResourceManager.GetString("PromptQuestionAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Is answer? ({0}): Indicate if this is the correct answer (true / false)..
+        /// </summary>
+        public static string PromptQuestionOptionIsAnswer {
+            get {
+                return ResourceManager.GetString("PromptQuestionOptionIsAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Options ({0}, only for multiple-choice questions):.
+        /// </summary>
+        public static string PromptQuestionOptions {
+            get {
+                return ResourceManager.GetString("PromptQuestionOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Statement ({0}): Enter the statement of the option (string format)..
+        /// </summary>
+        public static string PromptQuestionOptionStatement {
+            get {
+                return ResourceManager.GetString("PromptQuestionOptionStatement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2. List of Questions ({0}):.
+        /// </summary>
+        public static string PromptQuestions {
+            get {
+                return ResourceManager.GetString("PromptQuestions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Statement ({0}): Enter the statement of the question (string format)..
+        /// </summary>
+        public static string PromptQuestionStatement {
+            get {
+                return ResourceManager.GetString("PromptQuestionStatement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Type ({0}): Specify the type of the question, which can be &quot;OpenEnded&quot; or &quot;MultipleChoice&quot;..
+        /// </summary>
+        public static string PromptQuestionType {
+            get {
+                return ResourceManager.GetString("PromptQuestionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1. Topic ID ({0}): Enter the ID of the topic to which the questions are related (UUID format).
+        /// </summary>
+        public static string PromptTopicId {
+            get {
+                return ResourceManager.GetString("PromptTopicId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1. ID do Tópico (topicId): Insira o ID do tópico ao qual as questões estão relacionadas (formato UUID).
+        ///
+        ///2. Lista de Questões (questions):
+        ///   - Para cada questão:
+        ///     - Tipo (type): Indique o tipo da questão, que pode ser  &quot;&quot;OpenEnded&quot;&quot; ou &quot;&quot;MultipleChoice&quot;&quot;.
+        ///     - Declaração (statement): Insira a declaração da questão (formato string).
+        ///     - Resposta (answer): Insira a resposta para a questão (formato string). Para questões de múltipla escolha, deixe em branco (null).
+        ///     - Escolhas (choices, ap [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string QuestionGenerationPrompt {
+            get {
+                return ResourceManager.GetString("QuestionGenerationPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string TopicName {

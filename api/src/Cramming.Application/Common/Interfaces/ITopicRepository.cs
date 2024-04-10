@@ -8,6 +8,7 @@ namespace Cramming.Application.Common.Interfaces
 
         Task<TopicEntity> AddAsync(TopicEntity domain, CancellationToken cancellationToken);
         Task UpdateAsync(TopicEntity domain, CancellationToken cancellationToken);
+        Task DeleteAsync(Guid id, CancellationToken cancellationToken);
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

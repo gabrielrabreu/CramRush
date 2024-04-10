@@ -1,6 +1,5 @@
 ﻿using Cramming.Application.Common.Interfaces;
 using Cramming.Domain.Enums;
-using Cramming.Domain.ValueObjects;
 using MediatR;
 
 namespace Cramming.Application.Topics.Queries
@@ -8,7 +7,7 @@ namespace Cramming.Application.Topics.Queries
     /// <summary>
     /// Represents a detailed view of a tag associated with a topic.
     /// </summary>
-    public record TopicDetailTagDto(Guid Id, string Name)
+    public record TopicDetailTagDto(Guid Id, string Name, string Colour)
     {
         /// <summary>
         /// The ID of the tag.
@@ -21,15 +20,15 @@ namespace Cramming.Application.Topics.Queries
         public string Name { get; init; } = Name;
 
         /// <summary>
-        /// The color of the tag.
+        /// The colour of the tag.
         /// </summary>
-        public string Color { get; init; } = Colour.White.Code;
+        public string Colour { get; init; } = Colour;
     }
 
     /// <summary>
     /// Represents a detailed view of a question associated with a topic.
     /// </summary>
-    public record TopicDetailQuestionDto(Guid Id, QuestionType Type, string Statement, string? Answer, IReadOnlyCollection<TopicDetailQuestionChoicesDto>? Choices)
+    public record TopicDetailQuestionDto(Guid Id, QuestionType Type, string Statement, string? Answer, IReadOnlyCollection<TopicDetailMultipleChoiceOptionDto>? Choices)
     {
         /// <summary>
         /// The ID of the question.
@@ -52,28 +51,28 @@ namespace Cramming.Application.Topics.Queries
         public string? Answer { get; init; } = Answer;
 
         /// <summary>
-        /// The collection of choices for multiple-choice questions, if applicable.
+        /// The collection of options for multiple-choice questions, if applicable.
         /// </summary>
-        public IReadOnlyCollection<TopicDetailQuestionChoicesDto>? Choices { get; init; } = Choices;
+        public IReadOnlyCollection<TopicDetailMultipleChoiceOptionDto>? Options { get; init; } = Choices;
     }
 
     /// <summary>
-    /// Represents a detailed view of a choice for a multiple-choice question associated with a topic.
+    /// Represents a detailed view of a option for a multiple-choice question associated with a topic.
     /// </summary>
-    public record TopicDetailQuestionChoicesDto(Guid Id, string Statement, bool IsAnswer)
+    public record TopicDetailMultipleChoiceOptionDto(Guid Id, string Statement, bool IsAnswer)
     {
         /// <summary>
-        /// The ID of the choice.
+        /// The ID of the option.
         /// </summary>
         public Guid Id { get; init; } = Id;
 
         /// <summary>
-        /// The statement of the choice.
+        /// The statement of the option.
         /// </summary>
         public string Statement { get; init; } = Statement;
 
         /// <summary>
-        /// Indicates whether the choice is the correct answer.
+        /// Indicates whether the option is the correct answer.
         /// </summary>
         public bool IsAnswer { get; init; } = IsAnswer;
     }

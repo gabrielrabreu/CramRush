@@ -23,7 +23,7 @@ namespace Cramming.Domain.Common.Exceptions
             Errors = new Dictionary<string, string[]>
             {
                 { propertyName, new[] { errorMessage } }
-            }; 
+            };
         }
     }
 }

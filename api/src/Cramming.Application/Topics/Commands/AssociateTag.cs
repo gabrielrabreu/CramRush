@@ -7,7 +7,7 @@ namespace Cramming.Application.Topics.Commands
     /// <summary>
     /// Represents the result of associating a tag with a topic.
     /// </summary>
-    public record AssociateTagResultDto(Guid TagId, Guid TopicId, string TagName)
+    public record AssociateTagResultDto(Guid TagId, Guid TopicId, string TagName, string Colour)
     {
         /// <summary>
         /// The ID of the tag associated with the topic.
@@ -23,6 +23,11 @@ namespace Cramming.Application.Topics.Commands
         /// The name of the tag.
         /// </summary>
         public string TagName { get; init; } = TagName;
+
+        /// <summary>
+        /// The colour of the tag.
+        /// </summary>
+        public string Colour { get; init; } = Colour;
     }
 
     /// <summary>
@@ -39,6 +44,11 @@ namespace Cramming.Application.Topics.Commands
         /// The name of the tag to associate with the topic.
         /// </summary>
         public string TagName { get; init; } = string.Empty;
+
+        /// <summary>
+        /// The colour of the tag to associate with the topic.
+        /// </summary>
+        public string? Colour { get; init; } = string.Empty;
     }
 
     public class AssociateTagCommandValidator : AbstractValidator<AssociateTagCommand>
@@ -56,12 +66,12 @@ namespace Cramming.Application.Topics.Commands
         {
             var topic = await topicRepository.GetByIdAsync(request.TopicId, cancellationToken);
 
-            var associatedTag = topic!.AssociateTag(request.TagName);
+            var associatedTag = topic!.AssociateTag(request.TagName, request.Colour);
 
             await topicRepository.UpdateAsync(topic, cancellationToken);
             await topicRepository.SaveChangesAsync(cancellationToken);
 
-            return new AssociateTagResultDto(associatedTag.Id, associatedTag.TopicId, associatedTag.Name);
+            return new AssociateTagResultDto(associatedTag.Id, associatedTag.TopicId, associatedTag.Name, associatedTag.Colour.Code);
         }
     }
 }

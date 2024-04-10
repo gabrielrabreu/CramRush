@@ -7,7 +7,7 @@
         public Guid QuestionId { get; set; } = questionId;
 
         public string Statement { get; set; } = statement;
-        
+
         public bool IsAnswer { get; set; } = isAnswer;
 
         public TopicMultipleChoiceQuestionOptionEntity(Guid questionId, string statement, bool isAnswer) : this(Guid.NewGuid(), questionId, statement, isAnswer)

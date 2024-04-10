@@ -6,7 +6,7 @@ namespace Cramming.Application.Topics.Queries
     /// <summary>
     /// Represents a brief view of a tag associated with a topic.
     /// </summary>
-    public record TopicTagBriefDto(Guid Id, string Name)
+    public record TopicTagBriefDto(Guid Id, string Name, string Colour)
     {
         /// <summary>
         /// The ID of the tag.
@@ -17,6 +17,11 @@ namespace Cramming.Application.Topics.Queries
         /// The name of the tag.
         /// </summary>
         public string Name { get; init; } = Name;
+
+        /// <summary>
+        /// The colour of the tag.
+        /// </summary>
+        public string Colour { get; init; } = Colour;
     };
 
     /// <summary>

@@ -117,6 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="PromptForEachQuestion" xml:space="preserve">
+    <value>- Para cada questão:</value>
+  </data>
+  <data name="PromptForEachQuestionOption" xml:space="preserve">
+    <value>- Para cada opção:</value>
+  </data>
+  <data name="PromptQuestionAnswer" xml:space="preserve">
+    <value>- Resposta ({0}): Insira a resposta para a questão (formato string). Para questões de múltipla escolha, deixe em branco (null).</value>
+  </data>
+  <data name="PromptQuestionOptionIsAnswer" xml:space="preserve">
+    <value>- É resposta? ({0}): Indique se esta é a resposta correta (true / false).</value>
+  </data>
+  <data name="PromptQuestionOptions" xml:space="preserve">
+    <value>- Opções ({0}, apenas para questões de múltipla escolha):</value>
+  </data>
+  <data name="PromptQuestionOptionStatement" xml:space="preserve">
+    <value>- Declaração ({0}): Insira a declaração da opção (formato string).</value>
+  </data>
+  <data name="PromptQuestions" xml:space="preserve">
+    <value>2. Lista de Questões ({0}):</value>
+  </data>
+  <data name="PromptQuestionStatement" xml:space="preserve">
+    <value>- Declaração ({0}): Insira a declaração da questão (formato string).</value>
+  </data>
+  <data name="PromptQuestionType" xml:space="preserve">
+    <value>- Tipo ({0}): Indique o tipo da questão, que pode ser  "OpenEnded" ou "MultipleChoice".</value>
+  </data>
+  <data name="PromptTopicId" xml:space="preserve">
+    <value>1. ID do Tópico ({0}): Insira o ID do tópico ao qual as questões estão relacionadas (formato UUID)</value>
+  </data>
+  <data name="QuestionGenerationPrompt" xml:space="preserve">
+    <value>1. ID do Tópico (topicId): Insira o ID do tópico ao qual as questões estão relacionadas (formato UUID).
+
+2. Lista de Questões (questions):
+   - Para cada questão:
+     - Tipo (type): Indique o tipo da questão, que pode ser  ""OpenEnded"" ou ""MultipleChoice"".
+     - Declaração (statement): Insira a declaração da questão (formato string).
+     - Resposta (answer): Insira a resposta para a questão (formato string). Para questões de múltipla escolha, deixe em branco (null).
+     - Escolhas (choices, apenas para questões de múltipla escolha):
+       - Para cada escolha:
+         - Declaração (statement): Insira a declaração da escolha (formato string).
+         - É resposta? (isAnswer): Indique se esta é a resposta correta (true / false).</value>
+  </data>
   <data name="TopicName" xml:space="preserve">
     <value>Nome</value>
   </data>

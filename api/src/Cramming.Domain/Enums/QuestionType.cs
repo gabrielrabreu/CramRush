@@ -5,7 +5,6 @@
     /// </summary>
     public enum QuestionType
     {
-        Undefined,
         OpenEnded,
         MultipleChoice
     }

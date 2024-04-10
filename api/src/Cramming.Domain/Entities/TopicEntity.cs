@@ -1,8 +1,6 @@
 ﻿using Cramming.Domain.Common;
-using Cramming.Domain.Common.Exceptions;
 using Cramming.Domain.Enums;
 using Cramming.Domain.ValueObjects;
-using Cramming.Infrastructure.Resources;
 
 namespace Cramming.Domain.Entities
 {
@@ -11,7 +9,7 @@ namespace Cramming.Domain.Entities
         public Guid Id { get; set; } = id;
 
         public string Name { get; set; } = name;
-        
+
         public string Description { get; set; } = description;
 
         private readonly List<TopicTagEntity> _tags = tags;
@@ -24,19 +22,30 @@ namespace Cramming.Domain.Entities
         {
         }
 
-        public TopicTagEntity AssociateTag(string tagName)
+        public TopicTagEntity AssociateTag(string tagName, string? tagColour)
         {
-            var newTag = new TopicTagEntity(Id, tagName);
-            
+            var newTag = new TopicTagEntity(Id, tagName, tagColour);
+
             _tags.Add(newTag);
-            
+
             return newTag;
+        }
+
+        public void UpdateTag(Guid tagId, string tagName, string? tagColour)
+        {
+            var tag = _tags.SingleOrDefault(t => t.Id == tagId);
+
+            if (tag != null)
+            {
+                tag.Name = tagName;
+                tag.Colour = new Colour(tagColour);
+            }
         }
 
         public void DisassociateTag(Guid tagId)
         {
             var tag = _tags.SingleOrDefault(p => p.Id == tagId);
-            
+
             if (tag != null)
                 _tags.Remove(tag);
         }
@@ -45,17 +54,16 @@ namespace Cramming.Domain.Entities
         {
             TopicQuestionEntity newQuestion = parameters.Type switch
             {
-                QuestionType.OpenEnded => new TopicOpenEndedQuestionEntity(Id, parameters),
                 QuestionType.MultipleChoice => new TopicMultipleChoiceQuestionEntity(Id, parameters),
-                _ => throw new DomainRuleException(nameof(parameters.Type), string.Format(MyResources.UnknownQuestionType, parameters.Type)),
+                _ => new TopicOpenEndedQuestionEntity(Id, parameters),
             };
 
             _questions.Add(newQuestion);
-            
+
             return newQuestion;
         }
 
-        public void ClearQuestions() 
+        public void ClearQuestions()
         {
             _questions.Clear();
         }

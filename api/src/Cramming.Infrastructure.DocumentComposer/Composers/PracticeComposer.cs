@@ -1,0 +1,24 @@
+﻿using Cramming.Application.Common.Interfaces;
+using Cramming.Application.Practices.Interfaces;
+using Cramming.Application.Topics.Queries;
+using Cramming.Infrastructure.DocumentComposer.Documents;
+using QuestPDF;
+using QuestPDF.Fluent;
+using QuestPDF.Infrastructure;
+
+namespace Cramming.Infrastructure.DocumentComposer.Composers
+{
+    public class PracticeComposer : IPracticeComposer
+    {
+        public FileComposed Compose(TopicDetailDto topic)
+        {
+            Settings.License = LicenseType.Community;
+
+            var document = new PracticeDocument(topic);
+
+            var content = document.GeneratePdf();
+
+            return new FileComposed(content, "application/pdf", "Practice.pdf");
+        }
+    }
+}

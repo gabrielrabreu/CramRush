@@ -11,7 +11,7 @@
         int TotalCount { get; }
 
         bool HasPreviousPage { get; }
-            
+
         bool HasNextPage { get; }
     }
 }

@@ -9,8 +9,8 @@ namespace Cramming.Domain.Entities
 
         public TopicMultipleChoiceQuestionEntity(Guid topicId, AssociateQuestionParameters parameters) : this(Guid.NewGuid(), topicId, parameters.Statement, [])
         {
-            foreach (var choice in parameters.Choices)
-                AssociateOption(choice.Statement, choice.IsAnswer);
+            foreach (var option in parameters.Options)
+                AssociateOption(option.Statement, option.IsAnswer);
         }
 
         public TopicMultipleChoiceQuestionOptionEntity AssociateOption(string statement, bool isAnswer = false)
