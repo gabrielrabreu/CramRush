@@ -2,7 +2,7 @@
 using Cramming.Infrastructure.Data;
 using Cramming.Infrastructure.Data.Queries;
 using Cramming.Infrastructure.Data.Repositories;
-using Cramming.Infrastructure.PDF.Services;
+using Cramming.Infrastructure.PDF;
 using Cramming.SharedKernel;
 using Cramming.UseCases.Topics.GetNotecards;
 using Cramming.UseCases.Topics.GetPracticeTest;

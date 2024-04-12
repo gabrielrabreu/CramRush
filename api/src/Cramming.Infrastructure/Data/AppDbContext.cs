@@ -8,8 +8,6 @@ namespace Cramming.Infrastructure.Data
     {
         public DbSet<Topic> Topics => Set<Topic>();
 
-        public DbSet<Tag> Tags => Set<Tag>();
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
