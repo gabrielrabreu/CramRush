@@ -5,7 +5,7 @@ namespace Cramming.UseCases.Topics.GetPracticeTest
 {
     public class GetPracticeTestHandler(
         ITopicReadRepository repository,
-        IPracticeTestPDFService service) : IQueryHandler<GetPracticeTestQuery, Result<Document>>
+        IPracticeTestPdfService service) : IQueryHandler<GetPracticeTestQuery, Result<Document>>
     {
         public async Task<Result<Document>> Handle(GetPracticeTestQuery request, CancellationToken cancellationToken)
         {

@@ -30,8 +30,8 @@ namespace Cramming.Infrastructure
 
             services.AddScoped<ISearchTopicQueryService, SearchTopicQueryService>();
 
-            services.AddScoped<INotecardsPDFService, NotecardsPDFService>();
-            services.AddScoped<IPracticeTestPDFService, PracticeTestPDFService>();
+            services.AddScoped<INotecardsPdfService, NotecardsPdfService>();
+            services.AddScoped<IPracticeTestPdfService, PracticeTestPdfService>();
 
             logger.LogInformation("{Project} services registered", "Infrastructure");
 

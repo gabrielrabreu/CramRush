@@ -5,22 +5,22 @@ namespace Cramming.UnitTests.SharedKernel
     public class LoggingBehaviourTests
     {
         private readonly Mock<ILogger<Mediator>> _loggerMock;
-        private readonly Mock<RequestHandlerDelegate<MyResponse>> _nextMock;
-        private readonly LoggingBehaviour<MyRequest, MyResponse> _behaviour;
+        private readonly Mock<RequestHandlerDelegate<SampleResponse>> _nextMock;
+        private readonly LoggingBehaviour<SampleRequest, SampleResponse> _behaviour;
 
         public LoggingBehaviourTests()
         {
             _loggerMock = new Mock<ILogger<Mediator>>();
-            _nextMock = new Mock<RequestHandlerDelegate<MyResponse>>();
-            _behaviour = new LoggingBehaviour<MyRequest, MyResponse>(_loggerMock.Object);
+            _nextMock = new Mock<RequestHandlerDelegate<SampleResponse>>();
+            _behaviour = new LoggingBehaviour<SampleRequest, SampleResponse>(_loggerMock.Object);
         }
 
         [Fact]
         public async Task Process_ShouldLogRequestAndResponse()
         {
             // Arrange
-            var request = new MyRequest();
-            var response = new MyResponse();
+            var request = new SampleRequest();
+            var response = new SampleResponse(Guid.NewGuid());
             var cancellationToken = new CancellationToken();
 
             _nextMock.Setup(handler => handler()).ReturnsAsync(response);
@@ -34,19 +34,19 @@ namespace Cramming.UnitTests.SharedKernel
             _loggerMock.VerifyLog(
                 LogLevel.Information,
                 "Handling {RequestName}",
-                new KeyValuePair<string, object>("RequestName", typeof(MyRequest).Name));
+                new KeyValuePair<string, object>("RequestName", typeof(SampleRequest).Name));
 
             _nextMock.Verify(handler => handler(), Times.Once);
 
             _loggerMock.VerifyLog(
                 LogLevel.Information,
                 "Handled {RequestName} with {Response} in {ms} ms",
-                new KeyValuePair<string, object>("RequestName", typeof(MyRequest).Name),
+                new KeyValuePair<string, object>("RequestName", typeof(SampleRequest).Name),
                 new KeyValuePair<string, object>("Response", response));
         }
 
-        public record MyRequest : IRequest<MyResponse> { }
+        public record SampleRequest : IRequest<SampleResponse> { }
 
-        public record MyResponse { }
+        public record SampleResponse(Guid Id);
     }
 }

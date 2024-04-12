@@ -5,7 +5,7 @@ namespace Cramming.UseCases.Topics.GetNotecards
 {
     public class GetNotecardsHandler(
         ITopicReadRepository repository,
-        INotecardsPDFService service) : IQueryHandler<GetNotecardsQuery, Result<Document>>
+        INotecardsPdfService service) : IQueryHandler<GetNotecardsQuery, Result<Document>>
     {
         public async Task<Result<Document>> Handle(GetNotecardsQuery request, CancellationToken cancellationToken)
         {

@@ -8,13 +8,13 @@ namespace Cramming.UnitTests.UseCases.Topics
     public class GetNotecardsHandlerTests
     {
         private readonly Mock<ITopicReadRepository> _repositoryMock;
-        private readonly Mock<INotecardsPDFService> _serviceMock;
+        private readonly Mock<INotecardsPdfService> _serviceMock;
         private readonly GetNotecardsHandler _handler;
 
         public GetNotecardsHandlerTests()
         {
             _repositoryMock = new Mock<ITopicReadRepository>();
-            _serviceMock = new Mock<INotecardsPDFService>();
+            _serviceMock = new Mock<INotecardsPdfService>();
             _handler = new GetNotecardsHandler(_repositoryMock.Object, _serviceMock.Object);
         }
 

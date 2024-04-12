@@ -8,13 +8,13 @@ namespace Cramming.UnitTests.UseCases.Topics
     public class GetPracticeTestHandlerTests
     {
         private readonly Mock<ITopicReadRepository> _repositoryMock;
-        private readonly Mock<IPracticeTestPDFService> _serviceMock;
+        private readonly Mock<IPracticeTestPdfService> _serviceMock;
         private readonly GetPracticeTestHandler _handler;
 
         public GetPracticeTestHandlerTests()
         {
             _repositoryMock = new Mock<ITopicReadRepository>();
-            _serviceMock = new Mock<IPracticeTestPDFService>();
+            _serviceMock = new Mock<IPracticeTestPdfService>();
             _handler = new GetPracticeTestHandler(_repositoryMock.Object, _serviceMock.Object);
         }
 

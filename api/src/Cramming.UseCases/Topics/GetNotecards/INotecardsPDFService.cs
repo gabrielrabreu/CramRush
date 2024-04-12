@@ -3,7 +3,7 @@ using Cramming.SharedKernel;
 
 namespace Cramming.UseCases.Topics.GetNotecards
 {
-    public interface INotecardsPDFService : IDocumentService<Topic>
+    public interface INotecardsPdfService : IDocumentService<Topic>
     {
     }
 }

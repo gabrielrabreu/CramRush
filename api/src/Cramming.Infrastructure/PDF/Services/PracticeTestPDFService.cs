@@ -7,7 +7,7 @@ using QuestPDF.Infrastructure;
 
 namespace Cramming.Infrastructure.PDF.Services
 {
-    public class PracticeTestPDFService : IPracticeTestPDFService
+    public class PracticeTestPdfService : IPracticeTestPdfService
     {
         public Task<SharedKernel.Document> ComposeAsync(Topic model, CancellationToken cancellationToken = default)
         {

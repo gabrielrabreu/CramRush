@@ -7,7 +7,7 @@ using QuestPDF.Infrastructure;
 
 namespace Cramming.Infrastructure.PDF.Services
 {
-    public class NotecardsPDFService : INotecardsPDFService
+    public class NotecardsPdfService : INotecardsPdfService
     {
         public Task<SharedKernel.Document> ComposeAsync(Topic model, CancellationToken cancellationToken = default)
         {
