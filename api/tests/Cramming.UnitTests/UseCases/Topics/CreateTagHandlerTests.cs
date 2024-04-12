@@ -37,10 +37,10 @@ namespace Cramming.UnitTests.UseCases.Topics
             result.Should().NotBeNull();
             result.Status.Should().Be(HttpStatusCode.OK);
             result.Value.Should().NotBeNull();
-            result.Value.Id.Should().Be(tag.Id);
+            result.Value!.Id.Should().Be(tag.Id);
             result.Value.TopicId.Should().Be(tag.TopicId);
             result.Value.Name.Should().Be(tag.Name);
-            result.Value.Colour.Should().Be(tag.Colour.Code);
+            result.Value.Colour.Should().Be(tag.Colour!.Code);
 
             _repositoryMock.Verify(mock => mock.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Once);
             _repositoryMock.Verify(mock => mock.GetByIdAsync(request.TopicId, cancellationToken), Times.Once);

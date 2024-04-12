@@ -48,7 +48,8 @@ namespace Cramming.UnitTests.Domain.TopicAggregate
             tag.Should().NotBeNull();
             topic.Tags.Should().Contain(tag);
             tag.Name.Should().Be(tagName);
-            tag.Colour.Code.Should().Be(tagColour);
+            tag.Colour.Should().NotBeNull();
+            tag.Colour!.Code.Should().Be(tagColour);
         }
 
         [Fact]
@@ -82,7 +83,12 @@ namespace Cramming.UnitTests.Domain.TopicAggregate
             topic.UpdateTagColour(tag.Id, newColour);
 
             // Assert
-            topic.Tags.First(t => t.Id == tag.Id).Colour.Code.Should().Be(newColour);
+            topic.Tags.Should().HaveCount(1);
+            topic.Tags.Should().SatisfyRespectively(first => 
+            {
+                first.Colour.Should().NotBeNull();
+                first.Colour!.Code.Should().Be(newColour);
+            });
         }
 
         [Fact]

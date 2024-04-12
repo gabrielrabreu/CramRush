@@ -23,6 +23,8 @@ namespace Cramming.UnitTests.SharedKernel
 
             // Act & Assert
             obj1.Equals(obj2).Should().BeTrue();
+            (obj1 == obj2).Should().BeFalse();
+            (obj1 != obj2).Should().BeTrue();
             obj1.GetHashCode().Should().Be(obj2.GetHashCode());
         }
 
@@ -35,6 +37,8 @@ namespace Cramming.UnitTests.SharedKernel
 
             // Act & Assert
             obj1.Equals(obj2).Should().BeFalse();
+            (obj1 == obj2).Should().BeFalse();
+            (obj1 != obj2).Should().BeTrue();
         }
 
         [Fact]
@@ -46,6 +50,8 @@ namespace Cramming.UnitTests.SharedKernel
 
             // Act & Assert
             obj.Equals(differentTypeObj).Should().BeFalse();
+            (obj == differentTypeObj).Should().BeFalse();
+            (obj != differentTypeObj).Should().BeTrue();
         }
 
         [Fact]
@@ -56,6 +62,8 @@ namespace Cramming.UnitTests.SharedKernel
 
             // Act & Assert
             obj.Equals(null).Should().BeFalse();
+            (obj == null).Should().BeFalse();
+            (obj != null).Should().BeTrue();
         }
 
         [Fact]

@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a request to retrieve notecards for a specific topic.
     /// </summary>
-    public class GetNotecardsRequest
+    public static class GetNotecardsRequest
     {
         /// <summary>
         /// The route for retrieving notecards for a specific topic.

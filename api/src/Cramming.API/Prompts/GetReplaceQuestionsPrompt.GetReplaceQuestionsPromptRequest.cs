@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a request to get the prompt for replacing questions.
     /// </summary>
-    public class GetReplaceQuestionsPromptRequest
+    public static class GetReplaceQuestionsPromptRequest
     {
         /// <summary>
         /// The route for getting the prompt for replacing questions.

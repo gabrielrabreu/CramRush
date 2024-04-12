@@ -34,7 +34,7 @@ namespace Cramming.UnitTests.UseCases.Topics
             result.Should().NotBeNull();
             result.Status.Should().Be(HttpStatusCode.OK);
             result.Value.Should().NotBeNull();
-            result.Value.Id.Should().Be(topic.Id);
+            result.Value!.Id.Should().Be(topic.Id);
             result.Value.Name.Should().Be(topic.Name);
             result.Value.Tags.Should().BeEmpty();
             result.Value.Questions.Should().BeEmpty();
@@ -63,7 +63,7 @@ namespace Cramming.UnitTests.UseCases.Topics
             result.Should().NotBeNull();
             result.Status.Should().Be(HttpStatusCode.OK);
             result.Value.Should().NotBeNull();
-            result.Value.Id.Should().Be(topic.Id);
+            result.Value!.Id.Should().Be(topic.Id);
             result.Value.Name.Should().Be(topic.Name);
             result.Value.Tags.Should().HaveCount(1);
             result.Value.Tags.Should().SatisfyRespectively(first =>
@@ -71,7 +71,7 @@ namespace Cramming.UnitTests.UseCases.Topics
                 first.Id.Should().Be(tag.Id);
                 first.TopicId.Should().Be(tag.TopicId);
                 first.Name.Should().Be(tag.Name);
-                first.Colour.Should().Be(tag.Colour.Code);
+                first.Colour.Should().Be(tag.Colour!.Code);
             });
             result.Value.Questions.Should().BeEmpty();
 
@@ -99,7 +99,7 @@ namespace Cramming.UnitTests.UseCases.Topics
             result.Should().NotBeNull();
             result.Status.Should().Be(HttpStatusCode.OK);
             result.Value.Should().NotBeNull();
-            result.Value.Id.Should().Be(topic.Id);
+            result.Value!.Id.Should().Be(topic.Id);
             result.Value.Name.Should().Be(topic.Name);
             result.Value.Tags.Should().BeEmpty();
             result.Value.Questions.Should().HaveCount(1);
@@ -139,7 +139,7 @@ namespace Cramming.UnitTests.UseCases.Topics
             result.Should().NotBeNull();
             result.Status.Should().Be(HttpStatusCode.OK);
             result.Value.Should().NotBeNull();
-            result.Value.Id.Should().Be(topic.Id);
+            result.Value!.Id.Should().Be(topic.Id);
             result.Value.Name.Should().Be(topic.Name);
             result.Value.Tags.Should().BeEmpty();
             result.Value.Questions.Should().HaveCount(1);

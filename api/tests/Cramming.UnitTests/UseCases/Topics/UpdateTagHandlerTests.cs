@@ -33,7 +33,8 @@ namespace Cramming.UnitTests.UseCases.Topics
 
             // Assert
             tag.Name.Should().Be(request.Name);
-            tag.Colour.Code.Should().Be(request.Colour);
+            tag.Colour.Should().NotBeNull();
+            tag.Colour!.Code.Should().Be(request.Colour);
 
             result.Should().NotBeNull();
             result.Status.Should().Be(HttpStatusCode.OK);

@@ -34,7 +34,7 @@ namespace Cramming.UnitTests.UseCases.Topics
             result.Should().NotBeNull();
             result.Status.Should().Be(HttpStatusCode.OK);
             result.Value.Should().NotBeNull();
-            result.Value.Id.Should().Be(topic.Id);
+            result.Value!.Id.Should().Be(topic.Id);
             result.Value.Name.Should().Be(topic.Name);
 
             _repositoryMock.Verify(mock => mock.AddAsync(It.IsAny<Topic>(), It.IsAny<CancellationToken>()), Times.Once);

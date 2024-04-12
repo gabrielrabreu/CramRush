@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a request to retrieve a topic by its ID.
     /// </summary>
-    public class GetTopicByIdRequest
+    public static class GetTopicByIdRequest
     {
         /// <summary>
         /// The route for retrieving a topic with a specified ID.

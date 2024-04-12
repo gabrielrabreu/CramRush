@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a request to delete a tag associated with a topic.
     /// </summary>
-    public class DeleteTagRequest
+    public static class DeleteTagRequest
     {
         /// <summary>
         /// The route for deleting a tag associated with a topic.

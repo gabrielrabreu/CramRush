@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a request to delete a topic.
     /// </summary>
-    public class DeleteTopicRequest
+    public static class DeleteTopicRequest
     {
         /// <summary>
         /// The route for deleting a topic with a specified ID.

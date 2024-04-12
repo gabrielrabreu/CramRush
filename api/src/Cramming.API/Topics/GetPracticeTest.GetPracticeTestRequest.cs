@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a request to retrieve notecards for a specific topic.
     /// </summary>
-    public class GetPracticeTestRequest
+    public static class GetPracticeTestRequest
     {
         /// <summary>
         /// The route for retrieving notecards for a specific topic.
