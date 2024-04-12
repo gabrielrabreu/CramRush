@@ -4,6 +4,9 @@ namespace Cramming.UnitTests.SharedKernel
 {
     public class LoggingBehaviourTests
     {
+        public record SampleResponse(Guid Id);
+        public record SampleRequest : IRequest<SampleResponse> { }
+
         private readonly Mock<ILogger<Mediator>> _loggerMock;
         private readonly Mock<RequestHandlerDelegate<SampleResponse>> _nextMock;
         private readonly LoggingBehaviour<SampleRequest, SampleResponse> _behaviour;
@@ -44,9 +47,5 @@ namespace Cramming.UnitTests.SharedKernel
                 new KeyValuePair<string, object>("RequestName", typeof(SampleRequest).Name),
                 new KeyValuePair<string, object>("Response", response));
         }
-
-        public record SampleRequest : IRequest<SampleResponse> { }
-
-        public record SampleResponse(Guid Id);
     }
 }
