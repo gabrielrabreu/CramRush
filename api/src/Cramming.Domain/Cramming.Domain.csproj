@@ -9,12 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
-    <PackageReference Include="MediatR" Version="12.2.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Cramming.Infrastructure.Resources\Cramming.Infrastructure.Resources.csproj" />
+    <ProjectReference Include="..\Cramming.SharedKernel\Cramming.SharedKernel.csproj" />
   </ItemGroup>
 
 </Project>
