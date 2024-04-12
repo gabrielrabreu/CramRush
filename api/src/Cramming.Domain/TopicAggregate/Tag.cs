@@ -10,7 +10,7 @@ namespace Cramming.Domain.TopicAggregate
 
         public string Name { get; private set; } = name;
 
-        public Colour Colour { get; private set; }
+        public Colour? Colour { get; private set; }
 
         public void UpdateName(string newName)
         {

@@ -2,9 +2,6 @@
 using Cramming.Domain.TopicAggregate.Repositories;
 using Cramming.SharedKernel;
 using Cramming.UseCases.Topics.GetNotecards;
-using FluentAssertions;
-using Moq;
-using System.Net;
 
 namespace Cramming.UnitTests.UseCases.Topics
 {

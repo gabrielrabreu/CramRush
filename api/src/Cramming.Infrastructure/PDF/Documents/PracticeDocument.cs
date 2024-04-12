@@ -45,7 +45,7 @@ namespace Cramming.Infrastructure.PDF.Documents
             });
         }
 
-        private void ComposeQuestion(Question question, IContainer container)
+        private static void ComposeQuestion(Question question, IContainer container)
         {
             if (question is OpenEndedQuestion openEndedQuestion)
                 ComposeQuestion(openEndedQuestion, container);
@@ -53,7 +53,7 @@ namespace Cramming.Infrastructure.PDF.Documents
                 ComposeQuestion(multipleChoiceQuestion, container);
         }
 
-        private void ComposeQuestion(OpenEndedQuestion question, IContainer container)
+        private static void ComposeQuestion(OpenEndedQuestion question, IContainer container)
         {
             container.PaddingBottom(40).Column(column =>
             {
@@ -61,7 +61,7 @@ namespace Cramming.Infrastructure.PDF.Documents
             });
         }
 
-        private void ComposeQuestion(MultipleChoiceQuestion question, IContainer container)
+        private static void ComposeQuestion(MultipleChoiceQuestion question, IContainer container)
         {
             container.PaddingBottom(10).Column(column =>
             {

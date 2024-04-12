@@ -32,7 +32,7 @@ namespace Cramming.Infrastructure.PDF.Documents
                 foreach (var tag in Topic.Tags)
                 {
                     text.Span(tag.Name)
-                        .BackgroundColor(tag.Colour.Code)
+                        .BackgroundColor(tag.Colour?.Code ?? Colors.White)
                         .FontColor(Colors.Black);
                     text.Span(DocumentConstants.Semicolon);
                 }
@@ -56,7 +56,7 @@ namespace Cramming.Infrastructure.PDF.Documents
             });
         }
 
-        protected void ComposeFooter(IContainer container)
+        protected static void ComposeFooter(IContainer container)
         {
             container.AlignCenter().Text(text =>
             {

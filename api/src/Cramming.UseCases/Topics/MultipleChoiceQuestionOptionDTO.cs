@@ -1,4 +1,4 @@
 ﻿namespace Cramming.UseCases.Topics
 {
-    public record MultipleChoiceQuestionOptionDTO(Guid Id, Guid QuestionId, string Statement, bool IsAnswer);
+    public record MultipleChoiceQuestionOptionDto(Guid Id, Guid QuestionId, string Statement, bool IsAnswer);
 }

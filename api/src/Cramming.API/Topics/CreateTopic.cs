@@ -17,7 +17,7 @@ namespace Cramming.API.Topics
                 .WithSummary("Create a new topic");
         }
 
-        private async Task<Created<TopicBriefDTO>> HandleAsync(
+        private async Task<Created<TopicBriefDto>> HandleAsync(
             [FromBody] CreateTopicRequest request,
             IMediator mediator,
             CancellationToken cancellationToken)
@@ -26,7 +26,7 @@ namespace Cramming.API.Topics
 
             var result = await mediator.Send(command, cancellationToken);
 
-            return TypedResults.Created(GetTopicByIdRequest.BuildRoute(result.Value.Id), result.Value);
+            return TypedResults.Created(GetTopicByIdRequest.BuildRoute(result.Value!.Id), result.Value);
         }
     }
 }

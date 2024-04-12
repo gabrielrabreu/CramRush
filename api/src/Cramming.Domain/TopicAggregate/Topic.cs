@@ -23,16 +23,6 @@ namespace Cramming.Domain.TopicAggregate
             return tag;
         }
 
-        public bool HasTag(Guid tagId)
-        {
-            return Tags.Any(tag => tag.Id == tagId);
-        }
-
-        public bool DoesNotHaveTag(Guid tagId)
-        {
-            return !HasTag(tagId);
-        }
-
         public void UpdateTagName(Guid tagId, string tagName)
         {
             var tag = Tags.SingleOrDefault(tag => tag.Id == tagId);
@@ -52,9 +42,19 @@ namespace Cramming.Domain.TopicAggregate
                 Tags.Remove(tag);
         }
 
-        public void ClearQuestions()
+        public bool HasTag(Guid tagId)
         {
-            Questions.Clear();
+            return Tags.Any(tag => tag.Id == tagId);
+        }
+
+        public bool HasTags()
+        {
+            return Tags.Count > 0;
+        }
+
+        public bool DoesNotHaveTag(Guid tagId)
+        {
+            return !HasTag(tagId);
         }
 
         public OpenEndedQuestion AddOpenEndedQuestion(string questionStatement, string questionAnswer)
@@ -71,9 +71,9 @@ namespace Cramming.Domain.TopicAggregate
             return question;
         }
 
-        public bool HasTags()
+        public void ClearQuestions()
         {
-            return Tags.Count > 0;
+            Questions.Clear();
         }
     }
 }

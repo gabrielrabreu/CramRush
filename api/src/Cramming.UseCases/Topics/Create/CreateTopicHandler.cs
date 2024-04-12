@@ -4,15 +4,15 @@ using Cramming.SharedKernel;
 
 namespace Cramming.UseCases.Topics.Create
 {
-    public class CreateTopicHandler(ITopicRepository repository) : ICommandHandler<CreateTopicCommand, Result<TopicBriefDTO>>
+    public class CreateTopicHandler(ITopicRepository repository) : ICommandHandler<CreateTopicCommand, Result<TopicBriefDto>>
     {
-        public async Task<Result<TopicBriefDTO>> Handle(CreateTopicCommand request, CancellationToken cancellationToken)
+        public async Task<Result<TopicBriefDto>> Handle(CreateTopicCommand request, CancellationToken cancellationToken)
         {
             var topic = new Topic(request.Name);
 
             var created = await repository.AddAsync(topic, cancellationToken);
 
-            return new TopicBriefDTO(created.Id, created.Name);
+            return new TopicBriefDto(created.Id, created.Name);
         }
     }
 }

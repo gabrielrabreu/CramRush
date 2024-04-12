@@ -1,4 +1,4 @@
 ﻿namespace Cramming.UseCases.Topics
 {
-    public record TopicBriefDTO(Guid Id, string Name);
+    public record TopicBriefDto(Guid Id, string Name);
 }

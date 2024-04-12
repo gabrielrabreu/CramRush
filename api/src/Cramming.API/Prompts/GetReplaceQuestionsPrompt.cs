@@ -1,5 +1,4 @@
 ﻿using Cramming.API.Topics;
-using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Cramming.API.Prompts
@@ -15,9 +14,7 @@ namespace Cramming.API.Prompts
                 .WithSummary("Get Prompt for Replace Questions");
         }
 
-        private Ok<GetReplaceQuestionsPromptResponse> Handle(
-            IMediator mediator,
-            CancellationToken cancellationToken)
+        private Ok<GetReplaceQuestionsPromptResponse> Handle()
         {
             var prompt = @"
 1. List of Questions (questions):

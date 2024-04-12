@@ -1,8 +1,4 @@
 ﻿using Cramming.SharedKernel;
-using FluentAssertions;
-using MediatR;
-using Microsoft.Extensions.Logging;
-using Moq;
 
 namespace Cramming.UnitTests.SharedKernel
 {

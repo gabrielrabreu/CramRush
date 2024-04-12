@@ -1,9 +1,6 @@
 ﻿using Cramming.SharedKernel;
 using Cramming.UseCases.Topics;
 using Cramming.UseCases.Topics.Search;
-using FluentAssertions;
-using Moq;
-using System.Net;
 
 namespace Cramming.UnitTests.UseCases.Topics
 {
@@ -22,7 +19,7 @@ namespace Cramming.UnitTests.UseCases.Topics
         public async Task Handle_ShouldReturnPàgedList()
         {
             // Arrange
-            var pagedList = new PagedList<TopicBriefDTO>([], 0, 1, 2);
+            var pagedList = new PagedList<TopicBriefDto>([], 0, 1, 2);
 
             var request = new SearchTopicQuery(1, 2);
             var cancellationToken = new CancellationToken();

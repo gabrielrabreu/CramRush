@@ -1,12 +1,11 @@
 ﻿using Cramming.SharedKernel;
-using FluentAssertions;
 
 namespace Cramming.UnitTests.SharedKernel
 {
     public class PagedListTests
     {
         [Fact]
-        public void Constructor_ShouldSetPropertiesCorrectly()
+        public void Constructor_ShouldSetProperties()
         {
             // Arrange
             var items = new List<int> { 1, 2, 3, 4, 5 };

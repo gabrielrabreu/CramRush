@@ -14,7 +14,7 @@ namespace Cramming.UseCases.Topics.GetPracticeTest
             if (topic == null)
                 return Result.NotFound();
 
-            return await service.ComposeAsync(topic);
+            return await service.ComposeAsync(topic, cancellationToken);
         }
     }
 }

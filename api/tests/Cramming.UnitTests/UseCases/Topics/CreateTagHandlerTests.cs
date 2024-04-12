@@ -1,9 +1,6 @@
 ﻿using Cramming.Domain.TopicAggregate;
 using Cramming.Domain.TopicAggregate.Repositories;
 using Cramming.UseCases.Topics.CreateTag;
-using FluentAssertions;
-using Moq;
-using System.Net;
 
 namespace Cramming.UnitTests.UseCases.Topics
 {

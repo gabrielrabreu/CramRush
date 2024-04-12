@@ -2,6 +2,6 @@
 
 namespace Cramming.UseCases.Topics
 {
-    public record QuestionDTO(Guid Id, Guid TopicId, QuestionType Type, string Statement, string? Answer, IEnumerable<MultipleChoiceQuestionOptionDTO> Options);
+    public record QuestionDto(Guid Id, Guid TopicId, QuestionType Type, string Statement, string? Answer, IEnumerable<MultipleChoiceQuestionOptionDto> Options);
 
 }

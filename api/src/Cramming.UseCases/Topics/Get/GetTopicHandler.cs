@@ -4,20 +4,20 @@ using Cramming.SharedKernel;
 
 namespace Cramming.UseCases.Topics.Get
 {
-    public class GetTopicHandler(ITopicReadRepository repository) : IQueryHandler<GetTopicQuery, Result<TopicDTO>>
+    public class GetTopicHandler(ITopicReadRepository repository) : IQueryHandler<GetTopicQuery, Result<TopicDto>>
     {
-        public async Task<Result<TopicDTO>> Handle(GetTopicQuery request, CancellationToken cancellationToken)
+        public async Task<Result<TopicDto>> Handle(GetTopicQuery request, CancellationToken cancellationToken)
         {
             var topic = await repository.GetByIdAsync(request.TopicId, cancellationToken);
 
             if (topic == null)
                 return Result.NotFound();
 
-            return new TopicDTO(
+            return new TopicDto(
                 topic.Id,
                 topic.Name,
                 topic.Tags.Select(tag =>
-                    new TagDTO(
+                    new TagDto(
                         tag.Id,
                         tag.TopicId,
                         tag.Name,
@@ -25,7 +25,7 @@ namespace Cramming.UseCases.Topics.Get
                 topic.Questions.Select(question =>
                 {
                     if (question is OpenEndedQuestion openEndedQuestion)
-                        return new QuestionDTO(
+                        return new QuestionDto(
                             openEndedQuestion.Id,
                             openEndedQuestion.TopicId,
                             QuestionType.OpenEnded,
@@ -33,14 +33,14 @@ namespace Cramming.UseCases.Topics.Get
                             openEndedQuestion.Answer,
                             []);
                     if (question is MultipleChoiceQuestion multipleChoiceQuestion)
-                        return new QuestionDTO(
+                        return new QuestionDto(
                             multipleChoiceQuestion.Id,
                             multipleChoiceQuestion.TopicId,
                             QuestionType.MultipleChoice,
                             multipleChoiceQuestion.Statement,
                             null,
                             multipleChoiceQuestion.Options.Select(option =>
-                                new MultipleChoiceQuestionOptionDTO(
+                                new MultipleChoiceQuestionOptionDto(
                                     option.Id,
                                     option.QuestionId,
                                     option.Statement,

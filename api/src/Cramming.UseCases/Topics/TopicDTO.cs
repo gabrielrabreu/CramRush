@@ -1,4 +1,4 @@
 ﻿namespace Cramming.UseCases.Topics
 {
-    public record TopicDTO(Guid Id, string Name, IEnumerable<TagDTO> Tags, IEnumerable<QuestionDTO> Questions);
+    public record TopicDto(Guid Id, string Name, IEnumerable<TagDto> Tags, IEnumerable<QuestionDto> Questions);
 }

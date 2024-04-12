@@ -1,6 +1,6 @@
 ﻿namespace Cramming.Infrastructure.PDF.Documents
 {
-    public class DocumentConstants
+    public static class DocumentConstants
     {
         public const string AppName = "Cramming";
         public const string Semicolon = ";";

@@ -3,9 +3,9 @@
 namespace Cramming.UseCases.Topics.Search
 {
     public class SearchTopicHandler(ISearchTopicQueryService service)
-        : IQueryHandler<SearchTopicQuery, Result<PagedList<TopicBriefDTO>>>
+        : IQueryHandler<SearchTopicQuery, Result<PagedList<TopicBriefDto>>>
     {
-        public async Task<Result<PagedList<TopicBriefDTO>>> Handle(
+        public async Task<Result<PagedList<TopicBriefDto>>> Handle(
             SearchTopicQuery request,
             CancellationToken cancellationToken)
         {

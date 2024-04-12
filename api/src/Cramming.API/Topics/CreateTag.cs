@@ -18,7 +18,7 @@ namespace Cramming.API.Topics
                 .WithSummary("Create a new tag");
         }
 
-        private async Task<Results<Created<TagDTO>, NotFound>> HandleAsync(
+        private async Task<Results<Created<TagDto>, NotFound>> HandleAsync(
             [FromBody] CreateTagRequest request,
             Guid topicId,
             IMediator mediator,

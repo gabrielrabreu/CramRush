@@ -75,7 +75,7 @@ namespace Cramming.Infrastructure.PDF.Documents
             });
         }
 
-        private void ComposeAnswer(Question question, IContainer container)
+        private static void ComposeAnswer(Question question, IContainer container)
         {
             if (question is OpenEndedQuestion openEndedQuestion)
                 ComposeAnswer(openEndedQuestion, container);
@@ -83,12 +83,12 @@ namespace Cramming.Infrastructure.PDF.Documents
                 ComposeAnswer(multipleChoiceQuestion, container);
         }
 
-        private void ComposeAnswer(OpenEndedQuestion question, IContainer container)
+        private static void ComposeAnswer(OpenEndedQuestion question, IContainer container)
         {
             container.Text(question.Answer);
         }
 
-        private void ComposeAnswer(MultipleChoiceQuestion question, IContainer container)
+        private static void ComposeAnswer(MultipleChoiceQuestion question, IContainer container)
         {
             var answers = question.Options.Where(c => c.IsAnswer).Select(s => s.Statement);
             container.Text(string.Join(DocumentConstants.Semicolon, answers));

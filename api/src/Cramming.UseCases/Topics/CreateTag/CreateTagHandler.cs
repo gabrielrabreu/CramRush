@@ -3,9 +3,9 @@ using Cramming.SharedKernel;
 
 namespace Cramming.UseCases.Topics.CreateTag
 {
-    public class CreateTagHandler(ITopicRepository repository) : ICommandHandler<CreateTagCommand, Result<TagDTO>>
+    public class CreateTagHandler(ITopicRepository repository) : ICommandHandler<CreateTagCommand, Result<TagDto>>
     {
-        public async Task<Result<TagDTO>> Handle(CreateTagCommand request, CancellationToken cancellationToken)
+        public async Task<Result<TagDto>> Handle(CreateTagCommand request, CancellationToken cancellationToken)
         {
             var topic = await repository.GetByIdAsync(request.TopicId, cancellationToken);
 
@@ -16,7 +16,7 @@ namespace Cramming.UseCases.Topics.CreateTag
 
             await repository.UpdateAsync(topic, cancellationToken);
 
-            return new TagDTO(tag.Id, tag.TopicId, tag.Name, tag.Colour?.Code);
+            return new TagDto(tag.Id, tag.TopicId, tag.Name, tag.Colour?.Code);
         }
     }
 }

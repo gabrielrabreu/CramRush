@@ -17,7 +17,7 @@ namespace Cramming.API.Topics
                 .WithSummary("Retrieve topic by ID");
         }
 
-        private async Task<Results<Ok<TopicDTO>, NotFound>> HandleAsync(
+        private async Task<Results<Ok<TopicDto>, NotFound>> HandleAsync(
             Guid topicId,
             IMediator mediator,
             CancellationToken cancellationToken)

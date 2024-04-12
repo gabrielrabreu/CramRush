@@ -4,7 +4,7 @@ namespace Cramming.SharedKernel
 {
     public class Result<T> : IResult
     {
-        public T Value { get; init; }
+        public T? Value { get; init; }
 
         public HttpStatusCode Status { get; protected set; } = HttpStatusCode.OK;
 

@@ -17,7 +17,7 @@ namespace Cramming.API.Topics
                 .WithSummary("Search topics with pagination");
         }
 
-        private async Task<Ok<PagedList<TopicBriefDTO>>> HandleAsync(
+        private async Task<Ok<PagedList<TopicBriefDto>>> HandleAsync(
             [AsParameters] SearchTopicRequest request,
             IMediator mediator,
             CancellationToken cancellationToken)
