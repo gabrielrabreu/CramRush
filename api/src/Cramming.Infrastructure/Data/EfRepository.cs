@@ -1,10 +1,16 @@
 ﻿using Cramming.SharedKernel;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cramming.Infrastructure.Data
 {
     public class EfRepository<T>(AppDbContext db) : IRepository<T> where T : class, IAggregateRoot
     {
         protected readonly AppDbContext Db = db;
+
+        public virtual async Task<List<T>> GetAllAsync(CancellationToken cancellationToken = default)
+        {
+            return await Db.Set<T>().ToListAsync(cancellationToken);
+        }
 
         public virtual async Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {

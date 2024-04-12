@@ -4,14 +4,9 @@ namespace Cramming.UnitTests.SharedKernel
 {
     public class ValueObjectTests
     {
-        public class SampleValueObject : ValueObject
+        public class SampleValueObject(int value) : ValueObject
         {
-            public int Value { get; }
-
-            public SampleValueObject(int value)
-            {
-                Value = value;
-            }
+            public int Value { get; } = value;
 
             protected override IEnumerable<object> GetEqualityComponents()
             {
