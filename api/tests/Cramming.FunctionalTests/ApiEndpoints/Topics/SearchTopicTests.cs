@@ -41,9 +41,8 @@ namespace Cramming.FunctionalTests.ApiEndpoints.Topics
         {
             var route = CreateTopic.Route;
             var request = new CreateTopicRequest() { Name = name };
-            var content = request.FromModelAsJson();
 
-            var response = await _client.ExecutePostAsync(route, content, _output);
+            var response = await _client.ExecutePostAsync(route, request, _output);
             var result = await response.DeserializeAsync<TopicBriefDto>(_output);
             return result;
         }

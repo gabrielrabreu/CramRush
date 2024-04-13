@@ -24,9 +24,8 @@ namespace Cramming.FunctionalTests.ApiEndpoints.Topics
                     Answer = "Answer 1",
                     Options = []
                 }]};
-            var content = request.FromModelAsJson();
 
-            var response = await _client.ExecutePostAsync(route, content, _output);
+            var response = await _client.ExecutePostAsync(route, request, _output);
             response.Should().NotBeNull().And.Subject.EnsureNoContent();
         }
 
@@ -35,9 +34,8 @@ namespace Cramming.FunctionalTests.ApiEndpoints.Topics
         {
             var route = ReplaceQuestions.BuildRoute(Guid.NewGuid());
             var request = new ReplaceQuestionsRequest() { Questions = [] };
-            var content = request.FromModelAsJson();
 
-            var response = await _client.ExecutePostAsync(route, content, _output);
+            var response = await _client.ExecutePostAsync(route, request, _output);
             response.Should().NotBeNull().And.Subject.EnsureNotFound();
         }
 
@@ -45,9 +43,8 @@ namespace Cramming.FunctionalTests.ApiEndpoints.Topics
         {
             var route = CreateTopic.Route;
             var request = new CreateTopicRequest() { Name = "Topic" };
-            var content = request.FromModelAsJson();
 
-            var response = await _client.ExecutePostAsync(route, content, _output);
+            var response = await _client.ExecutePostAsync(route, request, _output);
             var result = await response.DeserializeAsync<TopicBriefDto>(_output);
             return result;
         }

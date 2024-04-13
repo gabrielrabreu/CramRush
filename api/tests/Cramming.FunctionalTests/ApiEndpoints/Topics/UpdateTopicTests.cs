@@ -17,9 +17,8 @@ namespace Cramming.FunctionalTests.ApiEndpoints.Topics
 
             var route = UpdateTopic.BuildRoute(existingTopic.Id);
             var request = new UpdateTopicRequest() { Name = "Updated Topic" };
-            var content = request.FromModelAsJson();
 
-            var response = await _client.ExecutePutAsync(route, content, _output);
+            var response = await _client.ExecutePutAsync(route, request, _output);
             response.Should().NotBeNull().And.Subject.EnsureNoContent();
         }
 
@@ -28,9 +27,8 @@ namespace Cramming.FunctionalTests.ApiEndpoints.Topics
         {
             var route = UpdateTopic.BuildRoute(Guid.NewGuid());
             var request = new UpdateTopicRequest() { Name = "Updated Topic" };
-            var content = request.FromModelAsJson();
 
-            var response = await _client.ExecutePutAsync(route, content, _output);
+            var response = await _client.ExecutePutAsync(route, request, _output);
             response.Should().NotBeNull().And.Subject.EnsureNotFound();
         }
 
@@ -38,9 +36,8 @@ namespace Cramming.FunctionalTests.ApiEndpoints.Topics
         {
             var route = CreateTopic.Route;
             var request = new CreateTopicRequest() { Name = "Topic" };
-            var content = request.FromModelAsJson();
 
-            var response = await _client.ExecutePostAsync(route, content, _output);
+            var response = await _client.ExecutePostAsync(route, request, _output);
 
             return await response.DeserializeAsync<TopicBriefDto>(_output);
         }

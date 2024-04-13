@@ -18,9 +18,8 @@ namespace Cramming.FunctionalTests.ApiEndpoints.Topics
 
             var route = UpdateTag.BuildRoute(existingTopic.Id, existingTag.Id);
             var request = new UpdateTagRequest() { Name = "Updated Tag" };
-            var content = request.FromModelAsJson();
 
-            var response = await _client.ExecutePutAsync(route, content, _output);
+            var response = await _client.ExecutePutAsync(route, request, _output);
             response.Should().NotBeNull().And.Subject.EnsureNoContent();
         }
 
@@ -31,9 +30,8 @@ namespace Cramming.FunctionalTests.ApiEndpoints.Topics
 
             var route = UpdateTag.BuildRoute(existingTopic.Id, Guid.NewGuid());
             var request = new UpdateTagRequest() { Name = "Updated Tag" };
-            var content = request.FromModelAsJson();
 
-            var response = await _client.ExecutePutAsync(route, content, _output);
+            var response = await _client.ExecutePutAsync(route, request, _output);
             response.Should().NotBeNull().And.Subject.EnsureNotFound();
         }
 
@@ -42,9 +40,8 @@ namespace Cramming.FunctionalTests.ApiEndpoints.Topics
         {
             var route = UpdateTag.BuildRoute(Guid.NewGuid(), Guid.NewGuid());
             var request = new UpdateTagRequest() { Name = "Updated Tag" };
-            var content = request.FromModelAsJson();
 
-            var response = await _client.ExecutePutAsync(route, content, _output);
+            var response = await _client.ExecutePutAsync(route, request, _output);
             response.Should().NotBeNull().And.Subject.EnsureNotFound();
         }
 
@@ -52,9 +49,8 @@ namespace Cramming.FunctionalTests.ApiEndpoints.Topics
         {
             var route = CreateTopic.Route;
             var request = new CreateTopicRequest() { Name = "Topic" };
-            var content = request.FromModelAsJson();
 
-            var response = await _client.ExecutePostAsync(route, content, _output);
+            var response = await _client.ExecutePostAsync(route, request, _output);
 
             return await response.DeserializeAsync<TopicBriefDto>(_output);
         }
@@ -63,9 +59,8 @@ namespace Cramming.FunctionalTests.ApiEndpoints.Topics
         {
             var route = CreateTag.BuildRoute(topicId);
             var request = new CreateTagRequest() { Name = "Tag", Colour = "#808080" };
-            var content = request.FromModelAsJson();
 
-            var response = await _client.ExecutePostAsync(route, content, _output);
+            var response = await _client.ExecutePostAsync(route, request, _output);
 
             return await response.DeserializeAsync<TagDto>(_output);
         }
