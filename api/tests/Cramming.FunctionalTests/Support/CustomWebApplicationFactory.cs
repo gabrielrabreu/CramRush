@@ -26,6 +26,8 @@ namespace Cramming.FunctionalTests.Support
                 .ConfigureServices(services =>
                 {
                     services
+                        .AddEntityFrameworkInMemoryDatabase();
+                    services
                         .RemoveAll<DbContextOptions<AppDbContext>>()
                         .AddDbContext<AppDbContext>((sp, options) =>
                         {
