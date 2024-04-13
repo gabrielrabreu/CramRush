@@ -5,16 +5,16 @@ namespace Cramming.UseCases.Topics.GetNotecards
 {
     public class GetNotecardsHandler(
         ITopicReadRepository repository,
-        INotecardsPdfService service) : IQueryHandler<GetNotecardsQuery, Result<Document>>
+        INotecardsPdfService service) : IQueryHandler<GetNotecardsQuery, Result<BinaryContent>>
     {
-        public async Task<Result<Document>> Handle(GetNotecardsQuery request, CancellationToken cancellationToken)
+        public async Task<Result<BinaryContent>> Handle(GetNotecardsQuery request, CancellationToken cancellationToken)
         {
             var topic = await repository.GetByIdAsync(request.TopicId, cancellationToken);
 
             if (topic == null)
                 return Result.NotFound();
 
-            return await service.ComposeAsync(topic, cancellationToken);
+            return service.Create(topic);
         }
     }
 

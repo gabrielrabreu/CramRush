@@ -11,7 +11,7 @@ namespace Cramming.IntegrationTests.Data
         public EfTestFixture()
         {
             var options = CreateNewContextOptions();
-            
+
             Db = new AppDbContext(options);
         }
 

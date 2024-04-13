@@ -3,7 +3,7 @@ using Cramming.SharedKernel;
 
 namespace Cramming.UseCases.Topics.GetPracticeTest
 {
-    public interface IPracticeTestPdfService : IDocumentService<Topic>
+    public interface IPracticeTestPdfService : IPdfService<Topic>
     {
     }
 }

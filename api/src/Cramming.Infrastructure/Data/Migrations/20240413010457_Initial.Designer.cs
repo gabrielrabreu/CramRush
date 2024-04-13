@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cramming.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240411170738_Options")]
-    partial class Options
+    [Migration("20240413010457_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -90,7 +90,7 @@ namespace Cramming.Infrastructure.Data.Migrations
 
                     b.HasIndex("TopicId");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tag");
                 });
 
             modelBuilder.Entity("Cramming.Domain.TopicAggregate.Topic", b =>
@@ -168,7 +168,7 @@ namespace Cramming.Infrastructure.Data.Migrations
 
                             b1.HasKey("TagId");
 
-                            b1.ToTable("Tags");
+                            b1.ToTable("Tag");
 
                             b1.WithOwner()
                                 .HasForeignKey("TagId");

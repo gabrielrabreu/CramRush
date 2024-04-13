@@ -30,7 +30,7 @@ namespace Cramming.API.Topics
 
             return TypedResults.File(
                 result.Value!.Content,
-                result.Value.ContentType,
+                result.Value.Type,
                 result.Value.Name);
         }
     }

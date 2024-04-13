@@ -4,7 +4,7 @@ using Cramming.UseCases.Topics.UpdateTag;
 
 namespace Cramming.UnitTests.UseCases.Topics
 {
-    public class UpdateTagHandlerTests 
+    public class UpdateTagHandlerTests
     {
         private readonly Mock<ITopicRepository> _repositoryMock;
         private readonly UpdateTagHandler _handler;

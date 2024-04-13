@@ -3,7 +3,7 @@
 namespace Cramming.UseCases.Topics.GetNotecards
 {
     public record GetNotecardsQuery(Guid TopicId)
-        : IQuery<Result<Document>>
+        : IQuery<Result<BinaryContent>>
     {
     }
 }

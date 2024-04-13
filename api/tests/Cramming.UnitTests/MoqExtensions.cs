@@ -1,13 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
-using Moq;
-
-namespace Cramming.UnitTests
+﻿namespace Cramming.UnitTests
 {
     public static class MoqExtensions
     {
         public static void VerifyLog<T>(
-            this Mock<ILogger<T>> loggerMock, 
-            LogLevel expectedLogLevel, 
+            this Mock<ILogger<T>> loggerMock,
+            LogLevel expectedLogLevel,
             string expectedMessage,
             params KeyValuePair<string, object>[] expectedValues)
         {

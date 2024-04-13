@@ -1,97 +1,123 @@
 ﻿using Cramming.Domain.TopicAggregate;
+using Cramming.Infrastructure.Pdf.Components;
 using QuestPDF.Fluent;
+using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 
-namespace Cramming.Infrastructure.PDF.Documents
+namespace Cramming.Infrastructure.Pdf.Documents
 {
-    public class NotecardsDocument(Topic topic) : TopicDocument(topic), IDocument
+    public class NotecardsDocument(Topic model) : IDocument
     {
         public void Compose(IDocumentContainer container)
         {
-            container.Page(page =>
+            container.Page(_ =>
             {
-                page.Margin(50);
-                page.Header().Element(ComposeHeader);
-                page.Content().Element(ComposeFrontContent);
-                page.Footer().Element(ComposeFooter);
+                _.Margin(50);
+                _.Header().Component(new DefaultHeaderComponent(model));
+                _.Content().Element(ComposeFrontContent);
+                _.Footer().Component<DefaultFooterComponent>();
             });
 
-            container.Page(page =>
+            container.Page(_ =>
             {
-                page.Margin(50);
-                page.Header().Element(ComposeHeader);
-                page.Content().Element(ComposeBackContent);
-                page.Footer().Element(ComposeFooter);
-            });
-        }
-
-        private void ComposeFrontContent(IContainer container)
-        {
-            ComposeContent(container, (table, row, leftQuestion, rightQuestion) =>
-            {
-                table.Cell().Row(row).Column(1).Element(Block).Text(leftQuestion.Statement);
-                if (rightQuestion != null)
-                    table.Cell().Row(row).Column(2).Element(Block).Text(rightQuestion.Statement);
+                _.Margin(50);
+                _.Header().Component(new DefaultHeaderComponent(model));
+                _.Content().Element(ComposeBackContent);
+                _.Footer().Component<DefaultFooterComponent>();
             });
         }
 
-        private void ComposeBackContent(IContainer container)
+        private void ComposeContent(IContainer _, Action<TableDescriptor, uint, Question, Question?> action)
         {
-            ComposeContent(container, (table, row, leftQuestion, rightQuestion) =>
+            _.Table(_ =>
             {
-                table.Cell().Row(row).Column(1).Element(Block).Element(e =>
+                _.ColumnsDefinition(_ =>
                 {
-                    ComposeAnswer(leftQuestion, e);
-                });
-
-                if (rightQuestion != null)
-                    table.Cell().Row(row).Column(2).Element(Block).Element(e =>
-                    {
-                        ComposeAnswer(rightQuestion, e);
-                    });
-            });
-        }
-
-        private void ComposeContent(IContainer container, Action<TableDescriptor, uint, Question, Question?> action)
-        {
-            container.Table(table =>
-            {
-                table.ColumnsDefinition(columns =>
-                {
-                    columns.RelativeColumn();
-                    columns.RelativeColumn();
+                    _.RelativeColumn();
+                    _.RelativeColumn();
                 });
 
                 var row = 1u;
-                for (int i = 0; i < Topic.Questions.Count; i += 2)
+                for (int i = 0; i < model.Questions.Count; i += 2)
                 {
-                    var leftQuestion = Topic.Questions.ElementAt(i);
-                    var rightQuestion = i + 1 < Topic.Questions.Count ? Topic.Questions.ElementAt(i + 1) : null;
-
-                    action(table, row, leftQuestion, rightQuestion);
-
+                    var leftQuestion = model.Questions.ElementAt(i);
+                    var rightQuestion = i + 1 < model.Questions.Count ? model.Questions.ElementAt(i + 1) : null;
+                    action(_, row, leftQuestion, rightQuestion);
                     row++;
                 }
             });
         }
 
-        private static void ComposeAnswer(Question question, IContainer container)
+        private void ComposeFrontContent(IContainer _)
+        {
+            ComposeContent(_, (table, row, leftQuestion, rightQuestion) =>
+            {
+                table.Cell()
+                    .Row(row)
+                    .Column(1)
+                    .Element(Block)
+                    .Text(leftQuestion.Statement);
+
+                if (rightQuestion != null)
+                    table.Cell()
+                        .Row(row)
+                        .Column(2)
+                        .Element(Block)
+                        .Text(rightQuestion.Statement);
+            });
+        }
+
+        private void ComposeBackContent(IContainer _)
+        {
+            ComposeContent(_, (table, row, leftQuestion, rightQuestion) =>
+            {
+                table.Cell()
+                    .Row(row)
+                    .Column(1)
+                    .Element(Block)
+                    .Element(_ => { ComposeAnswer(_, leftQuestion); });
+
+                if (rightQuestion != null)
+                    table.Cell()
+                        .Row(row)
+                        .Column(2)
+                        .Element(Block)
+                        .Element(_ => { ComposeAnswer(_, rightQuestion); });
+            });
+        }
+
+        private static IContainer Block(IContainer _)
+        {
+            return _
+                .Border(1)
+                .Background(Colors.Grey.Lighten3)
+                .MinWidth(50)
+                .MinHeight(100)
+                .Padding(1)
+                .AlignCenter()
+                .AlignMiddle();
+        }
+
+        private static void ComposeAnswer(IContainer _, Question question)
         {
             if (question is OpenEndedQuestion openEndedQuestion)
-                ComposeAnswer(openEndedQuestion, container);
+                ComposeAnswer(_, openEndedQuestion);
             if (question is MultipleChoiceQuestion multipleChoiceQuestion)
-                ComposeAnswer(multipleChoiceQuestion, container);
+                ComposeAnswer(_, multipleChoiceQuestion);
         }
 
-        private static void ComposeAnswer(OpenEndedQuestion question, IContainer container)
+        private static void ComposeAnswer(IContainer _, OpenEndedQuestion question)
         {
-            container.Text(question.Answer);
+            _.Text(question.Answer);
         }
 
-        private static void ComposeAnswer(MultipleChoiceQuestion question, IContainer container)
+        private static void ComposeAnswer(IContainer _, MultipleChoiceQuestion question)
         {
-            var answers = question.Options.Where(c => c.IsAnswer).Select(s => s.Statement);
-            container.Text(string.Join(DocumentConstants.Semicolon, answers));
+            var answers = question.Options
+                .Where(c => c.IsAnswer)
+                .Select(s => s.Statement);
+
+            _.Text(string.Join(";", answers));
         }
     }
 }

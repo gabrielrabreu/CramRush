@@ -23,7 +23,7 @@ namespace Cramming.UnitTests.UseCases.Topics
         {
             // Arrange
             var topic = new Topic("Topic Name");
-            var document = new Document([], "Content Type", "Name");
+            var document = new BinaryContent([], "Content Type", "Name");
 
             var request = new GetNotecardsQuery(topic.Id);
             var cancellationToken = new CancellationToken();
@@ -31,8 +31,8 @@ namespace Cramming.UnitTests.UseCases.Topics
             _repositoryMock.Setup(mock => mock.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(topic);
 
-            _serviceMock.Setup(mock => mock.ComposeAsync(It.IsAny<Topic>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(document);
+            _serviceMock.Setup(mock => mock.Create(It.IsAny<Topic>()))
+                .Returns(document);
 
             // Act
             var result = await _handler.Handle(request, cancellationToken);
@@ -46,8 +46,8 @@ namespace Cramming.UnitTests.UseCases.Topics
             _repositoryMock.Verify(mock => mock.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Once);
             _repositoryMock.Verify(mock => mock.GetByIdAsync(request.TopicId, cancellationToken), Times.Once);
 
-            _serviceMock.Verify(mock => mock.ComposeAsync(It.IsAny<Topic>(), It.IsAny<CancellationToken>()), Times.Once);
-            _serviceMock.Verify(mock => mock.ComposeAsync(topic, cancellationToken), Times.Once);
+            _serviceMock.Verify(mock => mock.Create(It.IsAny<Topic>()), Times.Once);
+            _serviceMock.Verify(mock => mock.Create(topic), Times.Once);
         }
 
         [Fact]
@@ -67,7 +67,7 @@ namespace Cramming.UnitTests.UseCases.Topics
             _repositoryMock.Verify(mock => mock.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Once);
             _repositoryMock.Verify(mock => mock.GetByIdAsync(request.TopicId, cancellationToken), Times.Once);
 
-            _serviceMock.Verify(mock => mock.ComposeAsync(It.IsAny<Topic>(), It.IsAny<CancellationToken>()), Times.Never);
+            _serviceMock.Verify(mock => mock.Create(It.IsAny<Topic>()), Times.Never);
         }
     }
 }

@@ -3,7 +3,7 @@
 namespace Cramming.UseCases.Topics.GetPracticeTest
 {
     public record GetPracticeTestQuery(Guid TopicId)
-        : IQuery<Result<Document>>
+        : IQuery<Result<BinaryContent>>
     {
     }
 }

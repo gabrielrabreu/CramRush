@@ -84,7 +84,7 @@ namespace Cramming.UnitTests.Domain.TopicAggregate
 
             // Assert
             topic.Tags.Should().HaveCount(1);
-            topic.Tags.Should().SatisfyRespectively(first => 
+            topic.Tags.Should().SatisfyRespectively(first =>
             {
                 first.Colour.Should().NotBeNull();
                 first.Colour!.Code.Should().Be(newColour);

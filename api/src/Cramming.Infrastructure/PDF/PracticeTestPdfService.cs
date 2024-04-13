@@ -1,25 +1,18 @@
 ﻿using Cramming.Domain.TopicAggregate;
-using Cramming.Infrastructure.PDF.Documents;
+using Cramming.Infrastructure.Pdf.Documents;
+using Cramming.SharedKernel;
 using Cramming.UseCases.Topics.GetPracticeTest;
-using QuestPDF;
 using QuestPDF.Fluent;
-using QuestPDF.Infrastructure;
 
-namespace Cramming.Infrastructure.PDF
+namespace Cramming.Infrastructure.Pdf
 {
     public class PracticeTestPdfService : IPracticeTestPdfService
     {
-        public Task<SharedKernel.Document> ComposeAsync(Topic model, CancellationToken cancellationToken = default)
+        public BinaryContent Create(Topic model)
         {
-            Settings.License = LicenseType.Community;
-
-            var document = new PracticeDocument(model);
-
-            byte[] bytes = document.GeneratePdf();
-            string contentType = "application/pdf";
-            string name = $"{nameof(Topic)}_PracticeTest_{DateTime.UtcNow}";
-
-            return Task.FromResult(new SharedKernel.Document(bytes, contentType, name));
+            return BinaryContent.Pdf(
+                new PracticeTestDocument(model).GeneratePdf(),
+                $"PracticeTest_{model.Name.Replace(" ", "")}_{DateTime.UtcNow}");
         }
     }
 }
