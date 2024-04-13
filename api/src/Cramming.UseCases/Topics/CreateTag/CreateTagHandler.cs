@@ -16,7 +16,7 @@ namespace Cramming.UseCases.Topics.CreateTag
 
             await repository.UpdateAsync(topic, cancellationToken);
 
-            return new TagDto(tag.Id, tag.TopicId, tag.Name, tag.Colour?.Code);
+            return new TagDto(tag.Id, tag.TopicId, tag.Name, tag.Colour!.Code);
         }
     }
 }

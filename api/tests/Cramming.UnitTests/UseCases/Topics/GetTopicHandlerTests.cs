@@ -117,7 +117,6 @@ namespace Cramming.UnitTests.UseCases.Topics
             _repositoryMock.Verify(mock => mock.GetByIdAsync(request.TopicId, cancellationToken), Times.Once);
         }
 
-
         [Fact]
         public async Task Handle_WhenTopicFoundWithMultipleChoiceQuestion_ShouldReturnItem()
         {
@@ -165,6 +164,35 @@ namespace Cramming.UnitTests.UseCases.Topics
         }
 
         [Fact]
+        public async Task Handle_WhenTopicFoundWithNonValidQuestion_ShouldNotReturnIt()
+        {
+            // Arrange
+            var topic = new Topic("Topic Name");
+            topic.Questions.Add(new NonValidQuestion(topic.Id, "Non Valid Statement"));
+
+            var request = new GetTopicQuery(topic.Id);
+            var cancellationToken = new CancellationToken();
+
+            _repositoryMock.Setup(mock => mock.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(topic);
+
+            // Act
+            var result = await _handler.Handle(request, cancellationToken);
+
+            // Assert
+            result.Should().NotBeNull();
+            result.Status.Should().Be(HttpStatusCode.OK);
+            result.Value.Should().NotBeNull();
+            result.Value!.Id.Should().Be(topic.Id);
+            result.Value.Name.Should().Be(topic.Name);
+            result.Value.Tags.Should().BeEmpty();
+            result.Value.Questions.Should().BeEmpty();
+
+            _repositoryMock.Verify(mock => mock.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Once);
+            _repositoryMock.Verify(mock => mock.GetByIdAsync(request.TopicId, cancellationToken), Times.Once);
+        }
+
+        [Fact]
         public async Task Handle_WhenTopicNotFound_ShouldReturnNotFound()
         {
             // Arrange
@@ -180,6 +208,10 @@ namespace Cramming.UnitTests.UseCases.Topics
 
             _repositoryMock.Verify(mock => mock.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Once);
             _repositoryMock.Verify(mock => mock.GetByIdAsync(request.TopicId, cancellationToken), Times.Once);
+        }
+
+        public class NonValidQuestion(Guid topicId, string statement) : Question(topicId, statement) 
+        { 
         }
     }
 }

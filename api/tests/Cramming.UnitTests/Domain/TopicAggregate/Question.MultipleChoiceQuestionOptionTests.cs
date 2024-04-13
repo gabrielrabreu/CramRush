@@ -17,6 +17,7 @@ namespace Cramming.UnitTests.Domain.TopicAggregate
 
             // Assert
             option.QuestionId.Should().Be(questionId);
+            option.Question.Should().BeNull();
             option.Statement.Should().Be(statement);
             option.IsAnswer.Should().Be(isAnswer);
         }

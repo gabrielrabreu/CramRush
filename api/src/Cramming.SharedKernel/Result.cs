@@ -8,8 +8,6 @@ namespace Cramming.SharedKernel
 
         public HttpStatusCode Status { get; protected set; } = HttpStatusCode.OK;
 
-        public bool IsSuccess => Status == HttpStatusCode.OK;
-
         protected Result()
         {
         }

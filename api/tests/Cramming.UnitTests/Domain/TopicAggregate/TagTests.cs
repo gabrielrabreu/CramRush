@@ -16,6 +16,7 @@ namespace Cramming.UnitTests.Domain.TopicAggregate
 
             // Assert
             tag.TopicId.Should().Be(topicId);
+            tag.Topic.Should().BeNull();
             tag.Name.Should().Be(name);
             tag.Colour.Should().BeNull();
         }

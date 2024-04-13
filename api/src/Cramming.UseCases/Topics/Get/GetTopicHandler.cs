@@ -13,41 +13,45 @@ namespace Cramming.UseCases.Topics.Get
             if (topic == null)
                 return Result.NotFound();
 
+            var tags = topic.Tags.Select(tag =>
+                new TagDto(
+                    tag.Id,
+                    tag.TopicId,
+                    tag.Name,
+                    tag.Colour!.Code));
+
+            var questions = new List<QuestionDto>();
+            foreach (var question in topic.Questions)
+            {
+                if (question is OpenEndedQuestion openEndedQuestion)
+                    questions.Add(new QuestionDto(
+                        openEndedQuestion.Id,
+                        openEndedQuestion.TopicId,
+                        QuestionType.OpenEnded,
+                        openEndedQuestion.Statement,
+                        openEndedQuestion.Answer,
+                        []));
+
+                else if (question is MultipleChoiceQuestion multipleChoiceQuestion)
+                    questions.Add(new QuestionDto(
+                        multipleChoiceQuestion.Id,
+                        multipleChoiceQuestion.TopicId,
+                        QuestionType.MultipleChoice,
+                        multipleChoiceQuestion.Statement,
+                        null,
+                        multipleChoiceQuestion.Options.Select(option =>
+                            new MultipleChoiceQuestionOptionDto(
+                                option.Id,
+                                option.QuestionId,
+                                option.Statement,
+                                option.IsAnswer))));
+            }
+
             return new TopicDto(
                 topic.Id,
                 topic.Name,
-                topic.Tags.Select(tag =>
-                    new TagDto(
-                        tag.Id,
-                        tag.TopicId,
-                        tag.Name,
-                        tag.Colour?.Code)),
-                topic.Questions.Select(question =>
-                {
-                    if (question is OpenEndedQuestion openEndedQuestion)
-                        return new QuestionDto(
-                            openEndedQuestion.Id,
-                            openEndedQuestion.TopicId,
-                            QuestionType.OpenEnded,
-                            openEndedQuestion.Statement,
-                            openEndedQuestion.Answer,
-                            []);
-                    if (question is MultipleChoiceQuestion multipleChoiceQuestion)
-                        return new QuestionDto(
-                            multipleChoiceQuestion.Id,
-                            multipleChoiceQuestion.TopicId,
-                            QuestionType.MultipleChoice,
-                            multipleChoiceQuestion.Statement,
-                            null,
-                            multipleChoiceQuestion.Options.Select(option =>
-                                new MultipleChoiceQuestionOptionDto(
-                                    option.Id,
-                                    option.QuestionId,
-                                    option.Statement,
-                                    option.IsAnswer)));
-
-                    return null;
-                }).Where(question => question != null)!);
+                tags,
+                questions);
         }
     }
 }
