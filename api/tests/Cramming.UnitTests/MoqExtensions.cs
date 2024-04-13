@@ -25,8 +25,11 @@
 
             var loggedValues = (IReadOnlyList<KeyValuePair<string, object>>)state;
 
-            return loggedValues.Any(loggedValue => loggedValue.Key == messageKeyName && loggedValue.Value.ToString() == expectedMessage) &&
-                expectedValues.All(expectedValue => loggedValues.Any(loggedValue => loggedValue.Key == expectedValue.Key && loggedValue.Value == expectedValue.Value));
+            return loggedValues
+                .Any(loggedValue => loggedValue.Key == messageKeyName && loggedValue.Value.ToString() == expectedMessage) &&
+                 Array.TrueForAll(expectedValues, expectedValue => 
+                    loggedValues.Any(loggedValue => loggedValue.Key == expectedValue.Key && loggedValue.Value == expectedValue.Value));
         }
     }
 }
+    

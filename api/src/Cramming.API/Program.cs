@@ -114,4 +114,7 @@ static void ConfigureEndpoints(WebApplication app)
 
 public partial class Program 
 { 
+    protected Program()
+    {
+    }
 }
