@@ -1,0 +1,66 @@
+name: Build API
+on:
+  push:
+    paths: ./api
+    branches: [ "develop", "main" ]
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+    
+permissions:
+  pull-requests: read
+
+jobs:
+  build:
+    name: Build and analyze API
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./api
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'zulu'
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Install SonarScanner
+        run: |
+          dotnet tool install --global dotnet-sonarscanner
+          export PATH="$PATH:/home/runner/.dotnet/tools"
+          
+      - name: Restore dependencies
+        run: |
+          dotnet restore
+
+      - name: Run SonarCloud analysis
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY_API }}
+          SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: "${{ secrets.SONAR_TOKEN_API }}"
+        run: |
+          dotnet sonarscanner begin \
+            /k:$SONAR_PROJECT_KEY \
+            /o:$SONAR_ORGANIZATION \
+            /d:sonar.host.url=$SONAR_HOST_URL \
+            /d:sonar.login=$SONAR_TOKEN \
+            /d:sonar.exclusions=**/Migrations/** \
+            /d:sonar.coverage.exclusions="**/Migrations/**" \
+            /d:sonar.cs.opencover.reportsPaths=tests/**/coverage.opencover.xml
+          dotnet build
+          dotnet test /p:CollectCoverage=true \
+            /p:CoverletOutputFormat=opencover
+          dotnet sonarscanner end /d:sonar.login=$SONAR_TOKEN
+          
