@@ -1,7 +1,7 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 
-namespace Cramming.Infrastructure.Pdf.Components
+namespace Cramming.Infrastructure.Pdfing.Components
 {
     public class DefaultFooterComponent : IComponent
     {
