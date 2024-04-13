@@ -78,8 +78,7 @@ static void SeedDatabase(WebApplication app)
     try
     {
         var context = services.GetRequiredService<AppDbContext>();
-        if (context.Database.IsSqlite())
-            context.Database.Migrate();
+        context.Database.Migrate();
     }
     catch (Exception ex)
     {

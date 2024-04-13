@@ -10,7 +10,7 @@ namespace Cramming.FunctionalTests.Support
 {
     public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     {
-        private readonly string InMemoryId = Guid.NewGuid().ToString();
+        private readonly string CorrelationId = Guid.NewGuid().ToString();
 
         protected override IHost CreateHost(IHostBuilder builder)
         {
@@ -26,12 +26,10 @@ namespace Cramming.FunctionalTests.Support
                 .ConfigureServices(services =>
                 {
                     services
-                        .AddEntityFrameworkInMemoryDatabase();
-                    services
                         .RemoveAll<DbContextOptions<AppDbContext>>()
                         .AddDbContext<AppDbContext>((sp, options) =>
                         {
-                            options.UseInMemoryDatabase(InMemoryId);
+                            options.UseSqlite($"Data Source={CorrelationId}.sqlite");
                         });
                 });
         }
