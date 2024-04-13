@@ -75,16 +75,8 @@ static void SeedDatabase(WebApplication app)
     using var scope = app.Services.CreateScope();
     var services = scope.ServiceProvider;
 
-    try
-    {
-        var context = services.GetRequiredService<AppDbContext>();
-        context.Database.Migrate();
-    }
-    catch (Exception ex)
-    {
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred seeding the DB. {ExceptionMessage}", ex.Message);
-    }
+    var context = services.GetRequiredService<AppDbContext>();
+    context.Database.Migrate();
 }
 
 static void ConfigureMediatR(IServiceCollection services)
@@ -113,8 +105,5 @@ static void ConfigureEndpoints(WebApplication app)
 }
 
 public partial class Program 
-{ 
-    protected Program()
-    {
-    }
+{
 }
