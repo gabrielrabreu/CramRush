@@ -23,7 +23,21 @@ namespace Cramming.FunctionalTests.ApiEndpoints.Topics
                     Statement = "Statement 1",
                     Answer = "Answer 1",
                     Options = []
-                }]};
+                },
+                new ReplaceQuestionsRequest.CreateQuestion() {
+                    Type = QuestionType.MultipleChoice,
+                    Statement = "Statement 2",
+                    Options = [
+                        new ReplaceQuestionsRequest.CreateMultipleChoiceQuestionOption() 
+                        {
+                            Statement = "Option 2.1", IsAnswer = true
+                        },
+                        new ReplaceQuestionsRequest.CreateMultipleChoiceQuestionOption()
+                        {
+                            Statement = "Option 2.2", IsAnswer = false
+                        }]
+                }]
+            };
 
             var response = await _client.ExecutePostAsync(route, request, _output);
             response.Should().NotBeNull().And.Subject.EnsureNoContent();
