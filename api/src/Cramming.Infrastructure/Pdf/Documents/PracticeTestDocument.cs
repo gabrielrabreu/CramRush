@@ -1,9 +1,9 @@
 ﻿using Cramming.Domain.TopicAggregate;
-using Cramming.Infrastructure.Pdfing.Components;
+using Cramming.Infrastructure.Pdf.Components;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 
-namespace Cramming.Infrastructure.Pdfing.Documents
+namespace Cramming.Infrastructure.Pdf.Documents
 {
     public class PracticeTestDocument(Topic model) : IDocument
     {

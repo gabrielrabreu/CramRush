@@ -4,7 +4,7 @@ using Cramming.SharedKernel;
 using Cramming.UseCases.Topics.GetPracticeTest;
 using QuestPDF.Fluent;
 
-namespace Cramming.Infrastructure.Pdfing
+namespace Cramming.Infrastructure.Pdf
 {
     public class PracticeTestPdfService : IPracticeTestPdfService
     {

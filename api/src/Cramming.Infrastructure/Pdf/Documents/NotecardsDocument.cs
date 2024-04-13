@@ -1,10 +1,10 @@
 ﻿using Cramming.Domain.TopicAggregate;
-using Cramming.Infrastructure.Pdfing.Components;
+using Cramming.Infrastructure.Pdf.Components;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 
-namespace Cramming.Infrastructure.Pdfing.Documents
+namespace Cramming.Infrastructure.Pdf.Documents
 {
     public class NotecardsDocument(Topic model) : IDocument
     {

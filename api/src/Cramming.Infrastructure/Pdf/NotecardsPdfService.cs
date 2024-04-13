@@ -4,7 +4,7 @@ using Cramming.SharedKernel;
 using Cramming.UseCases.Topics.GetNotecards;
 using QuestPDF.Fluent;
 
-namespace Cramming.Infrastructure.Pdfing
+namespace Cramming.Infrastructure.Pdf
 {
     public class NotecardsPdfService : INotecardsPdfService
     {
