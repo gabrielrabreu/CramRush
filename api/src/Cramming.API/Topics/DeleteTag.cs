@@ -7,9 +7,16 @@ namespace Cramming.API.Topics
 {
     public class DeleteTag : EndpointBase
     {
+        public const string Route = "/Topics/{TopicId}/Tags/{TagId}";
+
+        public static string BuildRoute(Guid topicId, Guid tagId)
+            => Route
+                   .Replace("{TopicId}", topicId.ToString())
+                   .Replace("{TagId}", tagId.ToString());
+
         public override void Configure(WebApplication app)
         {
-            app.MapDelete(DeleteTagRequest.Route, HandleAsync)
+            app.MapDelete(Route, HandleAsync)
                 .WithOpenApi()
                 .WithName(nameof(DeleteTag))
                 .WithTags("Topics")

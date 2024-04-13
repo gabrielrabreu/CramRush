@@ -12,6 +12,7 @@ namespace Cramming.Infrastructure.Data.Queries
             CancellationToken cancellationToken = default)
         {
             return await db.Topics
+                .OrderBy(topic => topic.Name)
                 .Select(topic => new TopicBriefDto(topic.Id, topic.Name))
                 .ToPagedListAsync(pageNumber, pageSize, cancellationToken);
         }

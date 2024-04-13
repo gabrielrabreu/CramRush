@@ -8,11 +8,6 @@ namespace Cramming.API.Topics
     public class CreateTopicRequest
     {
         /// <summary>
-        /// The route for creating a new topic.
-        /// </summary>
-        public const string Route = "/Topics";
-
-        /// <summary>
         /// The name of the topic to be created.
         /// </summary>
         [Required]

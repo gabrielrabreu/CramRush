@@ -27,7 +27,7 @@ namespace Cramming.IntegrationTests.Data
                 .BuildServiceProvider();
 
             var builder = new DbContextOptionsBuilder<AppDbContext>();
-            builder.UseInMemoryDatabase("Cramming.IntegrationTests")
+            builder.UseInMemoryDatabase(Guid.NewGuid().ToString())
                    .UseInternalServiceProvider(serviceProvider);
 
             return builder.Options;

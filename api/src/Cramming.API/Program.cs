@@ -83,7 +83,7 @@ static void SeedDatabase(WebApplication app)
     catch (Exception ex)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
+        logger.LogError(ex, "An error occurred seeding the DB. {ExceptionMessage}", ex.Message);
     }
 }
 
@@ -110,4 +110,8 @@ static void ConfigureEndpoints(WebApplication app)
     foreach (var type in endpointBaseTypes)
         if (Activator.CreateInstance(type) is EndpointBase instance)
             instance.Configure(app);
+}
+
+public partial class Program 
+{ 
 }

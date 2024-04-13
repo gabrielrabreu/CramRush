@@ -9,18 +9,6 @@ namespace Cramming.API.Topics
     public class ReplaceQuestionsRequest
     {
         /// <summary>
-        /// The route for replacing questions for a topic.
-        /// </summary>
-        public const string Route = "/Topics/{TopicId}/Questions:Replace";
-
-        /// <summary>
-        /// Builds the route for replacing questions for the specified topic.
-        /// </summary>
-        /// <param name="topicId">The ID of the topic for which questions will be replaced.</param>
-        /// <returns>The built route.</returns>
-        public static string BuildRoute(Guid topicId) => Route.Replace("{TopicId}", topicId.ToString());
-
-        /// <summary>
         /// The list of questions to replace for the topic.
         /// </summary>
         [Required]

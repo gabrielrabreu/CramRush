@@ -5,13 +5,17 @@ using System.Net;
 
 namespace Cramming.API.Topics
 {
-    public class GetNotercards : EndpointBase
+    public class GetNotecards : EndpointBase
     {
+        public const string Route = "/Topics/{TopicId}:Notecards";
+
+        public static string BuildRoute(Guid topicId) => Route.Replace("{TopicId}", topicId.ToString());
+
         public override void Configure(WebApplication app)
         {
-            app.MapGet(GetNotecardsRequest.Route, HandleAsync)
+            app.MapGet(Route, HandleAsync)
                 .WithOpenApi()
-                .WithName(nameof(GetNotercards))
+                .WithName(nameof(GetNotecards))
                 .WithTags("Topics")
                 .WithSummary("Retrieve notecards for a topic by ID");
         }

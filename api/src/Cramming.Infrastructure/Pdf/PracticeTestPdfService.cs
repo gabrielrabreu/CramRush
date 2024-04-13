@@ -12,7 +12,7 @@ namespace Cramming.Infrastructure.Pdf
         {
             return BinaryContent.Pdf(
                 new PracticeTestDocument(model).GeneratePdf(),
-                $"PracticeTest_{model.Name.Replace(" ", "")}_{DateTime.UtcNow}");
+                $"PracticeTest_{model.Name.Replace(" ", "")}_{DateTime.UtcNow:s}");
         }
     }
 }

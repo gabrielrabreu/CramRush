@@ -8,9 +8,13 @@ namespace Cramming.API.Topics
 {
     public class GetTopicById : EndpointBase
     {
+        public const string Route = "/Topics/{TopicId}";
+
+        public static string BuildRoute(Guid topicId) => Route.Replace("{TopicId}", topicId.ToString());
+
         public override void Configure(WebApplication app)
         {
-            app.MapGet(GetTopicByIdRequest.Route, HandleAsync)
+            app.MapGet(Route, HandleAsync)
                 .WithOpenApi()
                 .WithName(nameof(GetTopicById))
                 .WithTags("Topics")

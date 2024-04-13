@@ -9,9 +9,13 @@ namespace Cramming.API.Topics
 {
     public class CreateTag : EndpointBase
     {
+        public const string Route = "/Topics/{TopicId}/Tags";
+
+        public static string BuildRoute(Guid topicId) => Route.Replace("{TopicId}", topicId.ToString());
+
         public override void Configure(WebApplication app)
         {
-            app.MapPost(CreateTagRequest.Route, HandleAsync)
+            app.MapPost(Route, HandleAsync)
                 .WithOpenApi()
                 .WithName(nameof(CreateTag))
                 .WithTags("Topics")

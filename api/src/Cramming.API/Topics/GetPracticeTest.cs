@@ -7,9 +7,13 @@ namespace Cramming.API.Topics
 {
     public class GetPracticeTest : EndpointBase
     {
+        public const string Route = "/Topics/{TopicId}:PracticeTest";
+
+        public static string BuildRoute(Guid topicId) => Route.Replace("{TopicId}", topicId.ToString());
+
         public override void Configure(WebApplication app)
         {
-            app.MapGet(GetPracticeTestRequest.Route, HandleAsync)
+            app.MapGet(Route, HandleAsync)
                 .WithOpenApi()
                 .WithName(nameof(GetPracticeTest))
                 .WithTags("Topics")

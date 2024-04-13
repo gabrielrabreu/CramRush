@@ -8,9 +8,11 @@ namespace Cramming.API.Topics
 {
     public class CreateTopic : EndpointBase
     {
+        public const string Route = "/Topics";
+
         public override void Configure(WebApplication app)
         {
-            app.MapPost(CreateTopicRequest.Route, HandleAsync)
+            app.MapPost(Route, HandleAsync)
                 .WithOpenApi()
                 .WithName(nameof(CreateTopic))
                 .WithTags("Topics")
@@ -26,7 +28,7 @@ namespace Cramming.API.Topics
 
             var result = await mediator.Send(command, cancellationToken);
 
-            return TypedResults.Created(GetTopicByIdRequest.BuildRoute(result.Value!.Id), result.Value);
+            return TypedResults.Created(GetTopicById.BuildRoute(result.Value!.Id), result.Value);
         }
     }
 }

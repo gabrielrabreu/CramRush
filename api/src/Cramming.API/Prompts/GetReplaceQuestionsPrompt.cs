@@ -5,9 +5,11 @@ namespace Cramming.API.Prompts
 {
     public class GetReplaceQuestionsPrompt : EndpointBase
     {
+        public const string Route = "/Prompts:ReplaceQuestionsPrompt";
+
         public override void Configure(WebApplication app)
         {
-            app.MapPost(GetReplaceQuestionsPromptRequest.Route, Handle)
+            app.MapGet(Route, Handle)
                 .WithOpenApi()
                 .WithName(nameof(GetReplaceQuestionsPrompt))
                 .WithTags("Prompts")
@@ -27,7 +29,7 @@ namespace Cramming.API.Prompts
          - Statement (statement): Enter the statement of the options (string format).
          - Is answer? (isAnswer): Indicate if this is the correct answer (true / false).";
 
-            var request = new GetReplaceQuestionsPromptResponse(prompt, ReplaceQuestionsRequest.Route);
+            var request = new GetReplaceQuestionsPromptResponse(prompt, ReplaceQuestions.Route);
 
             return TypedResults.Ok(request);
         }

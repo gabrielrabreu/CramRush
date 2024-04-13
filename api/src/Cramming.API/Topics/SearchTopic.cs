@@ -8,9 +8,16 @@ namespace Cramming.API.Topics
 {
     public class SearchTopic : EndpointBase
     {
+        public const string Route = "/Topics";
+
+        public static string BuildRoute(int pageNumber, int pageSize)
+            => $"{Route}?{nameof(SearchTopicRequest.PageNumber)}={pageNumber}" +
+                      $"&{nameof(SearchTopicRequest.PageSize)}={pageSize}";
+
+
         public override void Configure(WebApplication app)
         {
-            app.MapGet(SearchTopicRequest.Route, HandleAsync)
+            app.MapGet(Route, HandleAsync)
                 .WithOpenApi()
                 .WithName(nameof(SearchTopic))
                 .WithTags("Topics")

@@ -20,7 +20,7 @@ namespace Cramming.SharedKernel
 
             var response = await next();
 
-            logger.LogInformation("Handled {RequestName} with {Response} in {ms} ms",
+            logger.LogInformation("Handled {RequestName} with {Response} in {Ms} ms",
                 typeof(TRequest).Name,
                 response,
                 sw.ElapsedMilliseconds);

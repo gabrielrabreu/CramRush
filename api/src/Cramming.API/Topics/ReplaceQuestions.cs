@@ -8,9 +8,13 @@ namespace Cramming.API.Topics
 {
     public class ReplaceQuestions : EndpointBase
     {
+        public const string Route = "/Topics/{TopicId}/Questions:Replace";
+
+        public static string BuildRoute(Guid topicId) => Route.Replace("{TopicId}", topicId.ToString());
+
         public override void Configure(WebApplication app)
         {
-            app.MapPost(ReplaceQuestionsRequest.Route, HandleAsync)
+            app.MapPost(Route, HandleAsync)
                 .WithOpenApi()
                 .WithName(nameof(ReplaceQuestions))
                 .WithTags("Topics")

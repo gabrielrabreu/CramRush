@@ -43,7 +43,7 @@ namespace Cramming.UnitTests.SharedKernel
 
             _loggerMock.VerifyLog(
                 LogLevel.Information,
-                "Handled {RequestName} with {Response} in {ms} ms",
+                "Handled {RequestName} with {Response} in {Ms} ms",
                 new KeyValuePair<string, object>("RequestName", typeof(SampleRequest).Name),
                 new KeyValuePair<string, object>("Response", response));
         }

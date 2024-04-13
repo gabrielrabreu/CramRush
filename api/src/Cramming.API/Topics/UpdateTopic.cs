@@ -8,9 +8,13 @@ namespace Cramming.API.Topics
 {
     public class UpdateTopic : EndpointBase
     {
+        public const string Route = "/Topics/{TopicId}";
+        
+        public static string BuildRoute(Guid topicId) => Route.Replace("{TopicId}", topicId.ToString());
+
         public override void Configure(WebApplication app)
         {
-            app.MapPut(UpdateTopicRequest.Route, HandleAsync)
+            app.MapPut(Route, HandleAsync)
                 .WithOpenApi()
                 .WithName(nameof(UpdateTopic))
                 .WithTags("Topics")
