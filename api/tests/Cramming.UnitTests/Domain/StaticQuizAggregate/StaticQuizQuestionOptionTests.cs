@@ -17,6 +17,8 @@ namespace Cramming.UnitTests.Domain.StaticQuizAggregate
             // Assert
             option.Text.Should().Be(text);
             option.IsCorrect.Should().Be(isCorrect);
+            option.Question.Should().BeNull();
+            option.QuestionId.Should().BeEmpty();
         }
 
         [Fact]
