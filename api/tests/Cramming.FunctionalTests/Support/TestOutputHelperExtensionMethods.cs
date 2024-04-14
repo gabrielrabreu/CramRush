@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using Xunit.Abstractions;
 
 namespace Cramming.FunctionalTests.Support
 {

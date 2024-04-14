@@ -1,16 +1,12 @@
-﻿using Cramming.Domain.TopicAggregate.Repositories;
-using Cramming.Infrastructure.Data;
+﻿using Cramming.Infrastructure.Data;
 using Cramming.Infrastructure.Data.Queries;
 using Cramming.Infrastructure.Data.Repositories;
-using Cramming.Infrastructure.Pdf;
 using Cramming.SharedKernel;
-using Cramming.UseCases.Topics.GetNotecards;
-using Cramming.UseCases.Topics.GetPracticeTest;
-using Cramming.UseCases.Topics.Search;
+using Cramming.UseCases.StaticQuizzes;
+using Cramming.UseCases.StaticQuizzes.List;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using QuestPDF.Infrastructure;
 
 namespace Cramming.Infrastructure
 {
@@ -26,14 +22,10 @@ namespace Cramming.Infrastructure
             services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
-            services.AddScoped(typeof(ITopicReadRepository), typeof(TopicRepository));
-            services.AddScoped(typeof(ITopicRepository), typeof(TopicRepository));
+            services.AddScoped(typeof(IStaticQuizReadRepository), typeof(StaticQuizRepository));
+            services.AddScoped(typeof(IStaticQuizRepository), typeof(StaticQuizRepository));
 
-            services.AddScoped<ISearchTopicQueryService, SearchTopicQueryService>();
-
-            QuestPDF.Settings.License = LicenseType.Community;
-            services.AddScoped<INotecardsPdfService, NotecardsPdfService>();
-            services.AddScoped<IPracticeTestPdfService, PracticeTestPdfService>();
+            services.AddScoped<IListStaticQuizzesService, ListStaticQuizzesService>();
 
             logger.LogInformation("{Project} services registered", "Infrastructure");
 

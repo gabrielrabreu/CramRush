@@ -35,7 +35,7 @@ namespace Cramming.FunctionalTests.Support
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
-        public static void EnsureLocation(this HttpResponseMessage response, 
+        public static void EnsureLocation(this HttpResponseMessage response,
             string location,
             ITestOutputHelper? output = null)
         {
@@ -43,7 +43,7 @@ namespace Cramming.FunctionalTests.Support
             response.Headers.Location.Should().Be(location);
         }
 
-        public static void EnsureFile(this HttpResponseMessage response, 
+        public static void EnsureFile(this HttpResponseMessage response,
             string? fileName = null,
             ITestOutputHelper? output = null)
         {

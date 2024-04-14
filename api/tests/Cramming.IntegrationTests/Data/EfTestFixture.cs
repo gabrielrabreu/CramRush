@@ -1,5 +1,4 @@
 ﻿using Cramming.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cramming.IntegrationTests.Data
