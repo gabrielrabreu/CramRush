@@ -16,7 +16,7 @@ namespace Cramming.API.StaticQuizzes
                 .WithOpenApi()
                 .WithName(nameof(CreateStaticQuiz))
                 .WithTags("StaticQuizzes")
-                .WithSummary("Create a new static quiz");
+                .WithSummary("Creates Static Quiz");
         }
 
         private async Task<Created<StaticQuizBriefDto>> HandleAsync(

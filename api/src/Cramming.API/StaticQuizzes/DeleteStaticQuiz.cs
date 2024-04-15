@@ -17,7 +17,7 @@ namespace Cramming.API.StaticQuizzes
                 .WithOpenApi()
                 .WithName(nameof(DeleteStaticQuiz))
                 .WithTags("StaticQuizzes")
-                .WithSummary("Deletes a static quiz by its ID");
+                .WithSummary("Deletes Static Quiz by its ID");
         }
 
         private async Task<Results<NoContent, NotFound>> HandleAsync(

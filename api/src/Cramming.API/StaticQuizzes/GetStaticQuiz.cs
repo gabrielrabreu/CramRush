@@ -18,7 +18,7 @@ namespace Cramming.API.StaticQuizzes
                 .WithOpenApi()
                 .WithName(nameof(GetStaticQuiz))
                 .WithTags("StaticQuizzes")
-                .WithSummary("Retrieve static quiz by ID");
+                .WithSummary("Gets Static Quiz by its ID");
         }
 
         private async Task<Results<Ok<StaticQuizDto>, NotFound>> HandleAsync(

@@ -21,7 +21,7 @@ namespace Cramming.API.StaticQuizzes
                 .WithOpenApi()
                 .WithName(nameof(ListStaticQuizzes))
                 .WithTags("StaticQuizzes")
-                .WithSummary("List static quizzes with pagination");
+                .WithSummary("List Static Quizzes with pagination");
         }
 
         private async Task<Ok<PagedList<StaticQuizBriefDto>>> HandleAsync(

@@ -18,7 +18,7 @@ namespace Cramming.API.StaticQuizzes
                 .WithOpenApi()
                 .WithName(nameof(UpdateStaticQuiz))
                 .WithTags("StaticQuizzes")
-                .WithSummary("Updates a static quiz by its ID");
+                .WithSummary("Updates Static Quiz by its ID");
         }
 
         private async Task<Results<NoContent, NotFound>> HandleAsync(
