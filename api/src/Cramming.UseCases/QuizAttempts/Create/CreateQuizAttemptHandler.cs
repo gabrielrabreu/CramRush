@@ -30,12 +30,12 @@ namespace Cramming.UseCases.QuizAttempts.Create
             var savedAttempt = await quizAttemptRepository.AddAsync(newAttempt, cancellationToken);
 
             return new QuizAttemptDto(
-                savedAttempt.Id, 
+                savedAttempt.Id,
                 savedAttempt.QuizTitle,
                 savedAttempt.IsPending,
                 savedAttempt.Questions.Select(
                     question => new QuizAttemptQuestionDto(
-                        question.Id, 
+                        question.Id,
                         question.Statement,
                         question.IsPending,
                         question.Options.Select(

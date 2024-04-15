@@ -4,7 +4,7 @@ using Cramming.UseCases.StaticQuizzes;
 namespace Cramming.UseCases.QuizAttempts.AnswerQuestion
 {
     public class ReplyQuizAttemptQuestionHandler(
-        IQuizAttemptRepository quizAttemptRepository) 
+        IQuizAttemptRepository quizAttemptRepository)
         : ICommandHandler<ReplyQuizAttemptQuestionCommand, Result<ReplyQuizAttemptQuestionResultDto>>
     {
         public async Task<Result<ReplyQuizAttemptQuestionResultDto>> Handle(ReplyQuizAttemptQuestionCommand request, CancellationToken cancellationToken)

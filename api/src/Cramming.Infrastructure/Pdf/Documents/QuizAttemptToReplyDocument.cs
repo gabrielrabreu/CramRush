@@ -20,7 +20,7 @@ namespace Cramming.Infrastructure.Pdf.Documents
 
         private void ComposeContent(IContainer _)
         {
-            _.PaddingTop(40)
+            _.PaddingTop(10)
                 .Column(_ =>
                 {
                     for (int i = 0; i < model.Questions.Count; i += 2)

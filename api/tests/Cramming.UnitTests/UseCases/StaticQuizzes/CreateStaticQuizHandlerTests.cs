@@ -22,10 +22,10 @@ namespace Cramming.UnitTests.UseCases.StaticQuizzes
             var quiz = new StaticQuiz("Sample Title");
 
             var request = new CreateStaticQuizCommand(
-                quiz.Title, 
+                quiz.Title,
                 [
                     new CreateStaticQuizCommand.QuestionDto(
-                        "Sample Statement", 
+                        "Sample Statement",
                         [ new CreateStaticQuizCommand.QuestionOptionDto("Sample Text", true) ])
                 ]);
             var cancellationToken = new CancellationToken();

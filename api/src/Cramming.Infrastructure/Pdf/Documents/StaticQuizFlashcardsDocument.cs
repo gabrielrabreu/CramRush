@@ -8,11 +8,11 @@ namespace Cramming.Infrastructure.Pdf.Documents
 {
     public class StaticQuizFlashcardsDocument(StaticQuiz model) : IDocument
     {
-        private string Rendering = "Header";
+        private PageMode? Page;
 
         public void Compose(IDocumentContainer container)
         {
-            Rendering = "FrontPage";
+            Page = PageMode.Front;
             container.Page(_ =>
             {
                 _.Margin(50);
@@ -21,7 +21,7 @@ namespace Cramming.Infrastructure.Pdf.Documents
                 _.Footer().Component<DefaultFooterComponent>();
             });
 
-            Rendering = "BackPage";
+            Page = PageMode.Back;
             container.Page(_ =>
             {
                 _.Margin(50);
@@ -47,26 +47,21 @@ namespace Cramming.Infrastructure.Pdf.Documents
                     var leftQuestion = model.Questions.ElementAt(i);
                     var rightQuestion = i + 1 < model.Questions.Count ? model.Questions.ElementAt(i + 1) : null;
 
-                    ComposeQuestion(_, leftQuestion, row, 1, i);
-                    ComposeQuestion(_, rightQuestion, row, 2, i+1);
+                    ComposeQuestion(_, leftQuestion, row, 1);
+                    ComposeQuestion(_, rightQuestion, row, 2);
 
                     row += 1;
                 }
             });
         }
 
-        private void ComposeQuestion(TableDescriptor _, StaticQuizQuestion? question, uint row, uint column, int index)
+        private void ComposeQuestion(TableDescriptor _, StaticQuizQuestion? question, uint row, uint column)
         {
             if (question != null)
             {
-                //var cellHeader = _.Cell().Row(row).Column(column);
                 var cellBody = _.Cell().Row(row + 1).Column(column);
 
-                //cellHeader
-                //    .Element(HeaderCell)
-                //    .Text($"{model.Title}/{index+1}");
-
-                if (Rendering == "BackPage")
+                if (Page == PageMode.Back)
                     cellBody
                         .Element(BodyCell)
                         .Text(question.Options.Single(option => option.IsCorrect).Text);
@@ -75,16 +70,6 @@ namespace Cramming.Infrastructure.Pdf.Documents
                         .Element(BodyCell)
                         .Text(question.Statement);
             }
-        }
-
-        private static IContainer HeaderCell(IContainer _)
-        {
-            return _
-                .Border(1)
-                .Background(Colors.Grey.Lighten3)
-                .MinWidth(50)
-                .Padding(2)
-                .DefaultTextStyle(TextStyle.Default.FontSize(7));
         }
 
         private static IContainer BodyCell(IContainer _)
@@ -98,6 +83,12 @@ namespace Cramming.Infrastructure.Pdf.Documents
                 .AlignCenter()
                 .AlignMiddle()
                 .DefaultTextStyle(TextStyle.Default.FontSize(10));
+        }
+
+        public enum PageMode
+        {
+            Front,
+            Back
         }
     }
 }

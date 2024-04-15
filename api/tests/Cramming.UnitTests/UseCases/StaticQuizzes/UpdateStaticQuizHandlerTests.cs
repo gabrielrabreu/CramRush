@@ -22,7 +22,7 @@ namespace Cramming.UnitTests.UseCases.StaticQuizzes
             var quiz = new StaticQuiz("Sample Title");
 
             var request = new UpdateStaticQuizCommand(
-                quiz.Id, 
+                quiz.Id,
                 "New Title",
                 [
                     new UpdateStaticQuizCommand.QuestionDto(
