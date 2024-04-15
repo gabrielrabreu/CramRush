@@ -1,61 +1,59 @@
-﻿using Cramming.Domain.TopicAggregate;
+﻿using Cramming.Domain.StaticQuizAggregate;
 using Cramming.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace Cramming.IntegrationTests.Data
 {
     public class EfRepositoryTests(EfTestFixture fixture) : IClassFixture<EfTestFixture>
     {
-        private readonly EfRepository<Topic> repository = new(fixture.Db);
+        private readonly EfRepository<StaticQuiz> repository = new(fixture.Db);
 
         [Fact]
-        public async Task GetsAllTopics()
+        public async Task GetsAllStaticQuizzes()
         {
             fixture.ClearDatabase();
 
-            var topic1 = new Topic("Topic 1");
-            await repository.AddAsync(topic1);
-            fixture.Db.Entry(topic1).State = EntityState.Detached;
+            var quiz1 = new StaticQuiz("Sample Title 1");
+            await repository.AddAsync(quiz1);
+            fixture.Db.Entry(quiz1).State = EntityState.Detached;
 
-            var topic2 = new Topic("Topic 2");
-            await repository.AddAsync(topic2);
-            fixture.Db.Entry(topic2).State = EntityState.Detached;
+            var quiz2 = new StaticQuiz("Sample Title 2");
+            await repository.AddAsync(quiz2);
+            fixture.Db.Entry(quiz2).State = EntityState.Detached;
 
             (await repository.GetAllAsync()).Should().HaveCount(2);
         }
 
         [Fact]
-        public async Task GetsTopicsById()
+        public async Task GetsStaticQuizById()
         {
             fixture.ClearDatabase();
 
-            var topic1 = new Topic("Topic 1");
-            await repository.AddAsync(topic1);
-            fixture.Db.Entry(topic1).State = EntityState.Detached;
+            var quiz1 = new StaticQuiz("Sample Title 1");
+            await repository.AddAsync(quiz1);
+            fixture.Db.Entry(quiz1).State = EntityState.Detached;
 
-            var topic2 = new Topic("Topic 2");
-            await repository.AddAsync(topic2);
-            fixture.Db.Entry(topic2).State = EntityState.Detached;
+            var quiz2 = new StaticQuiz("Sample Title 2");
+            await repository.AddAsync(quiz2);
+            fixture.Db.Entry(quiz2).State = EntityState.Detached;
 
-            (await repository.GetByIdAsync(topic1.Id)).Should().NotBeNull();
-            (await repository.GetByIdAsync(topic2.Id)).Should().NotBeNull();
+            (await repository.GetByIdAsync(quiz1.Id)).Should().NotBeNull();
+            (await repository.GetByIdAsync(quiz2.Id)).Should().NotBeNull();
             (await repository.GetByIdAsync(Guid.NewGuid())).Should().BeNull();
         }
 
         [Fact]
-        public async Task AddsTopicAndSetsId()
+        public async Task AddsStaticQuizAndSetsId()
         {
             fixture.ClearDatabase();
 
-            var topic = new Topic("Topic Name");
-            await repository.AddAsync(topic);
-            fixture.Db.Entry(topic).State = EntityState.Detached;
+            var quiz = new StaticQuiz("Sample Title");
+            await repository.AddAsync(quiz);
+            fixture.Db.Entry(quiz).State = EntityState.Detached;
 
             var createdItem = (await repository.GetAllAsync()).SingleOrDefault();
             createdItem.Should().NotBeNull();
             createdItem!.Id.Should().NotBeEmpty();
-            createdItem.Name.Should().Be(topic.Name);
-            createdItem.Tags.Should().BeEmpty();
+            createdItem.Title.Should().Be(quiz.Title);
             createdItem.Questions.Should().BeEmpty();
         }
 
@@ -64,23 +62,22 @@ namespace Cramming.IntegrationTests.Data
         {
             fixture.ClearDatabase();
 
-            var topic = new Topic("Topic Name");
-            await repository.AddAsync(topic);
-            fixture.Db.Entry(topic).State = EntityState.Detached;
+            var quiz = new StaticQuiz("Sample Title");
+            await repository.AddAsync(quiz);
+            fixture.Db.Entry(quiz).State = EntityState.Detached;
 
             var createdItem = (await repository.GetAllAsync()).SingleOrDefault();
             createdItem.Should().NotBeNull();
-            createdItem!.Should().NotBe(topic);
-            createdItem!.UpdateName("New Topic Name");
+            createdItem!.Should().NotBe(quiz);
+            createdItem!.SetTitle("New Title");
 
             await repository.UpdateAsync(createdItem);
 
             var updatedItem = (await repository.GetAllAsync()).SingleOrDefault();
             updatedItem.Should().NotBeNull();
             updatedItem!.Id.Should().NotBeEmpty();
-            updatedItem.Name.Should().NotBe(topic.Name);
-            updatedItem.Name.Should().Be(createdItem.Name);
-            updatedItem.Tags.Should().BeEmpty();
+            updatedItem.Title.Should().NotBe(quiz.Title);
+            updatedItem.Title.Should().Be(createdItem.Title);
             updatedItem.Questions.Should().BeEmpty();
         }
 
@@ -89,9 +86,9 @@ namespace Cramming.IntegrationTests.Data
         {
             fixture.ClearDatabase();
 
-            var topic = new Topic("Topic Name");
-            await repository.AddAsync(topic);
-            fixture.Db.Entry(topic).State = EntityState.Detached;
+            var quiz = new StaticQuiz("Sample Title");
+            await repository.AddAsync(quiz);
+            fixture.Db.Entry(quiz).State = EntityState.Detached;
 
             var createdItem = (await repository.GetAllAsync()).SingleOrDefault();
             createdItem.Should().NotBeNull();

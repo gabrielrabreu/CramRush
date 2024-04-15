@@ -27,9 +27,8 @@
 
             return loggedValues
                 .Any(loggedValue => loggedValue.Key == messageKeyName && loggedValue.Value.ToString() == expectedMessage) &&
-                 Array.TrueForAll(expectedValues, expectedValue => 
+                 Array.TrueForAll(expectedValues, expectedValue =>
                     loggedValues.Any(loggedValue => loggedValue.Key == expectedValue.Key && loggedValue.Value == expectedValue.Value));
         }
     }
 }
-    

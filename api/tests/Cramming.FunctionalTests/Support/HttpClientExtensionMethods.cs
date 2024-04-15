@@ -3,7 +3,7 @@
     public static class HttpClientExtensionMethods
     {
         public static async Task<HttpResponseMessage> ExecuteGetAsync(
-            this HttpClient client, 
+            this HttpClient client,
             string route,
             ITestOutputHelper? output = null)
         {
@@ -13,8 +13,8 @@
         }
 
         public static async Task<HttpResponseMessage> ExecutePostAsync(
-            this HttpClient client, 
-            string route, 
+            this HttpClient client,
+            string route,
             object content,
             ITestOutputHelper? output = null)
         {

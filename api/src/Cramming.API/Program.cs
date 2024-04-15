@@ -2,7 +2,7 @@ using Cramming.API;
 using Cramming.Infrastructure;
 using Cramming.Infrastructure.Data;
 using Cramming.SharedKernel;
-using Cramming.UseCases.Topics.Get;
+using Cramming.UseCases.StaticQuizzes.Get;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -83,7 +83,7 @@ static void ConfigureMediatR(IServiceCollection services)
 {
     var mediatRAssemblies = new[]
     {
-        Assembly.GetAssembly(typeof(GetTopicQuery)) // UseCases
+        Assembly.GetAssembly(typeof(GetStaticQuizQuery)) // UseCases
     };
 
     services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!));
@@ -104,6 +104,6 @@ static void ConfigureEndpoints(WebApplication app)
             instance.Configure(app);
 }
 
-public partial class Program 
+public partial class Program
 {
 }
