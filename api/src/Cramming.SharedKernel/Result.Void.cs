@@ -6,14 +6,19 @@ namespace Cramming.SharedKernel
     {
         protected internal Result(HttpStatusCode status) : base(status) { }
 
-        public static Result NotFound()
-        {
-            return new Result(HttpStatusCode.NotFound);
-        }
-
         public static Result OK()
         {
             return new Result(HttpStatusCode.OK);
+        }
+
+        public static Result BadRequest()
+        {
+            return new Result(HttpStatusCode.BadRequest);
+        }
+
+        public static Result NotFound()
+        {
+            return new Result(HttpStatusCode.NotFound);
         }
     }
 }

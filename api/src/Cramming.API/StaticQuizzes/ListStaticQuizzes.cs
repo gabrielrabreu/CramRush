@@ -14,7 +14,6 @@ namespace Cramming.API.StaticQuizzes
             => $"{Route}?{nameof(ListStaticQuizzesRequest.PageNumber)}={pageNumber}" +
                       $"&{nameof(ListStaticQuizzesRequest.PageSize)}={pageSize}";
 
-
         public override void Configure(WebApplication app)
         {
             app.MapGet(Route, HandleAsync)

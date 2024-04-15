@@ -3,7 +3,7 @@ using Cramming.SharedKernel;
 
 namespace Cramming.UseCases.StaticQuizzes
 {
-    public interface IStaticQuizRepository : IStaticQuizReadRepository, IRepository<StaticQuiz>
+    public interface IStaticQuizReadRepository : IReadRepository<StaticQuiz>
     {
     }
 }

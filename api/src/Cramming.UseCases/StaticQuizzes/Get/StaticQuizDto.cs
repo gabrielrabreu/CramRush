@@ -1,4 +1,4 @@
-﻿namespace Cramming.UseCases.StaticQuizzes
+﻿namespace Cramming.UseCases.StaticQuizzes.Get
 {
     public record StaticQuizDto(Guid Id, string Title, IEnumerable<StaticQuizQuestionDto> Questions);
 

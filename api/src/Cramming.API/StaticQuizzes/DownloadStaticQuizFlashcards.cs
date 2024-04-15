@@ -1,13 +1,13 @@
-﻿using Cramming.UseCases.StaticQuizzes.Get;
+﻿using Cramming.UseCases.StaticQuizzes.DownloadFlashcards;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using System.Net;
 
 namespace Cramming.API.StaticQuizzes
 {
-    public class GetStaticQuiz : EndpointBase
+    public class DownloadStaticQuizFlashcards : EndpointBase
     {
-        public const string Route = "/StaticQuizzes/{StaticQuizId}";
+        public const string Route = "/StaticQuizzes/{StaticQuizId}:Download";
 
         public static string BuildRoute(Guid staticQuizId) => Route.Replace("{StaticQuizId}", staticQuizId.ToString());
 
@@ -15,24 +15,27 @@ namespace Cramming.API.StaticQuizzes
         {
             app.MapGet(Route, HandleAsync)
                 .WithOpenApi()
-                .WithName(nameof(GetStaticQuiz))
+                .WithName(nameof(DownloadStaticQuizFlashcards))
                 .WithTags("StaticQuizzes")
-                .WithSummary("Gets Static Quiz by its ID");
+                .WithSummary("Downloads Static Quiz flashcards by its ID");
         }
 
-        private async Task<Results<Ok<StaticQuizDto>, NotFound>> HandleAsync(
+        private async Task<Results<FileContentHttpResult, NotFound>> HandleAsync(
             Guid staticQuizId,
             IMediator mediator,
             CancellationToken cancellationToken)
         {
-            var query = new GetStaticQuizQuery(staticQuizId);
+            var query = new DownloadStaticQuizFlashcardsQuery(staticQuizId);
 
             var result = await mediator.Send(query, cancellationToken);
 
             if (result.Status == HttpStatusCode.NotFound)
                 return TypedResults.NotFound();
 
-            return TypedResults.Ok(result.Value);
+            return TypedResults.File(
+                result.Value!.Content,
+                result.Value.Type,
+                result.Value.Name);
         }
     }
 }

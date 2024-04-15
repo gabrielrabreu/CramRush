@@ -1,6 +1,7 @@
 ﻿using Cramming.API.StaticQuizzes;
 using Cramming.FunctionalTests.Support;
 using Cramming.UseCases.StaticQuizzes;
+using Cramming.UseCases.StaticQuizzes.Get;
 
 namespace Cramming.FunctionalTests.ApiEndpoints.StaticQuizzes
 {
