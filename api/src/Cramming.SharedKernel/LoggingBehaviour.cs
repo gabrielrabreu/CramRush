@@ -4,7 +4,8 @@ using System.Diagnostics;
 
 namespace Cramming.SharedKernel
 {
-    public class LoggingBehaviour<TRequest, TResponse>(ILogger<Mediator> logger)
+    public class LoggingBehaviour<TRequest, TResponse>(
+        ILogger<Mediator> logger)
         : IPipelineBehavior<TRequest, TResponse>
             where TRequest : IRequest<TResponse>
     {

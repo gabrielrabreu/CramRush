@@ -5,6 +5,7 @@ namespace Cramming.UnitTests.SharedKernel
     public class LoggingBehaviourTests
     {
         public record SampleResponse(Guid Id);
+
         public record SampleRequest : IRequest<SampleResponse> { }
 
         private readonly Mock<ILogger<Mediator>> _loggerMock;

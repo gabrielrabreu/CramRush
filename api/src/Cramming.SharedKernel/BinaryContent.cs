@@ -1,6 +1,9 @@
 ﻿namespace Cramming.SharedKernel
 {
-    public class BinaryContent(byte[] content, string type, string name)
+    public class BinaryContent(
+        byte[] content,
+        string type,
+        string name)
     {
         public byte[] Content { get; init; } = content;
 
@@ -8,9 +11,14 @@
 
         public string Name { get; init; } = name;
 
-        public static BinaryContent Pdf(byte[] content, string name)
+        public static BinaryContent Pdf(
+            byte[] content,
+            string name)
         {
-            return new BinaryContent(content, "application/pdf", name);
+            return new BinaryContent(
+                content,
+                "application/pdf",
+                name);
         }
     };
 }
