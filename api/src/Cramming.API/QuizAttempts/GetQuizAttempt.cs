@@ -1,8 +1,5 @@
 ﻿using Cramming.UseCases.QuizAttempts;
 using Cramming.UseCases.QuizAttempts.Get;
-using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
-using System.Net;
 
 namespace Cramming.API.QuizAttempts
 {
@@ -10,7 +7,8 @@ namespace Cramming.API.QuizAttempts
     {
         public const string Route = "/QuizAttempts/{QuizAttemptId}";
 
-        public static string BuildRoute(Guid quizAttemptId) => Route.Replace("{QuizAttemptId}", quizAttemptId.ToString());
+        public static string BuildRoute(Guid quizAttemptId)
+            => Route.Replace("{QuizAttemptId}", quizAttemptId.ToString());
 
         public override void Configure(WebApplication app)
         {
@@ -22,11 +20,11 @@ namespace Cramming.API.QuizAttempts
         }
 
         private async Task<Results<Ok<QuizAttemptDto>, NotFound>> HandleAsync(
-            Guid QuizAttemptDto,
+            Guid quizAttemptId,
             IMediator mediator,
             CancellationToken cancellationToken)
         {
-            var query = new GetQuizAttemptQuery(QuizAttemptDto);
+            var query = new GetQuizAttemptQuery(quizAttemptId);
 
             var result = await mediator.Send(query, cancellationToken);
 

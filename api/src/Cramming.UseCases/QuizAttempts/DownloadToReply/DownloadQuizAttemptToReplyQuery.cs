@@ -1,6 +1,6 @@
-﻿using Cramming.SharedKernel;
-
-namespace Cramming.UseCases.QuizAttempts.DownloadToReply
+﻿namespace Cramming.UseCases.QuizAttempts.DownloadToReply
 {
-    public record DownloadQuizAttemptToReplyQuery(Guid QuizAttemptId) : IQuery<Result<BinaryContent>>;
+    public record DownloadQuizAttemptToReplyQuery(
+        Guid QuizAttemptId)
+        : IQuery<Result<BinaryContent>>;
 }

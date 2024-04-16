@@ -1,6 +1,4 @@
-﻿using Cramming.SharedKernel;
-
-namespace Cramming.Domain.QuizAttemptAggregate
+﻿namespace Cramming.Domain.QuizAttemptAggregate
 {
     public class QuizAttempt(string quizTitle) : DomainEntityBase, IAggregateRoot
     {

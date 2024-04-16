@@ -1,23 +1,33 @@
 ﻿using Cramming.Domain.QuizAttemptAggregate;
-using Cramming.UseCases.StaticQuizzes;
+using Cramming.UseCases.QuizAttempts;
 
 namespace Cramming.Infrastructure.Data.Repositories
 {
-    public class QuizAttemptRepository(AppDbContext db) : EfRepository<QuizAttempt>(db), IQuizAttemptRepository
+    public class QuizAttemptRepository(
+        AppDbContext db)
+        : EfRepository<QuizAttempt>(db), IQuizAttemptRepository
     {
-        public override async Task<QuizAttempt?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        public override async Task<QuizAttempt?> GetByIdAsync(
+            Guid id,
+            CancellationToken cancellationToken = default)
         {
-            var quiz = await base.GetByIdAsync(id, cancellationToken);
+            var quizAttempt = await base.GetByIdAsync(
+                id,
+                cancellationToken);
 
-            if (quiz != null)
+            if (quizAttempt != null)
             {
-                await Db.Entry(quiz).Collection(p => p.Questions).LoadAsync(cancellationToken);
+                await Db.Entry(quizAttempt)
+                    .Collection(p => p.Questions)
+                    .LoadAsync(cancellationToken);
 
-                foreach (var question in quiz.Questions)
-                    await Db.Entry(question).Collection(p => p.Options).LoadAsync(cancellationToken);
+                foreach (var question in quizAttempt.Questions)
+                    await Db.Entry(question)
+                        .Collection(p => p.Options)
+                        .LoadAsync(cancellationToken);
             }
 
-            return quiz;
+            return quizAttempt;
         }
     }
 }

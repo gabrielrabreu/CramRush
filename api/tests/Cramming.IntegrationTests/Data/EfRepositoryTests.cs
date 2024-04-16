@@ -1,22 +1,22 @@
-﻿using Cramming.Domain.StaticQuizAggregate;
+﻿using Cramming.Domain.QuizAggregate;
 using Cramming.Infrastructure.Data;
 
 namespace Cramming.IntegrationTests.Data
 {
     public class EfRepositoryTests(EfTestFixture fixture) : IClassFixture<EfTestFixture>
     {
-        private readonly EfRepository<StaticQuiz> repository = new(fixture.Db);
+        private readonly EfRepository<Quiz> repository = new(fixture.Db);
 
         [Fact]
-        public async Task GetsAllStaticQuizzes()
+        public async Task GetsAllQuizzes()
         {
             fixture.ClearDatabase();
 
-            var quiz1 = new StaticQuiz("Sample Title 1");
+            var quiz1 = new Quiz("Sample Title 1");
             await repository.AddAsync(quiz1);
             fixture.Db.Entry(quiz1).State = EntityState.Detached;
 
-            var quiz2 = new StaticQuiz("Sample Title 2");
+            var quiz2 = new Quiz("Sample Title 2");
             await repository.AddAsync(quiz2);
             fixture.Db.Entry(quiz2).State = EntityState.Detached;
 
@@ -24,15 +24,15 @@ namespace Cramming.IntegrationTests.Data
         }
 
         [Fact]
-        public async Task GetsStaticQuizById()
+        public async Task GetsQuizById()
         {
             fixture.ClearDatabase();
 
-            var quiz1 = new StaticQuiz("Sample Title 1");
+            var quiz1 = new Quiz("Sample Title 1");
             await repository.AddAsync(quiz1);
             fixture.Db.Entry(quiz1).State = EntityState.Detached;
 
-            var quiz2 = new StaticQuiz("Sample Title 2");
+            var quiz2 = new Quiz("Sample Title 2");
             await repository.AddAsync(quiz2);
             fixture.Db.Entry(quiz2).State = EntityState.Detached;
 
@@ -42,11 +42,11 @@ namespace Cramming.IntegrationTests.Data
         }
 
         [Fact]
-        public async Task AddsStaticQuizAndSetsId()
+        public async Task AddsQuizAndSetsId()
         {
             fixture.ClearDatabase();
 
-            var quiz = new StaticQuiz("Sample Title");
+            var quiz = new Quiz("Sample Title");
             await repository.AddAsync(quiz);
             fixture.Db.Entry(quiz).State = EntityState.Detached;
 
@@ -62,7 +62,7 @@ namespace Cramming.IntegrationTests.Data
         {
             fixture.ClearDatabase();
 
-            var quiz = new StaticQuiz("Sample Title");
+            var quiz = new Quiz("Sample Title");
             await repository.AddAsync(quiz);
             fixture.Db.Entry(quiz).State = EntityState.Detached;
 
@@ -86,7 +86,7 @@ namespace Cramming.IntegrationTests.Data
         {
             fixture.ClearDatabase();
 
-            var quiz = new StaticQuiz("Sample Title");
+            var quiz = new Quiz("Sample Title");
             await repository.AddAsync(quiz);
             fixture.Db.Entry(quiz).State = EntityState.Detached;
 

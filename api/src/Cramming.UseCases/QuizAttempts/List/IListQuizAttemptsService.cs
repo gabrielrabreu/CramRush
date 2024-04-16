@@ -1,6 +1,4 @@
-﻿using Cramming.SharedKernel;
-
-namespace Cramming.UseCases.QuizAttempts.List
+﻿namespace Cramming.UseCases.QuizAttempts.List
 {
     public interface IListQuizAttemptsService
     {

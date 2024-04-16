@@ -1,7 +1,5 @@
 ﻿using Cramming.Domain.QuizAttemptAggregate;
 using Cramming.Infrastructure.Pdf.Components;
-using QuestPDF.Fluent;
-using QuestPDF.Infrastructure;
 
 namespace Cramming.Infrastructure.Pdf.Documents
 {

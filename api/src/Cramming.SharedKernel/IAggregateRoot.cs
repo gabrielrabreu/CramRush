@@ -1,4 +1,4 @@
 ﻿namespace Cramming.SharedKernel
 {
-    public interface IAggregateRoot { }
+    public interface IAggregateRoot;
 }

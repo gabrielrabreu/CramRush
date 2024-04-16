@@ -1,9 +1,7 @@
 ﻿using Cramming.Domain.QuizAttemptAggregate;
-using Cramming.SharedKernel;
 
-namespace Cramming.UseCases.StaticQuizzes
+namespace Cramming.UseCases.QuizAttempts
 {
-    public interface IQuizAttemptRepository : IQuizAttemptReadRepository, IRepository<QuizAttempt>
-    {
-    }
+    public interface IQuizAttemptRepository
+        : IQuizAttemptReadRepository, IRepository<QuizAttempt>;
 }

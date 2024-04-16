@@ -1,13 +1,16 @@
-﻿using Cramming.SharedKernel;
-using Cramming.UseCases.StaticQuizzes;
-
-namespace Cramming.UseCases.QuizAttempts.Get
+﻿namespace Cramming.UseCases.QuizAttempts.Get
 {
-    public class GetQuizAttemptHandler(IQuizAttemptReadRepository readRepository) : IQueryHandler<GetQuizAttemptQuery, Result<QuizAttemptDto>>
+    public class GetQuizAttemptHandler(
+        IQuizAttemptReadRepository readRepository)
+        : IQueryHandler<GetQuizAttemptQuery, Result<QuizAttemptDto>>
     {
-        public async Task<Result<QuizAttemptDto>> Handle(GetQuizAttemptQuery request, CancellationToken cancellationToken)
+        public async Task<Result<QuizAttemptDto>> Handle(
+            GetQuizAttemptQuery request,
+            CancellationToken cancellationToken)
         {
-            var attempt = await readRepository.GetByIdAsync(request.QuizAttemptId, cancellationToken);
+            var attempt = await readRepository.GetByIdAsync(
+                request.QuizAttemptId,
+                cancellationToken);
 
             if (attempt == null)
                 return Result.NotFound();

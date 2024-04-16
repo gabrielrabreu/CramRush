@@ -1,4 +1,4 @@
-﻿namespace Cramming.API.StaticQuizzes
+﻿namespace Cramming.API.QuizAttempts
 {
     public class ListQuizAttemptsRequest
     {

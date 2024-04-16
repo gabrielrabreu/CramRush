@@ -1,6 +1,4 @@
-﻿using Cramming.SharedKernel;
-
-namespace Cramming.UseCases.QuizAttempts.AnswerQuestion
+﻿namespace Cramming.UseCases.QuizAttempts.ReplyQuestion
 {
     public record ReplyQuizAttemptQuestionCommand(
         Guid QuizAttemptId,

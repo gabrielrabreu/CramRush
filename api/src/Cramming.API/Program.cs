@@ -1,10 +1,7 @@
 using Cramming.API;
 using Cramming.Infrastructure;
 using Cramming.Infrastructure.Data;
-using Cramming.SharedKernel;
-using Cramming.UseCases.StaticQuizzes.Get;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
+using Cramming.UseCases.Quizzes.Get;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -70,7 +67,7 @@ SeedDatabase(app);
 
 app.Run();
 
-static void SeedDatabase(WebApplication app)
+void SeedDatabase(WebApplication app)
 {
     using var scope = app.Services.CreateScope();
     var services = scope.ServiceProvider;
@@ -79,18 +76,18 @@ static void SeedDatabase(WebApplication app)
     context.Database.Migrate();
 }
 
-static void ConfigureMediatR(IServiceCollection services)
+void ConfigureMediatR(IServiceCollection services)
 {
     var mediatRAssemblies = new[]
     {
-        Assembly.GetAssembly(typeof(GetStaticQuizQuery)) // UseCases
+        Assembly.GetAssembly(typeof(GetQuizQuery)) // UseCases
     };
 
     services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!));
     services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
 }
 
-static void ConfigureEndpoints(WebApplication app)
+void ConfigureEndpoints(WebApplication app)
 {
     var endpointBaseType = typeof(EndpointBase);
 
@@ -106,4 +103,7 @@ static void ConfigureEndpoints(WebApplication app)
 
 public partial class Program
 {
+    protected Program()
+    {
+    }
 }

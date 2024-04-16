@@ -1,4 +1,5 @@
-﻿namespace Cramming.UseCases.QuizAttempts.AnswerQuestion
+﻿namespace Cramming.UseCases.QuizAttempts.ReplyQuestion
 {
-    public record ReplyQuizAttemptQuestionResultDto(bool IsCorrect);
+    public record ReplyQuizAttemptQuestionResultDto(
+        bool IsCorrect);
 }

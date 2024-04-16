@@ -1,16 +1,20 @@
 ﻿using Cramming.Domain.QuizAttemptAggregate;
-using Cramming.SharedKernel;
-using Cramming.UseCases.StaticQuizzes;
+using Cramming.UseCases.Quizzes;
 
 namespace Cramming.UseCases.QuizAttempts.Create
 {
     public class CreateQuizAttemptHandler(
-        IStaticQuizReadRepository staticQuizReadRepository,
-        IQuizAttemptRepository quizAttemptRepository) : ICommandHandler<CreateQuizAttemptCommand, Result<QuizAttemptDto>>
+        IQuizReadRepository quizRepository,
+        IQuizAttemptRepository quizAttemptRepository)
+        : ICommandHandler<CreateQuizAttemptCommand, Result<QuizAttemptDto>>
     {
-        public async Task<Result<QuizAttemptDto>> Handle(CreateQuizAttemptCommand request, CancellationToken cancellationToken)
+        public async Task<Result<QuizAttemptDto>> Handle(
+            CreateQuizAttemptCommand request,
+            CancellationToken cancellationToken)
         {
-            var quiz = await staticQuizReadRepository.GetByIdAsync(request.QuizId, cancellationToken);
+            var quiz = await quizRepository.GetByIdAsync(
+                request.QuizId,
+                cancellationToken);
 
             if (quiz == null)
                 return Result.NotFound();
@@ -27,7 +31,9 @@ namespace Cramming.UseCases.QuizAttempts.Create
                 newAttempt.AddQuestion(newAttemptQuestion);
             }
 
-            var savedAttempt = await quizAttemptRepository.AddAsync(newAttempt, cancellationToken);
+            var savedAttempt = await quizAttemptRepository.AddAsync(
+                newAttempt,
+                cancellationToken);
 
             return new QuizAttemptDto(
                 savedAttempt.Id,

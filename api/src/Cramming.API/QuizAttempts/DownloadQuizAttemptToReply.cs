@@ -1,7 +1,4 @@
 ﻿using Cramming.UseCases.QuizAttempts.DownloadToReply;
-using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
-using System.Net;
 
 namespace Cramming.API.QuizAttempts
 {
@@ -9,7 +6,8 @@ namespace Cramming.API.QuizAttempts
     {
         public const string Route = "/QuizAttempts/{QuizAttemptId}:Download";
 
-        public static string BuildRoute(Guid quizAttemptId) => Route.Replace("{QuizAttemptId}", quizAttemptId.ToString());
+        public static string BuildRoute(Guid quizAttemptId)
+            => Route.Replace("{QuizAttemptId}", quizAttemptId.ToString());
 
         public override void Configure(WebApplication app)
         {

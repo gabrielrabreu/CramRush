@@ -1,8 +1,4 @@
-﻿using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
-
-namespace Cramming.Infrastructure.Pdf.Components
+﻿namespace Cramming.Infrastructure.Pdf.Components
 {
     public class DefaultHeaderComponent(string title) : IComponent
     {

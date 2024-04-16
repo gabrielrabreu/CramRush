@@ -4,6 +4,7 @@ using Cramming.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -15,46 +16,111 @@ namespace Cramming.Infrastructure.Data.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.4");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Cramming.Domain.QuizAggregate.Quiz", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Quiz");
+                });
+
+            modelBuilder.Entity("Cramming.Domain.QuizAggregate.QuizQuestion", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("QuizId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Statement")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuizId");
+
+                    b.ToTable("QuizQuestion");
+                });
+
+            modelBuilder.Entity("Cramming.Domain.QuizAggregate.QuizQuestionOption", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("QuestionId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("QuizQuestionOption");
+                });
 
             modelBuilder.Entity("Cramming.Domain.QuizAttemptAggregate.QuizAttempt", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uuid");
 
                     b.Property<bool>("IsPending")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("QuizTitle")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("QuizAttempts");
+                    b.ToTable("QuizAttempt");
                 });
 
             modelBuilder.Entity("Cramming.Domain.QuizAttemptAggregate.QuizAttemptQuestion", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uuid");
 
                     b.Property<bool>("IsCorrect")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsPending")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.Property<Guid>("QuizAttemptId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Statement")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
@@ -67,21 +133,21 @@ namespace Cramming.Infrastructure.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uuid");
 
                     b.Property<bool>("IsCorrect")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsSelected")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.Property<Guid>("QuestionId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
@@ -90,65 +156,26 @@ namespace Cramming.Infrastructure.Data.Migrations
                     b.ToTable("QuizAttemptQuestionOption");
                 });
 
-            modelBuilder.Entity("Cramming.Domain.StaticQuizAggregate.StaticQuiz", b =>
+            modelBuilder.Entity("Cramming.Domain.QuizAggregate.QuizQuestion", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                    b.HasOne("Cramming.Domain.QuizAggregate.Quiz", "Quiz")
+                        .WithMany("Questions")
+                        .HasForeignKey("QuizId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StaticQuizzes");
+                    b.Navigation("Quiz");
                 });
 
-            modelBuilder.Entity("Cramming.Domain.StaticQuizAggregate.StaticQuizQuestion", b =>
+            modelBuilder.Entity("Cramming.Domain.QuizAggregate.QuizQuestionOption", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                    b.HasOne("Cramming.Domain.QuizAggregate.QuizQuestion", "Question")
+                        .WithMany("Options")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<Guid>("QuizId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Statement")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuizId");
-
-                    b.ToTable("StaticQuizQuestion");
-                });
-
-            modelBuilder.Entity("Cramming.Domain.StaticQuizAggregate.StaticQuizQuestionOption", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsCorrect")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<Guid>("QuestionId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuestionId");
-
-                    b.ToTable("StaticQuizQuestionOption");
+                    b.Navigation("Question");
                 });
 
             modelBuilder.Entity("Cramming.Domain.QuizAttemptAggregate.QuizAttemptQuestion", b =>
@@ -173,26 +200,14 @@ namespace Cramming.Infrastructure.Data.Migrations
                     b.Navigation("Question");
                 });
 
-            modelBuilder.Entity("Cramming.Domain.StaticQuizAggregate.StaticQuizQuestion", b =>
+            modelBuilder.Entity("Cramming.Domain.QuizAggregate.Quiz", b =>
                 {
-                    b.HasOne("Cramming.Domain.StaticQuizAggregate.StaticQuiz", "Quiz")
-                        .WithMany("Questions")
-                        .HasForeignKey("QuizId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Quiz");
+                    b.Navigation("Questions");
                 });
 
-            modelBuilder.Entity("Cramming.Domain.StaticQuizAggregate.StaticQuizQuestionOption", b =>
+            modelBuilder.Entity("Cramming.Domain.QuizAggregate.QuizQuestion", b =>
                 {
-                    b.HasOne("Cramming.Domain.StaticQuizAggregate.StaticQuizQuestion", "Question")
-                        .WithMany("Options")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Question");
+                    b.Navigation("Options");
                 });
 
             modelBuilder.Entity("Cramming.Domain.QuizAttemptAggregate.QuizAttempt", b =>
@@ -201,16 +216,6 @@ namespace Cramming.Infrastructure.Data.Migrations
                 });
 
             modelBuilder.Entity("Cramming.Domain.QuizAttemptAggregate.QuizAttemptQuestion", b =>
-                {
-                    b.Navigation("Options");
-                });
-
-            modelBuilder.Entity("Cramming.Domain.StaticQuizAggregate.StaticQuiz", b =>
-                {
-                    b.Navigation("Questions");
-                });
-
-            modelBuilder.Entity("Cramming.Domain.StaticQuizAggregate.StaticQuizQuestion", b =>
                 {
                     b.Navigation("Options");
                 });

@@ -1,9 +1,6 @@
-﻿using Cramming.SharedKernel;
-using Cramming.UseCases.QuizAttempts.List;
-using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Cramming.UseCases.QuizAttempts.List;
 
-namespace Cramming.API.StaticQuizzes
+namespace Cramming.API.QuizAttempts
 {
     public class ListQuizAttempts : EndpointBase
     {

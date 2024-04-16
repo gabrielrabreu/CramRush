@@ -1,8 +1,4 @@
-﻿using Cramming.UseCases.QuizAttempts.AnswerQuestion;
-using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using System.Net;
+﻿using Cramming.UseCases.QuizAttempts.ReplyQuestion;
 
 namespace Cramming.API.QuizAttempts
 {
@@ -10,7 +6,8 @@ namespace Cramming.API.QuizAttempts
     {
         public const string Route = "/QuizAttempts/{QuizAttemptId}";
 
-        public static string BuildRoute(Guid quizAttemptId) => Route.Replace("{QuizAttemptId}", quizAttemptId.ToString());
+        public static string BuildRoute(Guid quizAttemptId)
+            => Route.Replace("{QuizAttemptId}", quizAttemptId.ToString());
 
         public override void Configure(WebApplication app)
         {
